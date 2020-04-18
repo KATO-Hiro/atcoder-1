@@ -20,7 +20,7 @@ pyenv install 3.8.2
 
 # virtualenv
 pyenv virtualenv 3.4.3 atcoder-3.4.3
-pyenv virtualenv 3.4.3 atcoder-3.8.2
+pyenv virtualenv 3.8.2 atcoder-3.8.2
 
 # python packages
 cd env-3.4.3
