@@ -1,13 +1,17 @@
+import sys
+
+input = sys.stdin.readline
+sys.setrecursionlimit(10 ** 7)
 
 
-def dfs(G, v, p, d):
+def dfs(G, v, p, depth):
     """G: graph, v: vertex, p: parent"""
-    d[v] = d[p] + 1
+    depth[v] = depth[p] + 1
     # Loop for each child
     for c in G[v]:
         if c == p:
-            continue
-        dfs(G, c, v, d)
+            continue  # Avoid multiple access to parent
+        dfs(G, c, v, depth)
 
 
 def main():
