@@ -1,17 +1,22 @@
 import sys
+from collections import deque
 
 input = sys.stdin.readline
-sys.setrecursionlimit(10 ** 7)
 
 
 def dfs(G, v, p, depth):
     """G: graph, v: vertex, p: parent"""
     depth[v] = depth[p] + 1
-    # Loop for each child
-    for c in G[v]:
-        if c == p:
-            continue  # Avoid multiple access to parent
-        dfs(G, c, v, depth)
+    parent = [-1] * len(G)
+    stack = deque([v])
+    while stack:
+        v = stack.pop()
+        for c in G[v]:
+            if c == parent[v]:
+                continue
+            parent[c] = v
+            stack.append(c)
+            depth[c] = depth[v] + 1
 
 
 def main():
@@ -27,6 +32,7 @@ def main():
     depth = [-1] * N
     depth[0] = 0
     dfs(G, 0, -1, depth)
+
     print(*depth, sep="\n")
 
 
