@@ -10,7 +10,8 @@ def calc_prime_factors(n, count=False):
         n //= 2
     # factor: 3, 5, 7, 11, ...
     f = 3
-    while f ** 2 <= n:
+    root_n = int(n ** 0.5) + 1
+    while f <= root_n:
         if n % f == 0:
             factors.append(f)
             n //= f
