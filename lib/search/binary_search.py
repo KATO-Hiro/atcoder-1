@@ -1,19 +1,22 @@
 import sys
 
+import numba as nb
+import numpy as np
+
 input = sys.stdin.readline
 
 
-def is_ok(a, key, idx):
-    if a[idx] >= key:
-        return True
-    else:
-        return False
-
-
+@nb.njit("i8(i8[:],i8)", cache=True)
 def binary_search(a, key):
     """Meguru type binary search"""
     ng = -1
     ok = len(a)
+
+    def is_ok(a, key, idx):
+        if a[idx] >= key:
+            return True
+        else:
+            return False
 
     while (abs(ok - ng) > 1):
         mid = (ok + ng) // 2
@@ -27,6 +30,7 @@ def binary_search(a, key):
 
 def main():
     A = [1, 14, 43, 51, 51, 51, 243, 419, 750, 910]
+    A = np.array(A, dtype=np.int64)
     print(f"{A = }")
     print(f"{binary_search(A, 51)  = }")
     print(f"{binary_search(A, 1)   = }")
