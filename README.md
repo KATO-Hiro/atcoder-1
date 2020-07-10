@@ -1,6 +1,6 @@
 # AtCoder
 
-## Acount Links
+## Account Links
 
 [[AtCoder](https://atcoder.jp/users/parentheses)]
 [[AtCoder Problems](https://kenkoooo.com/atcoder/#/table/parentheses)]
