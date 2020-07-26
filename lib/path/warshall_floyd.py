@@ -1,10 +1,13 @@
 import sys
+
+import numba as nb
+import numpy as np
+
 input = sys.stdin.readline
 
-INF = float("inf")
 
-
-def warshall_floyd(n, d):
+@nb.njit("void(i8,i8[:,:],i8)", cache=True)
+def warshall_floyd(n, d, INF):
     for k in range(n):
         for i in range(n):
             d_ik = d[i][k]
@@ -18,8 +21,15 @@ def warshall_floyd(n, d):
 def main():
     V, E = map(int, input().split())
 
+    # NOTE: (max cost of the problem) < INF << (max value of the dtype)
+    #   e.g.) 1 <= V <= 100, 1 <= cost <= 1000
+    #         Then, max cost is 99 * 1000
+    #         - np.iinfo(np.int64).max: 9223372036854775807
+    #         - np.iinfo(np.int32).max: 2147483647
+    INF = 100 * 1000
+
     # shortest path
-    dist = [[INF] * V for _ in range(V)]
+    dist = np.full(shape=(V, V), fill_value=INF, dtype=np.int64)
 
     # 0 cost for 'loop'
     for i in range(V):
@@ -33,7 +43,7 @@ def main():
         dist[t][s] = d
         # ^^^ delete for directed graph
 
-    warshall_floyd(V, dist)
+    warshall_floyd(V, dist, INF)
 
     print(*dist, sep="\n")
 
@@ -42,6 +52,8 @@ if __name__ == "__main__":
     main()
 
 """
+<http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&lang=ja>
+
 Example for input
 4 6
 1 2 1
@@ -50,4 +62,9 @@ Example for input
 2 4 4
 3 4 1
 4 3 7
+
+[0, 1, 3, 5]
+[1, 0, 2, 4]
+[3, 2, 0, 6]
+[5, 4, 6, 0]
 """
