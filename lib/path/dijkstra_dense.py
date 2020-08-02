@@ -1,3 +1,4 @@
+"""<https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm>"""
 import sys
 
 import numba as nb
@@ -6,9 +7,9 @@ import numpy as np
 input = sys.stdin.readline
 
 
+# Dijkstra algorithm without priority queue (this is slow for sparse graphs)
 @nb.njit("i8[:](i8,i8[:,:],i8,i8)", cache=True)
 def dijkstra(V, G, s, INF):
-    """<https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm>"""
     # Shortest path from vertex s
     dist = np.full(shape=V, fill_value=INF, dtype=np.int64)
     dist[s] = 0
@@ -40,21 +41,18 @@ def dijkstra(V, G, s, INF):
 
 
 def main():
-    V = int(input())
-
+    N = int(input())
     INF = 1 << 30
-    G = np.full(shape=(V, V), fill_value=INF, dtype=np.int64)
-    for _ in range(V):
+    G = np.full(shape=(N, N), fill_value=INF, dtype=np.int64)
+    for _ in range(N):
         u, k, *vc = map(int, input().split())
         for i in range(k):
             v = vc[2 * i]
             c = vc[2 * i + 1]
             G[u][v] = c
 
-    s = 0
-    dist = dijkstra(V, G, s, INF)
-
-    print(dist)
+    for s in range(N):
+        print(s, dijkstra(N, G, s, INF))
 
 
 if __name__ == "__main__":
@@ -71,5 +69,9 @@ Example for input
 3 4 2 1 0 1 1 4 4 3
 4 2 2 1 3 3
 
-[0 2 2 1 3]
+0 [0 2 2 1 3]
+1 [2 0 4 3 5]
+2 [2 4 0 1 1]
+3 [1 3 1 0 2]
+4 [3 5 1 2 0]
 """
