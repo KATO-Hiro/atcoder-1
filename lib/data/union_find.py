@@ -17,13 +17,14 @@ class UnionFind:
         self.__make_set()
 
     def __make_set(self):
-        self.parent = list(range(self.N + 1))
-        self.rank = [0] * (self.N + 1)
+        self._parent = list(range(self.N + 1))
+        self._rank = [0] * (self.N + 1)
+        self._size = [1] * (self.N + 1)
 
     def find(self, x):
-        if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
+        if self._parent[x] != x:
+            self._parent[x] = self.find(self._parent[x])
+        return self._parent[x]
 
     def union(self, x, y):
         x_root = self.find(x)
@@ -32,18 +33,24 @@ class UnionFind:
         if x_root == y_root:
             return
 
-        x_rank = self.rank[x_root]
-        y_rank = self.rank[y_root]
+        x_rank = self._rank[x_root]
+        y_rank = self._rank[y_root]
         if x_rank > y_rank:
-            self.parent[y_root] = x_root
+            self._parent[y_root] = x_root
+            self._size[x_root] += self._size[y_root]
         elif x_rank < y_rank:
-            self.parent[x_root] = y_root
+            self._parent[x_root] = y_root
+            self._size[y_root] += self._size[x_root]
         else:
-            self.parent[y_root] = x_root
-            self.rank[x_root] += 1
+            self._parent[y_root] = x_root
+            self._rank[x_root] += 1
+            self._size[x_root] += self._size[y_root]
 
     def same_set(self, x, y):
         return self.find(x) == self.find(y)
+
+    def size(self, x):
+        return self._size[self.find(x)]
 
 
 def main():
