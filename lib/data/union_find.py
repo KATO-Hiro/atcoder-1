@@ -49,15 +49,15 @@ class UnionFind:
 def main():
     N, Q = map(int, input().split())
 
-    union_find = UnionFind(N)
+    uf = UnionFind(N)
 
     ans = []
     for _ in range(Q):
         P, A, B = map(int, input().split())
         if P == 0:
-            union_find.union(A, B)
+            uf.union(A, B)
         else:
-            is_same = union_find.same_set(A, B)
+            is_same = uf.same_set(A, B)
             ans.append("Yes" if is_same else "No")
 
     print("\n".join(map(str, ans)))
