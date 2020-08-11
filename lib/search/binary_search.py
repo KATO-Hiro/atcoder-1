@@ -13,7 +13,7 @@ def binary_search(a, key):
     ok = len(a)
 
     def is_ok(a, key, idx):
-        if a[idx] >= key:
+        if key <= a[idx]:
             return True
         else:
             return False
