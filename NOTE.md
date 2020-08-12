@@ -2,10 +2,10 @@
 
 下記のようなケースをメモしている．
 
-1. アルゴリズムを知らなくて解けなかった
-1. アルゴリズムは知っていたが習熟度不足で解けなかった
-1. 考察力不足で解けなかった
-1. 実装をバグらせた
+1. アルゴリズムを知らなかった
+1. アルゴリズムの習熟度不足だった
+1. 考察力不足だった
+1. 実装をバグらせた・時間がかかった
 1. コーナーケースにハマった
 1. Python, NumPy, Numba に関する知見・注意点を得られた
 1. その他
@@ -16,3 +16,5 @@
 | 2020/8/12  |  3   | 考察は丁寧に | [abc148_e](https://atcoder.jp/contests/abc148/tasks/abc148_e)
 | 2020/8/12  |  3   | 組み合わせ問題は部分問題に分割 | [agc031_a](https://atcoder.jp/contests/agc031/tasks/agc031_a)
 | 2020/8/12  |  6   | Numba は deque が使えない | [agc033_a](https://atcoder.jp/contests/agc033/tasks/agc033_a)
+| 2020/8/12  |  2,3 | XOR | [agc035_a](https://atcoder.jp/contests/agc035/tasks/agc035_a)
+| 2020/8/12  |  3,4 | 組み合わせ問題は部分問題に分割 | [abc151_e](https://atcoder.jp/contests/abc151/tasks/abc151_e)
