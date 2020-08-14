@@ -18,4 +18,5 @@
 | 2020/8/12  |  6   | Numba は deque が使えない | [agc033_a](https://atcoder.jp/contests/agc033/tasks/agc033_a)
 | 2020/8/12  |  2,3 | XOR | [agc035_a](https://atcoder.jp/contests/agc035/tasks/agc035_a)
 | 2020/8/12  |  3,4 | 組み合わせ問題は部分問題に分割 | [abc151_e](https://atcoder.jp/contests/abc151/tasks/abc151_e)
-| 2020/8/13  |  2,3 | XOR: 0〜N の XOR は mod 4 で場合分け可能 <br> [[link1](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link2](http://kyopro.hateblo.jp/entry/2019/05/22/054412)] | [abc126_f](https://atcoder.jp/contests/abc126/tasks/abc126_f)
+| 2020/8/13  |  2,3 | XOR: 0〜N の XOR は mod 4 で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)] | [abc126_f](https://atcoder.jp/contests/abc126/tasks/abc126_f)
+| 2020/8/13  |  2,3 | 単調性のある最小化/最大化問題（最大値の最小化など）は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)] | [abc144_e](https://atcoder.jp/contests/abc144/tasks/abc144_e)
