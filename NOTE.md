@@ -23,3 +23,5 @@
 | 2020/8/14  |  1 | 桁DP: `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)] | [abc154_e](https://atcoder.jp/contests/abc154/tasks/abc154_e)
 | 2020/8/14  |  2 | priority queue は `push` を繰り返すことで手軽にマージ可能 | [abc137_d](https://atcoder.jp/contests/abc137/tasks/abc137_d)
 | 2020/8/16  |  7 | 全探索実装で実験することで解法を導けた | [m_solutions2019_d](https://atcoder.jp/contests/m-solutions2019/tasks/m_solutions2019_d)
+| 2020/8/16  |  6 | Numba は `pow` が使えない | [abc135_d](https://atcoder.jp/contests/abc135/tasks/abc135_d)
+| 2020/8/16  |  7 | 桁DP: 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]  | [abc135_d](https://atcoder.jp/contests/abc135/tasks/abc135_d)
