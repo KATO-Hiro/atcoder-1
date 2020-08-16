@@ -9,24 +9,22 @@
 ## Environments
 
 - Ubuntu 18.04.2 LTS
-- Python: 3.4.3, 3.8.2
+- Language: Python (3.8.2), PyPy3 (7.3.0)
 - pyenv-virtualenv
 - VS Code
 
 ```bash
-# Python
-pyenv install 3.4.3
+# Install "Python (3.8.2)" and "PyPy3 (7.3.0)"
 pyenv install 3.8.2
+pyenv install pypy3.6-7.3.0
 
-# virtualenv
-pyenv virtualenv 3.4.3 atcoder-3.4.3
+# Python Environment
 pyenv virtualenv 3.8.2 atcoder-3.8.2
+python -m pip install -r requirements/requirements.txt
+python -m pip install -r requirements/requirements-dev.txt  # optional
 
-# python packages
-cd env-3.4.3
-python -m pip install -r requirements.txt
-cd env-3.8.2
-python -m pip install -r requirements.txt
+# How to use PyPy locally (".python-version" will be created)
+pyenv local pypy3.6-7.3.0
 ```
 
 ## History
