@@ -22,3 +22,4 @@
 | 2020/8/13  |  2,3 | 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)] | [abc144_e](https://atcoder.jp/contests/abc144/tasks/abc144_e)
 | 2020/8/14  |  1 | 桁DP: `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)] | [abc154_e](https://atcoder.jp/contests/abc154/tasks/abc154_e)
 | 2020/8/14  |  2 | priority queue は `push` を繰り返すことで手軽にマージ可能 | [abc137_d](https://atcoder.jp/contests/abc137/tasks/abc137_d)
+| 2020/8/16  |  7 | 全探索実装で実験することで解法を導けた | [m_solutions2019_d](https://atcoder.jp/contests/m-solutions2019/tasks/m_solutions2019_d)
