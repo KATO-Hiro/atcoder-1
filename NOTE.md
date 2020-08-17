@@ -1,27 +1,36 @@
 # 精進ノート
 
-下記のようなケースをメモしている．
+## 典型メモ
 
-1. アルゴリズムを知らなかった
-1. アルゴリズムの習熟度不足だった
-1. 考察力不足だった
-1. 実装をバグらせた・時間がかかった
-1. コーナーケースにハマった
-1. Python, NumPy, Numba に関する知見・注意点を得られた
-1. その他
+- 方針
+  - 正攻法でダメなら貪欲法を検討（計算量を見積もる）
+  - 愚直実装で実験して解法の糸口を掴む
 
-|    日付    | 種類 |        メモ      | 問題リンク |
-|------------| :--: | ---------------- | ---------- |
-| 2020/8/12  |  3   | 正攻法でダメなら貪欲法を検討（計算量を見積もる） | [agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)
-| 2020/8/12  |  3   | 考察は丁寧に | [abc148_e](https://atcoder.jp/contests/abc148/tasks/abc148_e)
-| 2020/8/12  |  3   | 組み合わせ問題は部分問題に分割 | [agc031_a](https://atcoder.jp/contests/agc031/tasks/agc031_a)
-| 2020/8/12  |  6   | Numba は `deque` が使えない | [agc033_a](https://atcoder.jp/contests/agc033/tasks/agc033_a)
-| 2020/8/12  |  2,3 | XOR | [agc035_a](https://atcoder.jp/contests/agc035/tasks/agc035_a)
-| 2020/8/12  |  3,4 | 組み合わせ問題は部分問題に分割 | [abc151_e](https://atcoder.jp/contests/abc151/tasks/abc151_e)
-| 2020/8/13  |  2,3 | XOR: `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)] | [abc126_f](https://atcoder.jp/contests/abc126/tasks/abc126_f)
-| 2020/8/13  |  2,3 | 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)] | [abc144_e](https://atcoder.jp/contests/abc144/tasks/abc144_e)
-| 2020/8/14  |  1 | 桁DP: `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)] | [abc154_e](https://atcoder.jp/contests/abc154/tasks/abc154_e)
-| 2020/8/14  |  2 | priority queue は `push` を繰り返すことで手軽にマージ可能 | [abc137_d](https://atcoder.jp/contests/abc137/tasks/abc137_d)
-| 2020/8/16  |  7 | 全探索実装で実験することで解法を導けた | [m_solutions2019_d](https://atcoder.jp/contests/m-solutions2019/tasks/m_solutions2019_d)
-| 2020/8/16  |  6 | Numba は `pow` が使えない | [abc135_d](https://atcoder.jp/contests/abc135/tasks/abc135_d)
-| 2020/8/16  |  7 | 桁DP: 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]  | [abc135_d](https://atcoder.jp/contests/abc135/tasks/abc135_d)
+- 全般
+  - 組み合わせ問題は部分問題に分割
+  - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
+  - 区間は「累積和」「セグメント木」「DP」で考える
+
+- XOR
+  - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
+
+- 桁DP
+  - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
+  - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
+
+## Numba (0.48.0)
+
+主に Numba くんの悪口
+
+- **Numba のここがすごい**
+  - Python を手軽に高速化できる！
+
+- **Numba のここがダメ**
+  - エラーメッセージが死ぬほど分かりにくい
+  - `TypedList` の配列アクセスが激遅（隣接リストは絶望的）
+  - `collections` が使えない
+    - `Counter`, `deque`
+  - `itertools` が使えない
+    - `combinations`, `combinations_with_replacement`, `permutations`, `product`
+  - `pow` が使えない
+  - `set()` が使えない
