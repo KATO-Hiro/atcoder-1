@@ -27,8 +27,6 @@ python -m pip install -r requirements/requirements-dev.txt  # optional
 pyenv local pypy3.6-7.3.0
 ```
 
-## History
+## Shojin Note (Japanese)
 
-- [2020/3/7] First participation in the contest.
-- [2020/3/22] Rate 400 (color: brown).
-- [2020/5/10] Rate 800 (color: green).
+[[NOTE.md](NOTE.md)]
