@@ -1,5 +1,6 @@
 .vscode/
 work/
+shojin/
 
 __pycache__/
 test.py
