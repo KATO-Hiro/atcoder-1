@@ -27,7 +27,7 @@
 
 - **Numba のここがダメ**
   - エラーメッセージが死ぬほど分かりにくい
-  - `TypedList` の配列アクセスが激遅（隣接リストは絶望的）
+  - `TypedList` の配列アクセスが激遅（隣接リストが絶望的）
   - `collections` が使えない
     - `Counter`, `deque`
   - `itertools` が使えない
