@@ -10,6 +10,7 @@
   - 組み合わせ問題は部分問題に分割
   - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
   - 区間は「累積和」「セグメント木」「DP」で考える
+  - 条件を満たす区間の「最大/最小の長さ」「数え上げ」は尺取り法
 
 - XOR
   - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
