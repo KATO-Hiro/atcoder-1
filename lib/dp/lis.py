@@ -40,7 +40,7 @@ if __name__ == "__main__":
     main()
 
 """
-<https://atcoder.jp/contests/atc001/tasks/unionfind_a>
+<http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D>
 
 Example:
 <input>
