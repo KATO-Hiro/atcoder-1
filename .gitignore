@@ -1,8 +1,11 @@
 .vscode/
 work/
 shojin/
-
 __pycache__/
-test.py
+
 test/
 contest.acc.json
+
+cpp/main.cpp
+cpp/a.out
+python/main.py

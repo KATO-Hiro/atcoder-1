@@ -6,7 +6,11 @@
 [[AtCoder Problems](https://kenkoooo.com/atcoder/#/table/parentheses)]
 [[AtCoder Scores](https://atcoder-scores.herokuapp.com/graph?user=parentheses)]
 
-## Environments
+## Environments (C++)
+
+TODO
+
+## Environments (Python)
 
 - Ubuntu 18.04.2 LTS
 - Language: Python (3.8.2), PyPy3 (7.3.0)
