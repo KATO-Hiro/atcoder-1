@@ -4,6 +4,7 @@ using namespace std;
 using ll = long long;
 using P = pair<int,int>;
 
+
 bool is_prime_number(ll n) {
   if (n == 1) return false;
   if (n == 2) return true;
