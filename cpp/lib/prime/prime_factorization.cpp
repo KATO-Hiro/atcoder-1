@@ -7,7 +7,7 @@ using P = pair<int,int>;
 
 vector<ll> prime_factorization(ll n) {
   vector<ll> factors;
-  ll f = 3, root_n = sqrt(n) + 1;
+  ll f = 3, root_n = (ll)(sqrt(n) + 0.5);
 
   // factor: 2
   while (n % 2 == 0) {
