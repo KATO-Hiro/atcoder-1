@@ -2,7 +2,6 @@
 #define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
-using P = pair<int,int>;
 
 
 ll pow(ll x, ll n, ll mod) {
@@ -17,12 +16,12 @@ ll pow(ll x, ll n, ll mod) {
 
 
 int main() {
-  const int MOD = 1e+9 + 7;
-  int m, n;
-  cin >> m >> n;
-  ll ans = pow(m, n, MOD);
-  cout << ans << endl;
-  return 0;
+    const int MOD = 1e+9 + 7;
+    int m, n;
+    cin >> m >> n;
+    ll ans = pow(m, n, MOD);
+    cout << ans << endl;
+    return 0;
 }
 
 /*
