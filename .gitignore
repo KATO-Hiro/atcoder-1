@@ -7,6 +7,6 @@ test/
 contest.acc.json
 
 cpp/main.cpp
-a.out
+*.out
 
 python/main.py
