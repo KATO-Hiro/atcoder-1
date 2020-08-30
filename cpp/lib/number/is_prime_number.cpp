@@ -18,21 +18,6 @@ bool is_prime_number(ll n) {
 }
 
 
-vector<bool> is_prime_numbers(ll n) {
-    vector<bool> is_prime(n + 1, true);
-    is_prime[0] = false;
-    is_prime[1] = false;
-
-    ll root_n = (ll)(sqrt(n) + 0.5);
-    for (int i = 2; i <= root_n; i++) {
-        for (int j = 2 * i; j <= n; j += i) {
-            is_prime[j] = false;
-        }
-    }
-    return is_prime;
-}
-
-
 int main() {
     int n, a, ans = 0;
     cin >> n;
@@ -44,23 +29,6 @@ int main() {
     return 0;
 }
 
-/*
-int main() {
-    // Sieve of Eratosthenes
-    ll n, MAX_V = 1e+8;
-    cin >> n;
-
-    vector<bool> is_prime = is_prime_numbers(MAX_V);
- 
-    int a, ans = 0;
-    rep(i, n) {
-        cin >> a;
-        if (is_prime[a]) ans++;
-    }
-    cout << ans << endl;
-    return 0;
-}
-*/
 
 /*
 https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C
