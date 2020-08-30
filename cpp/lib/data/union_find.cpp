@@ -62,8 +62,8 @@ class UnionFind {
         void _make_set() {
             _parent = vector<int>(_N + 1);
             iota(_parent.begin(), _parent.end(), 0);
-            _rank = vector<int>(_N, 0);
-            _size = vector<int>(_N, 1);
+            _rank = vector<int>(_N + 1, 0);
+            _size = vector<int>(_N + 1, 1);
         }
 
 };
