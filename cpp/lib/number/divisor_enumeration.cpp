@@ -4,19 +4,19 @@ using namespace std;
 using ll = long long;
 
 
-vector<ll> enumerate_divisors(ll n) {
-    vector<ll> divisor_1, divisor_2;
+vector<ll> divisor_enumeration(ll n) {
+    vector<ll> divisor_l, divisor_r;
     ll e, root_n = (ll)(sqrt(n) + 0.5);
     for (int d = 1; d <= root_n; d++) {
         if (n % d == 0) {
-            divisor_1.push_back(d);
+            divisor_l.push_back(d);
             e = n / d;
-            if (e != d) divisor_2.push_back(e);
+            if (e != d) divisor_r.push_back(e);
         }
     }
-    reverse(divisor_2.begin(), divisor_2.end());
-    divisor_1.insert(divisor_1.end(), divisor_2.begin(), divisor_2.end());
-    return divisor_1;
+    reverse(divisor_r.begin(), divisor_r.end());
+    divisor_l.insert(divisor_l.end(), divisor_r.begin(), divisor_r.end());
+    return divisor_l;
 }
 
 
@@ -28,7 +28,7 @@ int main() {
         return max(to_string(A).size(), to_string(B).size());
     };
 
-    vector<ll> divisors = enumerate_divisors(N);
+    vector<ll> divisors = divisor_enumeration(N);
     int ans = 1 << 30;
     for (ll d: divisors) {
         ans = min(ans, F(d, N / d));
