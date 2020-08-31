@@ -19,6 +19,10 @@
   - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
   - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
 
+## C++ (GCC 9.2.1)
+
+- `next_permutation()` は対象が昇順ソート済みでないと順列が全列挙されない
+
 ## Numba (0.48.0)
 
 主に Numba くんの悪口
