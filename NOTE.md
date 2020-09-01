@@ -22,6 +22,7 @@
 ## C++ (GCC 9.2.1)
 
 - `next_permutation()` は対象が昇順ソート済みでないと順列が全列挙されない
+- `double` 型の値を出力する際は表示桁数を増やさないと精度低下する [link](https://atcoder.jp/contests/apg4b/tasks/APG4b_y)
 
 ## Numba (0.48.0)
 
