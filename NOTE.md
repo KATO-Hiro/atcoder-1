@@ -67,7 +67,7 @@
 |貪欲法                |                      |□□□□□|:white_check_mark:||
 |グラフ                |ダイクストラ法        |■■■□□|:heavy_check_mark:||
 |グラフ                |ワーシャルフロイド法  |■■■■□|:heavy_check_mark:||
-|グラフ                |クラスカル法          |■□□□□|:white_check_mark:||
+|グラフ                |クラスカル法          |■■□□□|:heavy_check_mark:||
 |グラフ                |ベルマンフォード法    |□□□□□|:white_check_mark:||
 |グラフ                |拡張ダイクストラ法    |□□□□□|:white_check_mark:||
 |木                    |                      |□□□□□|:white_check_mark:||
