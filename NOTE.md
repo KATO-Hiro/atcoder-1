@@ -41,3 +41,79 @@
     - `combinations`, `combinations_with_replacement`, `permutations`, `product`
   - `pow` が使えない
   - `set()` が使えない
+
+## 自己分析
+
+※2020/9/5(土)更新
+
+### アルゴリズム
+
+|大分類                |小分類                |自己評価  |ライブラリ|備考|
+|:--------------------:|:---------------------|:--------:|:--------:|:--:|
+|全探索                |再帰関数              |□□□□□|:white_check_mark:||
+|全探索                |スタック              |□□□□□|:white_check_mark:||
+|全探索                |キュー                |□□□□□|:white_check_mark:||
+|全探索                |深さ優先探索 (DFS)    |□□□□□|:white_check_mark:||
+|全探索                |幅優先探索 (BFS)      |□□□□□|:white_check_mark:||
+|全探索                |0-1 BFS               |□□□□□|:white_check_mark:||
+|全探索                |順列全探索            |□□□□□|:white_check_mark:||
+|全探索                |bit全探索             |□□□□□|:white_check_mark:||
+|全探索                |半分前列挙            |□□□□□|:white_check_mark:||
+|二分探索              |ソート整数列          |□□□□□|:white_check_mark:||
+|二分探索              |ソート実数列          |□□□□□|:white_check_mark:||
+|二分探索              |決め打ち二分探索      |□□□□□|:white_check_mark:||
+|貪欲法                |                      |□□□□□|:white_check_mark:||
+|グラフ                |ダイクストラ法        |□□□□□|:white_check_mark:||
+|グラフ                |ワーシャルフロイド法  |□□□□□|:white_check_mark:||
+|グラフ                |クラスカル法          |□□□□□|:white_check_mark:||
+|グラフ                |ベルマンフォード法    |□□□□□|:white_check_mark:||
+|グラフ                |拡張ダイクストラ法    |□□□□□|:white_check_mark:||
+|木                    |                      |□□□□□|:white_check_mark:||
+|整数論                |最小公倍数 (LCM)      |□□□□□|:white_check_mark:||
+|整数論                |最大公約数 (GCD)      |□□□□□|:white_check_mark:||
+|整数論                |ユークリッドの互除法  |□□□□□|:white_check_mark:||
+|整数論                |拡張ユークリッドの互除法 |□□□□□|:white_check_mark:||
+|整数論                |素数判定 (試し割り法) |□□□□□|:white_check_mark:||
+|整数論                |素因数分解 (試し割り法) |□□□□□|:white_check_mark:||
+|整数論                |素因数分解 (osa_k法)  |□□□□□|:white_check_mark:|[[link](https://qiita.com/rsk0315_h4x/items/ff3b542a4468679fb409)]|
+|整数論                |素数列挙 (エラトステネスの篩) |□□□□□|:white_check_mark:||
+|整数論                |素数列挙 (エラトステネスの区間篩) |□□□□□|:white_check_mark:||
+|整数論                |約数列挙              |□□□□□|:white_check_mark:||
+|整数論                |べき乗 (繰り返し二乗法) |□□□□□|:white_check_mark:||
+|整数論                |逆元                  |□□□□□|:white_check_mark:||
+|整数論                |二項係数 (nCk) mod P  |□□□□□|:white_check_mark:||
+|動的計画法(DP)        |ナップサック          |□□□□□|:white_check_mark:||
+|動的計画法(DP)        |桁DP                  |□□□□□|:white_check_mark:||
+|動的計画法(DP)        |bit DP                |□□□□□|:white_check_mark:||
+|動的計画法(DP)        |連鎖行列積            |□□□□□|:white_check_mark:||
+|動的計画法(DP)        |最長共通部分列 (LCS)  |□□□□□|:white_check_mark:||
+|動的計画法(DP)        |最長増加部分列 (LIS)  |□□□□□|:white_check_mark:||
+|累積和                |1次元                 |□□□□□|:white_check_mark:||
+|累積和                |2次元                 |□□□□□|:white_check_mark:||
+|累積和                |imos法 (1次元)        |□□□□□|:white_check_mark:||
+|累積和                |imos法 (2次元)        |□□□□□|:white_check_mark:||
+|計算幾何学            |                      |□□□□□|:white_check_mark:||
+|未分類                |しゃくとり法          |□□□□□|:white_check_mark:||
+|未分類                |ライツアウト          |□□□□□|:white_check_mark:||
+|未分類                |弾性衝突              |□□□□□|:white_check_mark:||
+|未分類                |座標圧縮              |□□□□□|:white_check_mark:||
+|未分類                |行列累乗              |□□□□□|:white_check_mark:||
+|未分類                |フロー                |□□□□□|:white_check_mark:||
+|                      |                      |□□□□□|:white_check_mark:||
+|                      |                      |□□□□□|:white_check_mark:||
+
+### データ構造
+
+|大分類                |小分類                |自己評価  |ライブラリ|備考|
+|:--------------------:|:--------------------:|:--------:|:--------:|:--:|
+|Union-Find            |                      |□□□□□|:white_check_mark:||
+|Union-Find            |重み付き Union-Find   |□□□□□|:white_check_mark:||
+|Union-Find            |永続 Union-Find       |□□□□□|:white_check_mark:||
+|平衡二分木            |                      |□□□□□|:white_check_mark:||
+|優先度付きキュー      |                      |□□□□□|:white_check_mark:||
+|二分探索木            |                      |□□□□□|:white_check_mark:||
+|セグメント木          |                      |□□□□□|:white_check_mark:||
+|Binary Indexed Tree (BIT) |                      |□□□□□|:white_check_mark:||
+|バケット法            |                      |□□□□□|:white_check_mark:||
+|平方分割              |                      |□□□□□|:white_check_mark:||
+|                      |                      |□□□□□|:white_check_mark:||
