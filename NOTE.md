@@ -58,7 +58,7 @@
 |全探索                |深さ優先探索 (DFS)    |■■■■□|:heavy_check_mark:||
 |全探索                |幅優先探索 (BFS)      |■■■■□|:heavy_check_mark:||
 |全探索                |0-1 BFS               |□□□□□|:white_check_mark:||
-|全探索                |順列全探索            |■■□□□|:white_check_mark:||
+|全探索                |順列全探索            |■■■■□|:heavy_check_mark:||
 |全探索                |bit全探索             |■■■□□|:heavy_check_mark:||
 |全探索                |半分全列挙            |□□□□□|:white_check_mark:||
 |二分探索              |ソート整数列          |■■■□□|:heavy_check_mark:||
