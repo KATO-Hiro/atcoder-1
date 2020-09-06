@@ -80,7 +80,7 @@ int main() {
         cin >> s >> t >> w;
         stw[i] = {s, t, w};
     }
-    sort(stw.begin(), stw.end(), [](auto a, auto b) {return a[2] <= b[2];});
+    sort(stw.begin(), stw.end(), [](auto a, auto b) {return a[2] < b[2];});
 
     auto uf = UnionFind(V);
 
