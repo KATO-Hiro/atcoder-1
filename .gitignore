@@ -8,6 +8,7 @@ contest.acc.json
 
 cpp/main.cpp
 cpp/ac-library
+cpp/AOJ
 *.out
 
 python/main.py
