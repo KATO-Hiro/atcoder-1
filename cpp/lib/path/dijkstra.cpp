@@ -5,7 +5,7 @@ using ll = long long;
 using P = pair<int,int>;
 
 
-void dijkstra(int N, vector<vector<P>> &G, int s, vector<int> &dist) {
+void dijkstra(vector<vector<P>> &G, vector<int> &dist, int s) {
     dist[s] = 0;
     priority_queue<P, vector<P>, greater<P>> p_queue;
     p_queue.push(make_pair(dist[s], s));
@@ -44,7 +44,7 @@ int main() {
     int ans = INF;
     rep(s, N) {
         vector<int> dist(N, INF);
-        dijkstra(N, G, s, dist);
+        dijkstra(G, dist, s);
         int max_dist = 0;
         rep(i, N) max_dist = max(max_dist, dist[i]);
         ans = min(ans, max_dist);
