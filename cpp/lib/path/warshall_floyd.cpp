@@ -25,6 +25,7 @@ int main() {
 
     vector<vector<int>> G(N, vector<int>(N, INF));
     REP(i, N) G[i][i] = 0;
+
     int a, b, t;
     REP(_, M) {
         cin >> a >> b >> t;
