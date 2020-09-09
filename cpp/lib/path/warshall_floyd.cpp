@@ -1,13 +1,16 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+const int INF = 1 << 30;
 
 
-void warshall_floyd(int N, vector<vector<int>> &G, int INF) {
-    rep(k, N) rep(i, N) {
+void warshall_floyd(int N, vector<vector<int>> &G) {
+    REP(k, N) REP(i, N) {
         if (G[i][k] == INF) continue;
-        rep(j, N) {
+        REP(j, N) {
             if (G[i][j] > G[i][k] + G[k][j]) {
                 G[i][j] = G[i][k] + G[k][j];
             }
@@ -20,23 +23,22 @@ int main() {
     int N, M;
     cin >> N >> M;
 
-    int INF = 1 << 30;
     vector<vector<int>> G(N, vector<int>(N, INF));
-    rep(i, N) G[i][i] = 0;
+    REP(i, N) G[i][i] = 0;
     int a, b, t;
-    rep(_, M) {
+    REP(_, M) {
         cin >> a >> b >> t;
         a--; b--;
         G[a][b] = t;
         G[b][a] = t;
     }
 
-    warshall_floyd(N, G, INF);
+    warshall_floyd(N, G);
 
     int ans = INF;
-    rep(i, N) {
+    REP(i, N) {
         int max_dist = 0;
-        rep(j, N) max_dist = max(max_dist, G[i][j]);
+        REP(j, N) max_dist = max(max_dist, G[i][j]);
         ans = min(ans, max_dist);
     }
     cout << ans << endl;
