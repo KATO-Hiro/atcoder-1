@@ -68,7 +68,7 @@
 |グラフ                |ダイクストラ法        |■■■□□|:heavy_check_mark:||
 |グラフ                |ワーシャルフロイド法  |■■■■□|:heavy_check_mark:||
 |グラフ                |クラスカル法          |■■□□□|:heavy_check_mark:||
-|グラフ                |ベルマンフォード法    |□□□□□|:white_check_mark:||
+|グラフ                |ベルマンフォード法    |■■□□□|:heavy_check_mark:||
 |グラフ                |拡張ダイクストラ法    |□□□□□|:white_check_mark:||
 |木                    |                      |□□□□□|:white_check_mark:||
 |整数論                |最小公倍数 (LCM)      |■■■■■|:heavy_check_mark:||
@@ -87,7 +87,7 @@
 |動的計画法 (DP)       |ナップサック          |■□□□□|:white_check_mark:||
 |動的計画法 (DP)       |桁DP                  |■■□□□|:white_check_mark:||
 |動的計画法 (DP)       |bit DP                |□□□□□|:white_check_mark:||
-|動的計画法 (DP)       |連鎖行列積            |□□□□□|:white_check_mark:||
+|動的計画法 (DP)       |連鎖行列積            |■■□□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長共通部分列 (LCS)  |■■■□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長増加部分列 (LIS)  |□□□□□|:white_check_mark:||
 |累積和                |1次元                 |■■■□□|||
