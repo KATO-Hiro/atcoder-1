@@ -1,27 +1,35 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+#define ALL(c) (c).begin(), (c).end()
+using VI = vector<int>;
+// --------------------------------------------------------
 
 
 // Verify: https://atcoder.jp/contests/abc150/tasks/abc150_c
 int main() {
-    int N;
-    cin >> N;
-    vector<int> P(N), Q(N);
-    rep(i, N) cin >> P[i];
-    rep(i, N) cin >> Q[i];
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(10);
 
-    vector<int> R(N);
-    iota(R.begin(), R.end(), 1);  // 1, 2, 3, ... , N
+    int N; cin >> N;
+    VI P(N); REP(i,N) cin >> P[i];
+    VI Q(N); REP(i,N) cin >> Q[i];
 
-    int a, b, i = 1;
+    VI R(N); iota(ALL(R), 1);
+    int i = 1;
+    int a = 1, b = 1;
     do {
-        if (equal(P.begin(), P.end(), R.begin(), R.end())) a = i;
-        if (equal(Q.begin(), Q.end(), R.begin(), R.end())) b = i;
+        if (equal(ALL(P), ALL(R))) a = i;
+        if (equal(ALL(Q), ALL(R))) b = i;
         i++;
-    } while (next_permutation(R.begin(), R.end()));
-    cout << abs(a - b) << endl;
+    } while (next_permutation(ALL(R)));
+
+    int ans = abs(a - b);
+    cout << ans << '\n';
 
     return 0;
 }
