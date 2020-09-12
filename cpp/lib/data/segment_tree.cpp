@@ -67,7 +67,7 @@ class SegmentTree {
         ll _init_v;
         vector<ll> _node;
 
-        int _func(ll x, ll y) {
+        ll _func(ll x, ll y) {
             return min(x, y);
         }
 
