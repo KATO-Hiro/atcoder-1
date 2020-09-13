@@ -84,9 +84,9 @@
 |整数論                |べき乗 (繰り返し二乗法) |■■■■■|:heavy_check_mark:||
 |整数論                |逆元                  |□□□□□|:white_check_mark:||
 |整数論                |二項係数 (nCk) mod P  |■■■□□|:heavy_check_mark:||
-|動的計画法 (DP)       |ナップサック          |■□□□□|:white_check_mark:||
+|動的計画法 (DP)       |ナップサック          |■■□□□|:white_check_mark:||
 |動的計画法 (DP)       |桁DP                  |■■□□□|:white_check_mark:||
-|動的計画法 (DP)       |bit DP                |□□□□□|:white_check_mark:||
+|動的計画法 (DP)       |bit DP                |■□□□□|:heavy_check_mark:||
 |動的計画法 (DP)       |連鎖行列積            |■■□□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長共通部分列 (LCS)  |■■■□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長増加部分列 (LIS)  |□□□□□|:white_check_mark:||
