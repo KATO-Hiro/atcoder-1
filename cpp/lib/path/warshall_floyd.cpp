@@ -11,12 +11,12 @@ const ll INF = 1LL << 62;
 
 
 void warshall_floyd(int N, vector<vector<ll>> &G) {
-    REP(k, N) REP(i, N) {
-        if (G[i][k] == INF) continue;
-        REP(j, N) {
-            if (G[k][j] == INF) continue;
-            if (G[i][j] > G[i][k] + G[k][j]) {
-                G[i][j] = G[i][k] + G[k][j];
+    REP(k, N) {
+        REP(i, N) {
+            if (G[i][k] == INF) continue;
+            REP(j, N) {
+                if (G[k][j] == INF) continue;
+                G[i][j] = min(G[i][j], G[i][k] + G[k][j]);
             }
         }
     }
@@ -30,35 +30,36 @@ int main() {
     cout << fixed << setprecision(10);
 
     int V, E; cin >> V >> E;
-
     VVLL G(V, VLL(V, INF));
     REP(i, V) G[i][i] = 0LL;
 
+    int s, t; ll d;
     REP(_, E) {
-        ll s, t, d; cin >> s >> t >> d;
+        cin >> s >> t >> d;
         G[s][t] = d;
     }
     
     warshall_floyd(V, G);
 
-    bool is_negative_cycle = false;
+    // NEGATIVE CYCLE
     REP(i, V) {
-        if (G[i][i] < 0) is_negative_cycle = true;
-    }
-    if (is_negative_cycle) {
-        cout << "NEGATIVE CYCLE" << '\n';
-    } else {
-        REP(i, V) {
-            REP(j, V) {
-                if (j) cout << " ";
-                if (G[i][j] == INF) {
-                    cout << "INF";
-                } else {
-                    cout << G[i][j];
-                }
-            }
-            cout << '\n';
+        if (G[i][i] < 0) {
+            cout << "NEGATIVE CYCLE\n";
+            return 0;
         }
     }
+
+    REP(i, V) {
+        REP(j, V) {
+            if (j != 0) cout << " ";
+            if (G[i][j] == INF) {
+                cout << "INF";
+            } else {
+                cout << G[i][j];
+            }
+        }
+        cout << '\n';
+    }
+
     return 0;
 }
