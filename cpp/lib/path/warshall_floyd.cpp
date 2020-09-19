@@ -10,7 +10,7 @@ const ll INF = 1LL << 62;
 // --------------------------------------------------------
 
 
-void warshall_floyd(int N, vector<vector<ll>> &G) {
+void warshall_floyd(int N, VVLL &G) {
     REP(k, N) {
         REP(i, N) {
             if (G[i][k] == INF) continue;
