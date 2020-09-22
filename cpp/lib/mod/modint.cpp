@@ -34,7 +34,7 @@ struct mint {
         if (n == 0) return 1;
         mint res = pow(n >> 1);
         res *= res;
-        if (n&  1) res *= *this;
+        if (n & 1) res *= *this;
         return res;
     }
     constexpr mint inv() const { return pow(MOD - 2); }
