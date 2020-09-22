@@ -82,7 +82,7 @@
 |整数論                |素数列挙 (エラトステネスの区間篩) |□□□□□|:white_check_mark:||
 |整数論                |約数列挙              |■■■□□|:heavy_check_mark:||
 |整数論                |べき乗 (繰り返し二乗法) |■■■■■|:heavy_check_mark:||
-|整数論                |逆元                  |□□□□□|:white_check_mark:||
+|整数論                |逆元                  |■■□□□|:heavy_check_mark:|modint.cpp に実装|
 |整数論                |二項係数 (nCk) mod P  |■■■□□|:heavy_check_mark:||
 |動的計画法 (DP)       |ナップサック          |■■□□□|:white_check_mark:||
 |動的計画法 (DP)       |桁DP                  |■■□□□|:white_check_mark:||
