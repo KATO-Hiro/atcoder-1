@@ -7,6 +7,13 @@ static const ll MOD = 1000000007;
 // --------------------------------------------------------
 
 
+// References:
+//   <https://github.com/atcoder/live_library/blob/master/mint.cpp>
+//   <https://noshi91.hatenablog.com/entry/2019/03/31/174006>
+//   <https://ei1333.github.io/luzhiled/snippets/math/mod-int.html>
+//   <https://gist.github.com/MiSawa/dc78c3eb3ca16051818759ea069e8ccb>
+//   <https://github.com/drken1215/algorithm/blob/master/MathCombinatorics/mod.cpp>
+
 struct mint {
     ll x;
     constexpr mint(ll x = 0) noexcept : x((x % MOD + MOD) % MOD) {}
