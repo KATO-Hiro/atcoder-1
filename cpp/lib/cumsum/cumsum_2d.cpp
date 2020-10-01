@@ -10,6 +10,13 @@ using VVI = vector<VI>;
 
 
 // Verify: https://atcoder.jp/contests/joi2011ho/tasks/joi2011ho1
+
+static const int MAX_H = 1000;  // M
+static const int MAX_W = 1000;  // N
+VVI J(MAX_H + 1, VI(MAX_W + 1, 0));
+VVI O(MAX_H + 1, VI(MAX_W + 1, 0));
+VVI I(MAX_H + 1, VI(MAX_W + 1, 0));
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
@@ -17,7 +24,6 @@ int main() {
 
     int H, W; cin >> H >> W;
     int K; cin >> K;
-    VVI J(H+1,VI(W+1,0)), O(H+1,VI(W+1,0)), I(H+1,VI(W+1,0));
     REP(h,H) {
         string S; cin >> S;
         REP(w,W) {
