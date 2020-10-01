@@ -81,16 +81,16 @@
 |整数論                |素数列挙 (エラトステネスの区間篩) |□□□□□|:white_check_mark:||
 |整数論                |約数列挙              |■■■□□|:heavy_check_mark:||
 |整数論                |べき乗 (繰り返し二乗法) |■■■■■|:heavy_check_mark:||
-|整数論                |逆元                  |■■□□□|:heavy_check_mark:|modint.cpp に実装|
-|整数論                |二項係数 (nCk) mod P  |■■■□□|:heavy_check_mark:||
+|整数論                |逆元                  |■■■□□|:heavy_check_mark:|modint.cpp に実装|
+|整数論                |二項係数 (nCk) mod P  |■■■□□|:heavy_check_mark:|modint.cpp に実装||
 |動的計画法 (DP)       |ナップサック          |■■□□□|:white_check_mark:||
 |動的計画法 (DP)       |桁DP                  |■■□□□|:white_check_mark:||
 |動的計画法 (DP)       |bit DP                |■□□□□|:heavy_check_mark:||
 |動的計画法 (DP)       |連鎖行列積            |■■□□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長共通部分列 (LCS)  |■■■□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長増加部分列 (LIS)  |■■□□□|:heavy_check_mark:||
-|累積和                |1次元                 |■■■□□|||
-|累積和                |2次元                 |■□□□□|:white_check_mark:||
+|累積和                |1次元                 |■■■■□|||
+|累積和                |2次元                 |■■■□□|:heavy_check_mark:||
 |累積和                |imos法 (1次元)        |■■□□□|:white_check_mark:||
 |累積和                |imos法 (2次元)        |□□□□□|:white_check_mark:||
 |計算幾何学            |                      |□□□□□|:white_check_mark:||
