@@ -22,6 +22,11 @@ class UnionFind {
             _make_set();
         }
 
+        /**
+         * @brief Find the root of the set containing x.
+         * 
+         * @param x node (1-based index).
+         */
         int find(int x) {
             if (_parent[x] != x) {
                 _parent[x] = find(_parent[x]);
@@ -29,6 +34,13 @@ class UnionFind {
             return _parent[x];
         }
 
+        /**
+         * @brief Replace the set containing x and the set containing y
+         *        with their union.
+         * 
+         * @param x node (1-based index).
+         * @param y node (1-based index).
+         */
         void unite(int x, int y) {
             int x_root = find(x);
             int y_root = find(y);
@@ -50,10 +62,20 @@ class UnionFind {
             }
         }
 
+        /**
+         * @brief Whether the set containing x is the same as the set containing y.
+         * 
+         * @param x node (1-based index).
+         * @param y node (1-based index).
+         */
         bool same_set(int x, int y) { return find(x) == find(y); }
 
+        /**
+         * @brief Number of elements in the set containing x.
+         * 
+         * @param x node (1-based index).
+         */
         int size(int x) { return _size[find(x)]; }
-
 
     private:
         int _N;
@@ -65,7 +87,6 @@ class UnionFind {
             _rank = vector<int>(_N + 1, 0);
             _size = vector<int>(_N + 1, 1);
         }
-
 };
 
 
