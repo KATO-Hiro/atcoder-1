@@ -59,6 +59,10 @@ struct mint {
         return os << a.x;
     }
 };
+using VM = vector<mint>;
+using VVM = vector<VM>;
+using VVVM = vector<VVM>;
+using VVVVM = vector<VVVM>;
 
 
 struct combination {
