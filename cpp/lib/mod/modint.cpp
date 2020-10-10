@@ -67,9 +67,11 @@ using VVVVM = vector<VVVM>;
 
 struct combination {
     vector<mint> fact_, ifact_, inv_;
+    int n_;
     combination(int n) : fact_(n+1,0), ifact_(n+1,0), inv_(n+1,0) {
         assert(n != 0);
         assert(n < MOD);
+        n_ = n;
         fact_[0] = 1; fact_[1] = 1;
         ifact_[0] = 1; ifact_[1] = 1;
         inv_[1] = 1;
@@ -80,9 +82,14 @@ struct combination {
         }
     }
 
-    constexpr mint operator()(int n, int k) const noexcept {
+    constexpr mint C(int n, int k) const noexcept {
         if (n < 0 || k < 0 || n < k) return 0;
         return fact_[n] * ifact_[n-k] * ifact_[k];
+    }
+    constexpr mint H(int n, int k) const noexcept {
+        if (n < 0 || k < 0) return 0;
+        assert(n + k - 1 <= n_);
+        return C(n + k - 1, k);
     }
     constexpr mint fact(int n) const noexcept {
         if (n < 0) return 0;
@@ -99,6 +106,24 @@ struct combination {
 };
 
 
+// Combination with repetition
+// Verify: https://atcoder.jp/contests/abc021/tasks/abc021_d
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(10);
+
+    int N, K; cin >> N >> K;
+
+    combination comb(N + K - 1);
+    cout << comb.H(N, K) << '\n';
+
+    return 0;
+}
+
+
+// Combination
+/*
 // Verify: https://atcoder.jp/contests/abc034/tasks/abc034_c
 int main() {
     ios::sync_with_stdio(false);
@@ -109,15 +134,16 @@ int main() {
     W--; H--;
 
     combination comb(W + H);
-    // mint ans = comb(W + H, W);
-    mint ans = comb.fact(W + H) * comb.ifact(W) * comb.ifact(H);
+    mint ans = comb.C(W + H, W);
+    // mint ans = comb.fact(W + H) * comb.ifact(W) * comb.ifact(H);
 
     cout << ans << '\n';
 
     return 0;
 }
+*/
 
-
+// modint
 /*
 // Verify: https://atcoder.jp/contests/abc178/tasks/abc178_c
 int main() {
