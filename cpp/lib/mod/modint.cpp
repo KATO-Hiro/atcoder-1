@@ -82,6 +82,10 @@ struct combination {
         }
     }
 
+    constexpr mint P(int n, int k) const noexcept {
+        if (n < 0 || k < 0 || n < k) return 0;
+        return fact_[n] * ifact_[n-k];
+    }
     constexpr mint C(int n, int k) const noexcept {
         if (n < 0 || k < 0 || n < k) return 0;
         return fact_[n] * ifact_[n-k] * ifact_[k];
