@@ -25,12 +25,16 @@ int main() {
         G[s][t] = d;
     }
 
+    // dp[T][v] --> dp[S][u] に遷移 (T + {u} = S)
+    // - 頂点 u は状態 S に含まれる必要がある
+    // - 頂点 v は状態 T に含まれる必要があるが，
+    //   そうでないときは dp[T][v] = INF なので気にせず計算可能
     dp[0][0] = 0;
     FOR(S, 1, (1 << V)) {
-        FOR(u, 0, V) {
+        REP(u, V) {
             if (!(S & (1 << u))) continue;
             int T = S - (1 << u);
-            FOR(v, 0, V) {
+            REP(v, V) {
                 if (G[v][u] == INF) continue;
                 dp[S][u] = min(dp[S][u], dp[T][v] + G[v][u]);
             }
