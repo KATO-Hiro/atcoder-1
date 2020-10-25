@@ -56,7 +56,7 @@
 |全探索                |キュー                |■■■■□|||
 |全探索                |深さ優先探索 (DFS)    |■■■■□|:heavy_check_mark:||
 |全探索                |幅優先探索 (BFS)      |■■■■□|:heavy_check_mark:||
-|全探索                |0-1 BFS               |□□□□□|:white_check_mark:||
+|全探索                |0-1 BFS               |■■■□□|:heavy_check_mark:||
 |全探索                |順列全探索            |■■■■□|:heavy_check_mark:||
 |全探索                |bit全探索             |■■■□□|:heavy_check_mark:||
 |全探索                |半分全列挙            |□□□□□|:white_check_mark:||
@@ -83,9 +83,9 @@
 |整数論                |べき乗 (繰り返し二乗法) |■■■■■|:heavy_check_mark:||
 |整数論                |逆元                  |■■■□□|:heavy_check_mark:|modint.cpp に実装|
 |整数論                |二項係数 (nCk) mod P  |■■■□□|:heavy_check_mark:|modint.cpp に実装||
-|動的計画法 (DP)       |ナップサック          |■■□□□|:white_check_mark:||
+|動的計画法 (DP)       |ナップサック          |■■■□□|:white_check_mark:||
 |動的計画法 (DP)       |桁DP                  |■■■□□|:heavy_check_mark:||
-|動的計画法 (DP)       |bit DP                |■■□□□|:heavy_check_mark:||
+|動的計画法 (DP)       |bit DP                |■■■□□|:heavy_check_mark:||
 |動的計画法 (DP)       |連鎖行列積            |■■□□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長共通部分列 (LCS)  |■■■□□|:heavy_check_mark:||
 |動的計画法 (DP)       |最長増加部分列 (LIS)  |■■□□□|:heavy_check_mark:||
@@ -94,12 +94,14 @@
 |累積和                |imos法 (1次元)        |■■□□□|:white_check_mark:||
 |累積和                |imos法 (2次元)        |■□□□□|:white_check_mark:||
 |計算幾何学            |                      |□□□□□|:white_check_mark:||
+|フロー                |最大流                |■■□□□|:white_check_mark:||
+|フロー                |最小カット            |■□□□□|:white_check_mark:||
+|フロー                |最小費用流            |□□□□□|:white_check_mark:||
 |未分類                |しゃくとり法          |■■□□□|:heavy_check_mark:||
 |未分類                |ライツアウト          |□□□□□|:white_check_mark:||
 |未分類                |弾性衝突              |□□□□□|:white_check_mark:||
 |未分類                |座標圧縮              |□□□□□|:white_check_mark:||
 |未分類                |行列累乗              |□□□□□|:white_check_mark:||
-|未分類                |フロー                |□□□□□|:white_check_mark:||
 |                      |                      |□□□□□|:white_check_mark:||
 |                      |                      |□□□□□|:white_check_mark:||
 
@@ -113,8 +115,9 @@
 |平衡二分木            |                      |■■■□□|||
 |優先度付きキュー      |                      |■■■□□|||
 |二分探索木            |                      |□□□□□|:white_check_mark:||
-|セグメント木          |                      |■□□□□|:heavy_check_mark:||
-|Binary Indexed Tree (BIT) |                  |□□□□□|:white_check_mark:||
+|Fenwick Tree (BIT)    |                      |■■■□□|:white_check_mark:||
+|セグメント木          |                      |■■■□□|:heavy_check_mark:||
+|遅延評価セグメント木  |                      |■■□□□|:heavy_check_mark:||
 |バケット法            |                      |□□□□□|:white_check_mark:||
 |平方分割              |                      |□□□□□|:white_check_mark:||
 |                      |                      |□□□□□|:white_check_mark:||
