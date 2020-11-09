@@ -2,21 +2,22 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
+template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
 #define FOR(i,l,r) for (int i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
-const ll INF = 1LL << 62;
+static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
 
-void warshall_floyd(int N, VVLL &G) {
+void warshall_floyd(int N, VVLL& G) {
     REP(k, N) {
         REP(i, N) {
             if (G[i][k] == INF) continue;
             REP(j, N) {
                 if (G[k][j] == INF) continue;
-                G[i][j] = min(G[i][j], G[i][k] + G[k][j]);
+                chmin(G[i][j], G[i][k] + G[k][j]);
             }
         }
     }
@@ -38,7 +39,7 @@ int main() {
         cin >> s >> t >> d;
         G[s][t] = d;
     }
-    
+
     warshall_floyd(V, G);
 
     // NEGATIVE CYCLE

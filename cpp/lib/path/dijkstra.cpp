@@ -1,17 +1,28 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
-using P = pair<int,int>;
+// --------------------------------------------------------
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
+#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
+static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
+// --------------------------------------------------------
 
+using E = pair<int,ll>;
+using VE = vector<E>;
+using VVE = vector<VE>;
 
-void dijkstra(vector<vector<P>> &G, vector<int> &dist, int s) {
+void dijkstra(VVE& G, VLL& dist, int s) {
     dist[s] = 0;
-    priority_queue<P, vector<P>, greater<P>> p_queue;
-    p_queue.push(make_pair(dist[s], s));
-    int min_dist, dist_u, u, v, c, alt;
-    while (!p_queue.empty()) {
-        tie(min_dist, u) = p_queue.top(); p_queue.pop();
+    priority_queue<E, VE, greater<E>> pq;
+    pq.push(E(dist[s], s));
+    int u, v;
+    ll min_dist, dist_u, c, alt;
+    while (!pq.empty()) {
+        tie(min_dist, u) = pq.top(); pq.pop();
         dist_u = dist[u];
         if (dist_u < min_dist) continue;
 
@@ -20,7 +31,7 @@ void dijkstra(vector<vector<P>> &G, vector<int> &dist, int s) {
             alt = dist_u + c;
             if (alt < dist[v]) {
                 dist[v] = alt;
-                p_queue.push(make_pair(alt, v));
+                pq.push(E(alt, v));
             }
         }
     }
@@ -28,46 +39,29 @@ void dijkstra(vector<vector<P>> &G, vector<int> &dist, int s) {
 
 
 int main() {
-    int N, M;
-    cin >> N >> M;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(10);
 
-    vector<vector<P>> G(N, vector<P>());
-    int a, b, t;
-    rep(_, M) {
+    int N, M; cin >> N >> M;
+    VVE G(N+1);
+
+    int a, b; ll t;
+    REP(_, M) {
         cin >> a >> b >> t;
-        a--; b--;
-        G[a].push_back(make_pair(b, t));
-        G[b].push_back(make_pair(a, t));
+        G[a].push_back(E(b, t));
+        G[b].push_back(E(a, t));
     }
 
-    int INF = 1 << 30;
-    int ans = INF;
-    rep(s, N) {
-        vector<int> dist(N, INF);
+    ll ans = INF;
+    FOR(s,1,N+1) {
+        VLL dist(N+1, INF);
         dijkstra(G, dist, s);
-        int max_dist = 0;
-        rep(i, N) max_dist = max(max_dist, dist[i]);
-        ans = min(ans, max_dist);
+        ll max_dist = 0;
+        FOR(u,1,N+1) chmax(max_dist, dist[u]);
+        chmin(ans, max_dist);
     }
     cout << ans << endl;
     return 0;
 }
-
-/*
-https://atcoder.jp/contests/abc012/tasks/abc012_4
-
-input 3
--------
-4 6
-1 2 1
-2 3 1
-3 4 1
-4 1 1
-1 3 1
-4 2 1
-
-output 3
---------
-1
-
-*/
+// Verify: https://atcoder.jp/contests/abc012/tasks/abc012_4
