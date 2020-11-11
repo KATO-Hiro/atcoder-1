@@ -11,7 +11,7 @@ using VVLL = vector<VLL>;
 static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
-using E = pair<int,ll>;
+using E = pair<ll,int>;
 using VE = vector<E>;
 using VVE = vector<VE>;
 
@@ -26,8 +26,8 @@ void dijkstra(VVE& G, VLL& dist, int s) {
         dist_u = dist[u];
         if (dist_u < min_dist) continue;
 
-        for (auto vc: G[u]) {
-            tie(v, c) = vc;
+        for (auto cv: G[u]) {
+            tie(c, v) = cv;
             alt = dist_u + c;
             if (alt < dist[v]) {
                 dist[v] = alt;
@@ -49,8 +49,8 @@ int main() {
     int a, b; ll t;
     REP(_, M) {
         cin >> a >> b >> t;
-        G[a].push_back(E(b, t));
-        G[b].push_back(E(a, t));
+        G[a].push_back(E(t, b));
+        G[b].push_back(E(t, a));
     }
 
     ll ans = INF;
