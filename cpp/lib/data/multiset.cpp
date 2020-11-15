@@ -8,6 +8,8 @@ using VI = vector<int>;
 // --------------------------------------------------------
 
 
+// https://atcoder.jp/contests/abc170/tasks/abc170_e
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
