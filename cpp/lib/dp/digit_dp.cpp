@@ -85,7 +85,7 @@ using VVM = vector<VM>;
 using VVVM = vector<VVM>;
 using VVVVM = vector<VVVM>;
 
-static const int MAX_L = 100001;
+static const int MAX_L = 100000;
 static const int MAX_D = 100;
 VVVM dp(MAX_L + 1, VVM(2, VM(MAX_D, 0)));
 
@@ -118,3 +118,4 @@ int main() {
 
     return 0;
 }
+// Verify: https://atcoder.jp/contests/tdpc/tasks/tdpc_number
