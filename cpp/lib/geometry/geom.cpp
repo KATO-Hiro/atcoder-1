@@ -29,7 +29,7 @@ struct Line {
 };
 
 // 線分
-struct Segment : Line {
+struct Segment {
     Point p1, p2;
     Segment(Point p1 = Point(), Point p2 = Point()): p1(p1), p2(p2) {}
 };
