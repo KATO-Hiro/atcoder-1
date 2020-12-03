@@ -69,7 +69,6 @@ struct LCA {
         return parent[0][u];
     }
 
-    // [TODO] verify
     int distance(int u, int v) {
         return depth[u] + depth[v] - 2*depth[query(u, v)];
     }
