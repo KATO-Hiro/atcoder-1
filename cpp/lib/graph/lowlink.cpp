@@ -3,9 +3,7 @@ using namespace std;
 using ll = long long;
 // --------------------------------------------------------
 #define FOR(i,l,r) for (int i = (l); i < (r); ++i)
-#define RFOR(i,l,r) for (int i = (r)-1; (l) <= i; --i)
 #define REP(i,n) FOR(i,0,n)
-#define RREP(i,n) RFOR(i,0,n)
 using P = pair<int,int>;
 using VI = vector<int>;
 using VVI = vector<VI>;
