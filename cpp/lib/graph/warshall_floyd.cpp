@@ -11,11 +11,14 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
 
-void warshall_floyd(int N, VVLL& G) {
-    FOR(k,1,N+1) {
-        FOR(i,1,N+1) {
+// 0-based index
+void warshall_floyd(VVLL& G) {
+    const int N = (int)G.size();
+
+    REP(k, N) {
+        REP(i, N) {
             if (G[i][k] == INF) continue;
-            FOR(j,1,N+1) {
+            REP(j, N) {
                 if (G[k][j] == INF) continue;
                 chmin(G[i][j], G[i][k] + G[k][j]);
             }
@@ -24,36 +27,34 @@ void warshall_floyd(int N, VVLL& G) {
 }
 
 
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout << fixed << setprecision(10);
 
     int N, M; cin >> N >> M;
-    VVLL G(N+1, VLL(N+1, INF));
-    FOR(i,1,N+1) G[i][i] = 0LL;
+    VVLL G(N, VLL(N, INF));
+    REP(i,N) G[i][i] = 0LL;
 
     int s, t; ll d;
     REP(_, M) {
         cin >> s >> t >> d;
-        s++; t++;  // For AOJ input type (0-based)
         G[s][t] = d;
     }
 
-    warshall_floyd(N, G);
+    warshall_floyd(G);
 
     // NEGATIVE CYCLE
-    FOR(i,1,N+1) {
+    REP(i,N) {
         if (G[i][i] < 0) {
-            cout << "NEGATIVE CYCLE\n";
+            cout << "NEGATIVE CYCLE" << '\n';
             return 0;
         }
     }
 
-    FOR(i,1,N+1) {
-        FOR(j,1,N+1) {
-            if (j != 1) cout << " ";
+    REP(i,N) {
+        REP(j,N) {
+            if (j) cout << " ";
             if (G[i][j] == INF) {
                 cout << "INF";
             } else {
@@ -65,3 +66,4 @@ int main() {
 
     return 0;
 }
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C

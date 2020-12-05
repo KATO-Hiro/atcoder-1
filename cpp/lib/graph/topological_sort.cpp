@@ -15,25 +15,17 @@ using VVI = vector<VI>;
 
 VI topological_sort(VVI& G) {
     const int N = (int)G.size();
-    VI indeg(N,0);  // indegree
+    VI L(N);  // result of topological sort
+    int k = 0;
+
+    VI indeg(N, 0);  // indegree
+    REP(u, N) for (int v : G[u]) indeg[v]++;  // count indegree for each vertex
+
     queue<int> q;  // set of vertices with 0 indegree
-    VI L;  // result of topological sort
-
-    REP(u,N) {
-        for (int v : G[u]) {
-            indeg[v]++;
-        }
-    }
-
-    REP(u,N) {
-        if (indeg[u] == 0) {
-            q.push(u);
-        }
-    }
-
+    REP(u, N) if (indeg[u] == 0) q.push(u);
     while (!q.empty()) {
         int u = q.front(); q.pop();
-        L.push_back(u);
+        L[k++] = u;
         for (int v : G[u]) {
             indeg[v]--;
             if (indeg[v] == 0) {
