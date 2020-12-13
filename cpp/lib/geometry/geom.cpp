@@ -241,3 +241,18 @@ Circle circumscribed_circle(const Point& A, const Point& B, const Point& C) {
     double R = distance(O, A);  // 外接円の半径
     return Circle(O, R);
 }
+
+// 多角形における点の内包判定
+// 0: 外側, 1: 線分上, 2: 内側
+int point_containment(const Polygon& g, const Point& p) {
+    const int N = g.size();
+    bool x = false;
+    for (int i = 0; i < N; i++) {
+        Point a = g[i] - p;
+        Point b = g[(i+1)%N] - p;  // N番目の次は1番目
+        if (abs(cross(a, b)) < EPS && dot(a, b) < EPS) return 1;  // 線分上
+        if (a.y > b.y) swap(a, b);
+        if (a.y < EPS && EPS < b.y && cross(a, b) > EPS) x = !x;  // 半直線との交差回数の偶奇
+    }
+    return (x ? 2 : 0);
+}
