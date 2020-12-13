@@ -219,3 +219,25 @@ pair<Point, Point> cross_point(const Circle& c1, const Circle& c2) {
     double t = arg(c2.c - c1.c);
     return make_pair(c1.c + polar2carte(c1.r, t + a), c1.c + polar2carte(c1.r, t - a));
 }
+
+// 2点を直径とする円を求める
+Circle circle_with_2pts_as_diameter(const Point& p1, const Point& p2) {
+    return Circle((p1 + p2) / 2, distance(p1, p2) / 2);
+}
+
+// 三角形の外接円を求める
+// <https://ja.wikipedia.org/wiki/%E5%A4%96%E6%8E%A5%E5%86%86>
+Circle circumscribed_circle(const Point& A, const Point& B, const Point& C) {
+    double a = abs(B - C);
+    double b = abs(C - A);
+    double c = abs(A - B);
+    double a2 = a * a;
+    double b2 = b * b;
+    double c2 = c * c;
+    double x = a2 * (b2 + c2 - a2);
+    double y = b2 * (c2 + a2 - b2);
+    double z = c2 * (a2 + b2 - c2);
+    Point O = (A*x + B*y + C*z) / (x + y + z);  // 外心
+    double R = distance(O, A);  // 外接円の半径
+    return Circle(O, R);
+}
