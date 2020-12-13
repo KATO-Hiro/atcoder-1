@@ -225,21 +225,18 @@ Circle circle_with_2pt_as_diameter(const Point& p1, const Point& p2) {
     return Circle((p1 + p2) / 2, distance(p1, p2) / 2);
 }
 
-// [FIXME] AOJ CGL_7_C で WA (恐らく桁落ち)
 // 三角形の外接円を求める
 // 3点が同じ直線上に存在しない想定
 // <https://ja.wikipedia.org/wiki/%E5%A4%96%E6%8E%A5%E5%86%86>
 Circle circumscribed_circle_3pt(const Point& A, const Point& B, const Point& C) {
-    double a = abs(B - C);
-    double b = abs(C - A);
-    double c = abs(A - B);
-    double a2 = a * a;
-    double b2 = b * b;
-    double c2 = c * c;
+    double a2 = norm(B - C);
+    double b2 = norm(C - A);
+    double c2 = norm(A - B);
     double x = a2 * (b2 + c2 - a2);
     double y = b2 * (c2 + a2 - b2);
     double z = c2 * (a2 + b2 - c2);
-    Point O = (A*x + B*y + C*z) / (x + y + z);  // 外心
+    double w = x + y + z;  // 桁落ち対策のため x/w などとしている
+    Point O = A*(x/w) + B*(y/w) + C*(z/w);  // 外心
     double R = distance(O, A);  // 外接円の半径
     return Circle(O, R);
 }
