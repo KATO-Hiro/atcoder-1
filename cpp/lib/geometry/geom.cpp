@@ -221,13 +221,15 @@ pair<Point, Point> cross_point(const Circle& c1, const Circle& c2) {
 }
 
 // 2点を直径とする円を求める
-Circle circle_with_2pts_as_diameter(const Point& p1, const Point& p2) {
+Circle circle_with_2pt_as_diameter(const Point& p1, const Point& p2) {
     return Circle((p1 + p2) / 2, distance(p1, p2) / 2);
 }
 
+// [FIXME] AOJ CGL_7_C で WA (恐らく桁落ち)
 // 三角形の外接円を求める
+// 3点が同じ直線上に存在しない想定
 // <https://ja.wikipedia.org/wiki/%E5%A4%96%E6%8E%A5%E5%86%86>
-Circle circumscribed_circle(const Point& A, const Point& B, const Point& C) {
+Circle circumscribed_circle_3pt(const Point& A, const Point& B, const Point& C) {
     double a = abs(B - C);
     double b = abs(C - A);
     double c = abs(A - B);
