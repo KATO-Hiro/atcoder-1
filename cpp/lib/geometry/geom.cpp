@@ -1,3 +1,10 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+// --------------------------------------------------------
+// static const double EPS = 1e-10;
+// --------------------------------------------------------
+
 // References:
 //   『プログラミングコンテスト攻略のためのアルゴリズムとデータ構造』
 //   <https://github.com/atcoder/live_library/blob/master/geom/vector.cpp>
@@ -125,7 +132,7 @@ bool is_intersected(const Point& p1, const Point& p2, const Point& p3, const Poi
 bool is_intersected(const Segment& s1, const Segment& s2) {
     return is_intersected(s1.p1, s1.p2, s2.p1, s2.p2);
 }
-// 線分上に点が存在するか判定する
+// 線分上に点が存在するか判定
 bool on_segment(const Segment& s, const Point& p) {
     return ccw(s.p1, s.p2, p) == ON_SEGMENT;
 }
@@ -157,4 +164,58 @@ double distance(const Point& p, const Segment& s) {
 double distance(const Segment& a, const Segment& b) {
     if (is_intersected(a, b)) return 0.0;
     return min({distance(a.p1, b), distance(a.p2, b), distance(b.p1, a), distance(b.p2, a)});
+}
+
+// 円周上に点が存在するか判定
+bool on_circle(const Circle& c, const Point& p) {
+    return eq(c.r, distance(c.c, p));
+}
+// 円と直線が接するか判定
+bool on_circle(const Circle& c, const Line& l) {
+    return eq(c.r, distance(c.c, l));
+}
+
+// 円と直線の交差判定
+// 接している場合も交差しているとみなされる
+bool is_intersected(const Circle& c, const Line& l) {
+    if (on_circle(c.c, l)) return true;
+    return distance(c.c, l) <= c.r;
+}
+// 円と円の交差判定
+// 接している場合も交差しているとみなされる
+bool is_intersected(const Circle& c1, const Circle& c2) {
+    double c12 = distance(c1.c, c2.c);
+    double r12 = c1.r + c2.r;
+    if (eq(c12, r12)) return true;
+    return c12 < r12;
+}
+
+// 円と直線の交点を求める
+// 円と直線が交差していることを想定
+// ただし，接している場合は接点が2つ返される
+pair<Point, Point> cross_point(const Circle& c, const Line& l) {
+    assert(is_intersected(c, l));
+    Point pr = projection(l, c.c);
+    Point e = (l.p2 - l.p1) / abs(l.p2 - l.p1);
+    double base = sqrt(c.r * c.r - norm(pr - c.c));
+    return make_pair(pr + e * base, pr - e * base);
+}
+
+// 偏角を求める (argument)
+double arg(const Point& p) { return atan2(p.y, p.x); }
+
+// 極座標系から直交座標系に変換する
+Point polar2carte(const double& r, const double& theta) {
+    return Point(r * cos(theta), r * sin(theta));
+}
+
+// 円と円の交点を求める
+// 円と円が交差していることを想定
+// ただし，接している場合は接点が2つ返される
+pair<Point, Point> cross_point(const Circle& c1, const Circle& c2) {
+    assert(is_intersected(c1, c2));
+    double d = distance(c1.c, c2.c);
+    double a = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));  // 余弦定理
+    double t = arg(c2.c - c1.c);
+    return make_pair(c1.c + polar2carte(c1.r, t + a), c1.c + polar2carte(c1.r, t - a));
 }
