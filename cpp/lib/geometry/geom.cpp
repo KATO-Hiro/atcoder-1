@@ -225,10 +225,34 @@ Circle circle_with_2pt_as_diameter(const Point& p1, const Point& p2) {
     return Circle((p1 + p2) / 2, distance(p1, p2) / 2);
 }
 
+// 三角形の面積を求める
+double area_of_triangle(const Point& A, const Point& B, const Point& C) {
+    double a = abs(B - C);
+    double b = abs(C - A);
+    double c = abs(A - B);
+    double s = (a + b + c) / 2;
+    return sqrt(s*(s-a)*(s-b)*(s-c));
+}
+
+// 三角形の内接円を求める
+// 3点が同じ直線上に存在しない想定
+// <https://ja.wikipedia.org/wiki/%E4%B8%89%E8%A7%92%E5%BD%A2%E3%81%AE%E5%86%85%E6%8E%A5%E5%86%86%E3%81%A8%E5%82%8D%E6%8E%A5%E5%86%86>
+Circle incircle_of_triangle(const Point& A, const Point& B, const Point& C) {
+    double a = abs(B - C);
+    double b = abs(C - A);
+    double c = abs(A - B);
+    double d = a + b + c;
+    double s = d / 2;
+    double S = sqrt(s*(s-a)*(s-b)*(s-c));
+    double r = 2*S / d;
+    Point I = A*(a/d) + B*(b/d) + C*(c/d);
+    return Circle(I, r);
+}
+
 // 三角形の外接円を求める
 // 3点が同じ直線上に存在しない想定
 // <https://ja.wikipedia.org/wiki/%E5%A4%96%E6%8E%A5%E5%86%86>
-Circle circumscribed_circle_3pt(const Point& A, const Point& B, const Point& C) {
+Circle circumscribed_circle_of_triangle(const Point& A, const Point& B, const Point& C) {
     double a2 = norm(B - C);
     double b2 = norm(C - A);
     double c2 = norm(A - B);

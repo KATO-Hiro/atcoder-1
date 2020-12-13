@@ -58,9 +58,9 @@ int main() {
     // 3点が同じ直線上に存在しないか確認 (制約で保証されている)
     assert(!eq(0.0, distance(p1, Line{p2, p3})));
 
-    Circle c = circumscribed_circle_of_triangle(p1, p2, p3);
+    Circle c = incircle_of_triangle(p1, p2, p3);
     cout << c.c.x << " " << c.c.y << " " << c.r << endl;
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_7_C&lang=ja
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_7_B&lang=ja
