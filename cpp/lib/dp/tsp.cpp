@@ -10,9 +10,6 @@ static const int INF = (1 << 30) - 1;  // 1073741824 - 1
 // --------------------------------------------------------
 
 
-static const int MAX_N = 16;
-VVI dp((1 << MAX_N), VI(MAX_N, INF));
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
@@ -28,6 +25,7 @@ int main() {
     // dp[T][v] --> dp[S][u] に遷移 (T + {u} = S)
     // - u ∈ S
     // - v ∈ T
+    VVI dp((1 << N), VI(N, INF));
     dp[0][0] = 0;  // 「各頂点を1度ずつ通る」であれば出発点によらず最終結果は同じ(∵閉路)
     FOR(S, 1, (1 << N)) {
         REP(u, N) {
