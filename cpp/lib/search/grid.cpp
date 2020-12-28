@@ -2,12 +2,12 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-using P = pair<int,int>;
+using P = pair<ll,ll>;
 using VS = vector<string>;
-using VI = vector<int>;
-using VVI = vector<VI>;
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
 // --------------------------------------------------------
 
 
@@ -16,25 +16,26 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(15);
 
-    int H, W; cin >> H >> W;
-    int sh, sw, gh, gw; cin >> sh >> sw >> gh >> gw; sh--; sw--; gh--; gw--;
+    ll H, W; cin >> H >> W;
+    ll sh, sw, gh, gw; cin >> sh >> sw >> gh >> gw;
+    sh--; sw--; gh--; gw--;
     VS S(H); REP(h,H) cin >> S[h];
-    // VVI A(H,VI(W)); REP(h,H) REP(w,W) cin >> A[h][w];
+    // VVLL A(H,VLL(W)); REP(h,H) REP(w,W) cin >> A[h][w];
 
-    auto on_grid = [&](int h, int w) -> bool {
+    auto on_grid = [&](ll h, ll w) -> bool {
         return (h < 0 || H <= h || w < 0 || W <= w) ? false : true;
     };
 
     queue<P> q; q.push(P(sh, sw));
-    VVI dist(H, VI(W, -1)); dist[sh][sw] = 0;
-    const VI dh = {0,0,1,-1};
-    const VI dw = {1,-1,0,0};
-    int h, w;
+    VVLL dist(H, VLL(W, -1)); dist[sh][sw] = 0;
+    static const VLL dh = {0,0,1,-1};
+    static const VLL dw = {1,-1,0,0};
+    ll h, w, hh, ww;
     while (!q.empty()) {
         tie(h, w) = q.front(); q.pop();
         REP(i,4) {
-            int hh = h + dh[i];
-            int ww = w + dw[i];
+            hh = h + dh[i];
+            ww = w + dw[i];
             if (!on_grid(hh, ww)) continue;
             if (S[hh][ww] == '#') continue;
             if (dist[hh][ww] != -1) continue;
