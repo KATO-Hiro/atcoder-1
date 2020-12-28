@@ -4,15 +4,8 @@ using ll = long long;
 // --------------------------------------------------------
 
 
-/**
- * @brief `ax + by = gcd(a, b)` を満たす整数解 x, y を求めて gcd(a, b) を返す．
- * 
- * @param a 整数
- * @param b 1以上の整数
- * @param x 整数解 (参照)
- * @param y 整数解 (参照)
- * @return ll gcd(a, b)
- */
+// `ax + by = gcd(a, b)` を満たす整数解 x, y を求めて gcd(a, b) を返す．
+// 制約: 1 <= b
 ll extgcd(ll a, ll b, ll& x, ll& y) {
     if (b > 0) {
         ll g = extgcd(b, a % b, y, x);
