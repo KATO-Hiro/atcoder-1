@@ -2,11 +2,10 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-#define SZ(c) ((int)(c).size())
+#define SZ(c) ((ll)(c).size())
 static const ll MOD = 1000000007;
-// static const ll MOD = 998244353;
 // --------------------------------------------------------
 
 
@@ -62,17 +61,17 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(10);
 
-    int D; cin >> D;
+    ll D; cin >> D;
     string N; cin >> N;
-    int L = SZ(N);
+    ll L = SZ(N);
     N = " " + N;
 
     VVVM dp(L + 1, VVM(2, VM(D, 0)));
     dp[0][0][0] = 1;
     FOR(i, 1, L + 1) {
-        int n = N[i] - '0';
+        ll n = N[i] - '0';
         REP(j, 2) {
-            int max_d = (j == 1) ? 9 : n;
+            ll max_d = (j == 1) ? 9 : n;
             REP(d, max_d + 1) {
                 REP(r, D) {
                     dp[i][j | (d < n)][(r + d) % D] += dp[i - 1][j][r];
