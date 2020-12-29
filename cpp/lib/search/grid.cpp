@@ -28,8 +28,8 @@ int main() {
 
     queue<P> q; q.push(P(sh, sw));
     VVLL dist(H, VLL(W, -1)); dist[sh][sw] = 0;
-    static const VLL dh = {0,0,1,-1};
-    static const VLL dw = {1,-1,0,0};
+    static const VLL dh = {-1,1,0,0};
+    static const VLL dw = {0,0,-1,1};
     ll h, w, hh, ww;
     while (!q.empty()) {
         tie(h, w) = q.front(); q.pop();
