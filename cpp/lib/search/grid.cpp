@@ -2,12 +2,14 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
+template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using P = pair<ll,ll>;
 using VS = vector<string>;
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
+static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
 
@@ -27,7 +29,7 @@ int main() {
     };
 
     queue<P> q; q.push(P(sh, sw));
-    VVLL dist(H, VLL(W, -1)); dist[sh][sw] = 0;
+    VVLL dist(H, VLL(W, INF)); dist[sh][sw] = 0;
     static const VLL dh = {-1,1,0,0};
     static const VLL dw = {0,0,-1,1};
     ll h, w, hh, ww;
@@ -38,9 +40,9 @@ int main() {
             ww = w + dw[i];
             if (!on_grid(hh, ww)) continue;
             if (S[hh][ww] == '#') continue;
-            if (dist[hh][ww] != -1) continue;
-            dist[hh][ww] = dist[h][w] + 1;
-            q.push(P(hh, ww));
+            if (chmin(dist[hh][ww], dist[h][w] + 1)) {
+                q.push(P(hh, ww));
+            }
         }
     }
     cout << dist[gh][gw] << '\n';
