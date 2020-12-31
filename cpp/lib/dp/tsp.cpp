@@ -2,11 +2,11 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-using VI = vector<int>;
-using VVI = vector<VI>;
-static const int INF = (1 << 30) - 1;  // 1073741824 - 1
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
+static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
 
@@ -15,22 +15,25 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(10);
 
-    int N, M; cin >> N >> M;
-    VVI G(N, VI(N, INF));
+    ll N, M; cin >> N >> M;
+    VVLL G(N, VLL(N, INF));
+    ll s, t, d;
     REP(_, M) {
-        int s, t, d; cin >> s >> t >> d;
+        cin >> s >> t >> d;
         G[s][t] = d;
     }
 
     // dp[T][v] --> dp[S][u] に遷移 (T + {u} = S)
     // - u ∈ S
     // - v ∈ T
-    VVI dp((1 << N), VI(N, INF));
-    dp[0][0] = 0;  // 「各頂点を1度ずつ通る」であれば出発点によらず最終結果は同じ(∵閉路)
+    VVLL dp((1 << N), VLL(N, INF));
+    // 出発点が指定されていない場合，「各頂点を1度ずつ通る」であれば出発点によらず
+    // 最終結果は同じであるため (∵閉路)，ここでは簡単のため頂点1のみ出発点とする
+    dp[0][0] = 0;
     FOR(S, 1, (1 << N)) {
         REP(u, N) {
             if (!(S & (1 << u))) continue;
-            int T = S - (1 << u);
+            ll T = S - (1 << u);
             REP(v, N) {
                 if (T != 0 && !(T & (1 << v))) continue;  // この問題では消してよい (∵次行で弾かれる)
                 if (G[v][u] == INF) continue;
@@ -38,8 +41,7 @@ int main() {
             }
         }
     }
-
-    int ans = dp[(1 << N) - 1][0];
+    ll ans = dp[(1 << N) - 1][0];
     if (ans == INF) ans = -1;
     cout << ans << '\n';
 
