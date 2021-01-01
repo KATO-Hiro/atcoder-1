@@ -2,11 +2,11 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 #define ALL(c) (c).begin(), (c).end()
-#define SZ(c) ((int)(c).size())
-using VI = vector<int>;
+#define SZ(c) ((ll)(c).size())
+using VLL = vector<ll>;
 // --------------------------------------------------------
 
 
@@ -15,10 +15,10 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(10);
 
-    int N; cin >> N;
-    VI A(N); REP(i,N) cin >> A[i];
+    ll N; cin >> N;
+    VLL A(N); REP(i,N) cin >> A[i];
 
-    VI L;
+    VLL L;
     L.push_back(A[0]);
     FOR(i, 1, N) {
         if (L.back() < A[i]) {
@@ -27,7 +27,7 @@ int main() {
             *lower_bound(ALL(L), A[i]) = A[i];
         }
     }
-    int ans = SZ(L);
+    ll ans = SZ(L);
     cout << ans << '\n';
 
     return 0;
