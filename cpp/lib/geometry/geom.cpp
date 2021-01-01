@@ -10,6 +10,10 @@ using ll = long long;
 //   <https://github.com/atcoder/live_library/blob/master/geom/vector.cpp>
 //   <https://ei1333.github.io/luzhiled/snippets/geometry/template.html>
 
+
+// 微小値 EPS の誤差を許容して a, b が等価であるか判定する
+inline bool eq(double a, double b) { return fabs(a - b) < EPS; }
+
 // 点 (ベクトル)
 struct Point {
     double x, y;
@@ -27,6 +31,15 @@ struct Point {
 
     double norm() const noexcept { return x*x + y*y; }  // ベクトルの大きさ
     double abs() const noexcept { return sqrt(norm()); }  // 原点からの距離，ベクトルの長さ
+
+    // pair<x, y> の要領で大小比較（x昇順 --> y昇順）
+    bool operator < (const Point& p) const noexcept {
+        return x != p.x ? x < p.x : y < p.y;
+    }
+
+    bool operator == (const Point& p) const noexcept {
+        return eq(x, p.x) && eq(y, p.y);
+    }
 };
 
 // 直線
@@ -58,9 +71,6 @@ double norm(const Point& a) { return a.x*a.x + a.y*a.y; }  // ベクトルの大
 double abs(const Point& a) { return sqrt(norm(a)); }  // 原点からの距離，ベクトルの長さ
 double dot(const Point& a, const Point& b) { return a.x*b.x + a.y*b.y; }  // 内積
 double cross(const Point& a, const Point& b) { return a.x*b.y - a.y*b.x; }  // 外積
-
-// 微小値 EPS の誤差を許容して a, b が等価であるか判定する
-inline bool eq(double a, double b) { return fabs(a - b) < EPS; }
 
 // 射影: 直線 l に点 p から垂線を引いたときの交点を求める
 Point projection(const Line& l, const Point& p) {
@@ -268,7 +278,7 @@ Circle circumscribed_circle_of_triangle(const Point& A, const Point& B, const Po
 // 多角形における点の内包判定
 // 0: 外側, 1: 線分上, 2: 内側
 int point_containment(const Polygon& g, const Point& p) {
-    const int N = g.size();
+    const int N = (int)g.size();
     bool x = false;
     for (int i = 0; i < N; i++) {
         Point a = g[i] - p;
@@ -278,4 +288,39 @@ int point_containment(const Polygon& g, const Point& p) {
         if (a.y < EPS && EPS < b.y && cross(a, b) > EPS) x = !x;  // 半直線との交差回数の偶奇
     }
     return (x ? 2 : 0);
+}
+
+// 凸包を求める (Andrew's Monotone Chain)
+//   - 頂点数≧3
+//   - on_edge: 凸包の辺上の点を含めるか
+//   - 凸包の頂点の順序は最も左の頂点から時計回り (右回り)
+Polygon convex_hull(Polygon P, bool on_edge = true) {
+    const int N = (int)P.size();
+    assert(N >= 3);
+    sort(P.begin(), P.end());  // x昇順 --> y昇順
+    Polygon ch(2*N,{-1,-1});
+    int k = 0;
+    if (on_edge) {
+        // 上包 (upper hull)
+        for (int i = 0; i < N; ch[k++] = P[i++]) {
+            while (k >= 2 && ccw(ch[k-2], ch[k-1], P[i]) == COUNTER_CLOCKWISE) k--;
+        }
+        // 下包 (lower hull)
+        const int t = k + 1;
+        for (int i = N-2; 0 <= i; ch[k++] = P[i--]) {
+            while (k >= t && ccw(ch[k-2], ch[k-1], P[i]) == COUNTER_CLOCKWISE) k--;
+        }
+    } else {
+        // 上包 (upper hull)
+        for (int i = 0; i < N; ch[k++] = P[i++]) {
+            while (k >= 2 && ccw(ch[k-2], ch[k-1], P[i]) != CLOCKWISE) k--;
+        }
+        // 下包 (lower hull)
+        const int t = k + 1;
+        for (int i = N-2; 0 <= i; ch[k++] = P[i--]) {
+            while (k >= t && ccw(ch[k-2], ch[k-1], P[i]) != CLOCKWISE) k--;
+        }
+    }
+    ch.resize(k-1);
+    return ch;
 }
