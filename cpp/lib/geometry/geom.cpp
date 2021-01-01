@@ -290,6 +290,19 @@ double area_of_polygon(const Polygon& P) {
     return area / 2;
 }
 
+// 凸性判定 (多角形が凸多角形であるか判定)
+//   - 頂点数≧3
+//   - 頂点列が反時計回りであることを想定
+//   - 多角形が自己交差していないことを想定
+bool is_convex(const Polygon& P) {
+    const int N = (int)P.size();
+    assert(N >= 3);
+    for (int i = 0; i < N; i++) {
+        if (ccw(P[(i-1+N)%N], P[i], P[(i+1+N)%N]) == CLOCKWISE) return false;
+    }
+    return true;
+}
+
 // 多角形における点の内包判定
 // 0: 外側, 1: 線分上, 2: 内側
 int point_containment(const Polygon& g, const Point& p) {
