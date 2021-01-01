@@ -275,6 +275,21 @@ Circle circumscribed_circle_of_triangle(const Point& A, const Point& B, const Po
     return Circle(O, R);
 }
 
+// 多角形の面積を求める
+//   - 頂点数≧3
+//   - 頂点列が反時計回りであることを想定
+//   - 多角形が自己交差していないことを想定
+// <https://ja.wikipedia.org/wiki/%E5%A4%9A%E8%A7%92%E5%BD%A2>
+double area_of_polygon(const Polygon& P) {
+    const int N = (int)P.size();
+    assert(N >= 3);
+    double area = 0.0;
+    for (int i = 0; i < N; i++) {
+        area += cross(P[i], P[(i+1) % N]);  // N番目の次は1番目
+    }
+    return area / 2;
+}
+
 // 多角形における点の内包判定
 // 0: 外側, 1: 線分上, 2: 内側
 int point_containment(const Polygon& g, const Point& p) {
