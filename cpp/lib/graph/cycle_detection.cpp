@@ -6,17 +6,16 @@ using ll = long long;
 #define REP(i,n) FOR(i,0,n)
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
+using VB = vector<bool>;
 // --------------------------------------------------------
 
 
-// reference:
-//   <https://en.wikipedia.org/wiki/Topological_sorting>
-//   <https://www.slideshare.net/hcpc_hokudai/topological-sort-69581002/24>
-
-VLL topological_sort(VVLL& G) {
+// 有向グラフのサイクル検知
+// DAG であれば探索終了後に全頂点の入次数が0 (シンク) となるが，
+// サイクルに含まれる頂点はシンクになり得ないことを利用して検知する
+bool cycle_detection(VVLL& G) {
     const ll N = (ll)G.size();
-    VLL L(N);  // result of topological sort
-    ll k = 0;
+    VB in_cycle(N, true);
 
     VLL indeg(N, 0);  // indegree
     REP(u, N) for (ll v : G[u]) indeg[v]++;  // count indegree for each vertex
@@ -25,7 +24,7 @@ VLL topological_sort(VVLL& G) {
     REP(u, N) if (indeg[u] == 0) q.push(u);
     while (!q.empty()) {
         ll u = q.front(); q.pop();
-        L[k++] = u;
+        in_cycle[u] = false;
         for (ll v : G[u]) {
             indeg[v]--;
             if (indeg[v] == 0) {
@@ -33,7 +32,9 @@ VLL topological_sort(VVLL& G) {
             }
         }
     }
-    return L;
+    bool cycle = false;
+    REP(u,N) if (in_cycle[u]) cycle = true;
+    return cycle;
 }
 
 
@@ -50,11 +51,8 @@ int main() {
         G[s].push_back(t);
     }
 
-    auto L = topological_sort(G);
-    for (ll u : L) {
-        cout << u << '\n';
-    }
+    ll ans = (cycle_detection(G)) ? 1 : 0;
+    cout << ans << '\n';
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B&lang=ja
