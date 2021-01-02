@@ -7,8 +7,6 @@ using ll = long long;
 #define ALL(c) (c).begin(), (c).end()
 #define SORT(c) sort(ALL(c))
 #define SZ(c) ((ll)(c).size())
-using VI = vector<int>;
-using VVI = vector<VI>;
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
 // --------------------------------------------------------
