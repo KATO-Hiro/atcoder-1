@@ -115,11 +115,11 @@ bool is_parallel(const Segment& a, const Segment& b) {
     return eq(cross(a.p1 - a.p2, b.p1 - b.p2), 0.0);
 }
 
-static const int COUNTER_CLOCKWISE = 1;
-static const int CLOCKWISE = -1;
-static const int ONLINE_BACK = 2;
-static const int ONLINE_FRONT = -2;
-static const int ON_SEGMENT = 0;
+static const int COUNTER_CLOCKWISE = 1;  // 反時計回り (左回り)
+static const int CLOCKWISE = -1;         // 時計回り   (右回り)
+static const int ONLINE_BACK = 2;        // 線分後方
+static const int ONLINE_FRONT = -2;      // 線分前方
+static const int ON_SEGMENT = 0;         // 線分上
 
 // 3点 p0,p1,p2 の位置関係を線分 p1 - p0 を基準にして求める
 int ccw(const Point& p0, const Point& p1, const Point& p2) {
@@ -142,6 +142,11 @@ bool is_intersected(const Point& p1, const Point& p2, const Point& p3, const Poi
 bool is_intersected(const Segment& s1, const Segment& s2) {
     return is_intersected(s1.p1, s1.p2, s2.p1, s2.p2);
 }
+// 直線と線分の交差判定
+// 端点だけ重なる場合や平行に重なる場合も交差しているとみなされる
+bool is_intersected(const Line& l, const Segment& s) {
+    return (ccw(l.p1, l.p2, s.p1) * ccw(l.p1, l.p2, s.p2) <= 0);
+}
 // 線分上に点が存在するか判定
 bool on_segment(const Segment& s, const Point& p) {
     return ccw(s.p1, s.p2, p) == ON_SEGMENT;
@@ -155,6 +160,13 @@ Point cross_point(const Segment& s1, const Segment& s2) {
     double d2 = abs(cross(base, s1.p2 - s2.p1));
     assert(d1 > EPS || d2 > EPS);
     return s1.p1 + (s1.p2 - s1.p1) * (d1 / (d1 + d2));
+}
+// 直線の交点を求める
+// 直線 l1,l2 が交点を持ち平行に重なっていないことを想定
+Point cross_point(const Line& l1, const Line& l2) {
+    Point a = l1.p1, b = l1.p2;
+    Point c = l2.p1, d = l2.p2;
+    return a + (b - a) * cross(c - a, d - c) / cross(b - a, d - c);
 }
 
 // 2点間の距離
@@ -183,6 +195,10 @@ bool on_circle(const Circle& c, const Point& p) {
 // 円と直線が接するか判定
 bool on_circle(const Circle& c, const Line& l) {
     return eq(c.r, distance(c.c, l));
+}
+// 直線上に点が存在するか判定
+bool on_line(const Line& l, const Point& p) {
+    return eq(distance(p, l), 0.0);
 }
 
 // 円と直線の交差判定
@@ -351,4 +367,31 @@ Polygon convex_hull(Polygon P, bool on_edge = true) {
     }
     ch.resize(k-1);
     return ch;
+}
+
+// 凸多角形を直線で切断したとき左側にできる凸多角形を求める
+//   - 頂点数≧3
+//   - 頂点列が反時計回りであることを想定
+//   - 直線上に位置する頂点も結果に含まれる
+//   - 求めた凸多角形の頂点数が 0〜2 になる可能性あり (面積計算等で注意)
+Polygon convex_cut(const Polygon& P, const Line& l) {
+    const int N = (int)P.size();
+    assert(N >= 3);
+    Polygon cc;
+    Point p1 = l.p1;
+    Point p2 = l.p2;
+    for (int i = 0; i < N; i++) {
+        Point a = P[i];
+        Point b = P[(i+1)%N];  // N番目の次は1番目
+        Segment s(a, b);
+        // 1. 点 a が直線の左側に位置すれば cc に追加 (直線上にある場合も含む)
+        if (ccw(p1, p2, a) != CLOCKWISE) {
+            cc.push_back(a);
+        }
+        // 2. 線分 ab が直線と交差すれば交点を cc に追加 (端点の場合は含めない)
+        if (!on_line(l, a) && !on_line(l, b) && is_intersected(l, s)) {
+            cc.push_back(cross_point(l, Line(a, b)));
+        }
+    }
+    return cc;
 }
