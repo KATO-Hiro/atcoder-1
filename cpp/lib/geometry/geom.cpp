@@ -207,13 +207,38 @@ bool is_intersected(const Circle& c, const Line& l) {
     if (on_circle(c.c, l)) return true;
     return distance(c.c, l) <= c.r;
 }
-// 円と円の交差判定
-// 接している場合も交差しているとみなされる
+
+// 円と交差判定
+// 2つの円の共通接線の数を計算する
+//   4本: 離れている
+//   3本: 外接
+//   2本: 2点交差
+//   1本: 内接
+//   0本: 内包
+int circle_intersection(const Circle& c1, const Circle& c2) {
+    int n;  // 共通接線の数
+    double d = distance(c1.c, c2.c);
+    double r1 = c1.r, r2 = c2.r;
+    if (r1 > r2) swap(r1, r2);  // r1 <= r2
+    if (r1 + r2 < d) {
+        n = 4; 
+    } else if (eq(r1 + r2, d)) {
+        n = 3;
+    } else if (d + r1 > r2) {
+        n = 2;
+    } else if (eq(d + r1, r2)) {
+        n = 1;
+    } else {  // d + r1 < r2
+        n = 0;
+    }
+    return n;
+}
+
+// 円と交差判定
+// 外接・2点交差・内接の場合に交差していると判定する
 bool is_intersected(const Circle& c1, const Circle& c2) {
-    double c12 = distance(c1.c, c2.c);
-    double r12 = c1.r + c2.r;
-    if (eq(c12, r12)) return true;
-    return c12 < r12;
+    int n = circle_intersection(c1, c2);
+    return (n == 3 || n == 2 || n == 1) ? true : false;
 }
 
 // 円と直線の交点を求める
