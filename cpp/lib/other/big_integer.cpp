@@ -20,4 +20,4 @@ int main() {
     return 0;
 }
 // Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_2_A&lang=ja
-//     please use language: C++ (not C++17)
+//     please use language: C++11 (not C++17)
