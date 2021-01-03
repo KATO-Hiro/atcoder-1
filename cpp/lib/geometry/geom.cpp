@@ -271,6 +271,20 @@ pair<Point, Point> cross_point(const Circle& c1, const Circle& c2) {
     return make_pair(c1.c + polar2carte(c1.r, t + a), c1.c + polar2carte(c1.r, t - a));
 }
 
+// 点 p を通る円 c の接線を求める
+// 点 p が円 c の外側に存在することを想定
+pair<Point, Point> tangent_point(const Point& p, const Circle& c) {
+    // 三平方の定理より点 p と接点の距離 d が得られるため，
+    // 点 p を中心とする半径 d の円と円 c の交点を求めればよい
+    double d = sqrt(norm(c.c - p) - c.r * c.r);
+    return cross_point(c, Circle(p, d));
+}
+
+// 2つの円の共通接線を求める
+// Lines common_tangent(const Circle& c1, const Circle& c2) {
+//     ;  // TODO
+// }
+
 // 2点を直径とする円を求める
 Circle circle_with_2pt_as_diameter(const Point& p1, const Point& p2) {
     return Circle((p1 + p2) / 2, distance(p1, p2) / 2);
