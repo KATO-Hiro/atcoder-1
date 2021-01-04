@@ -18,6 +18,7 @@ S e() { return 0; }
 //   - インライン DP
 //   - セグメント木
 //   - LIS の派生問題
+//   - 蟻本 p.186 が類題
 
 int main() {
     ios::sync_with_stdio(false);
