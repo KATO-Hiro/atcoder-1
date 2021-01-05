@@ -1,120 +1,42 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+#define ALL(c) (c).begin(), (c).end()
+#define SORT(c) sort(ALL(c))
+// --------------------------------------------------------
+#include <atcoder/dsu>
+using namespace atcoder;
 
 
-/**
- * @brief Union Find class.
- * 
- * @details "Path compression" and "Union by rank" are used.
- * @see <https://en.wikipedia.org/wiki/Disjoint-set_data_structure>
- */
-class UnionFind {
-    public:
-        /**
-         * @brief Construct a new Union Find object.
-         * 
-         * @param N Number of node.
-         */
-        UnionFind(int N) {
-            _N = N;
-            _make_set();
-        }
-
-        /**
-         * @brief Find the root of the set containing x.
-         * 
-         * @param x node (1-based index).
-         */
-        int find(int x) {
-            if (_parent[x] != x) {
-                _parent[x] = find(_parent[x]);
-            }
-            return _parent[x];
-        }
-
-        /**
-         * @brief Replace the set containing x and the set containing y
-         *        with their union.
-         * 
-         * @param x node (1-based index).
-         * @param y node (1-based index).
-         */
-        void unite(int x, int y) {
-            int x_root = find(x);
-            int y_root = find(y);
-
-            if (x_root == y_root) return;
-
-            int x_rank = _rank[x_root];
-            int y_rank = _rank[y_root];
-            if (x_rank > y_rank) {
-                _parent[y_root] = x_root;
-                _size[x_root] += _size[y_root];
-            } else if (x_rank < y_rank) {
-                _parent[x_root] = y_root;
-                _size[y_root] += _size[x_root];
-            } else {
-                _parent[y_root] = x_root;
-                _rank[x_root] += 1;
-                _size[x_root] += _size[y_root];
-            }
-        }
-
-        /**
-         * @brief Whether the set containing x is the same as the set containing y.
-         * 
-         * @param x node (1-based index).
-         * @param y node (1-based index).
-         */
-        bool same_set(int x, int y) { return find(x) == find(y); }
-
-        /**
-         * @brief Number of elements in the set containing x.
-         * 
-         * @param x node (1-based index).
-         */
-        int size(int x) { return _size[find(x)]; }
-
-    private:
-        int _N;
-        vector<int> _parent, _rank, _size;
-
-        void _make_set() {
-            _parent = vector<int>(_N + 1);
-            iota(_parent.begin(), _parent.end(), 0);
-            _rank = vector<int>(_N + 1, 0);
-            _size = vector<int>(_N + 1, 1);
-        }
-};
-
-
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A
 int main() {
-    int V, E;
-    cin >> V >> E;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(15);
 
-    vector<vector<ll>> stw(E, vector<ll>(3));
-    int s, t, w;
-    rep(i, E) {
+    ll N, M; cin >> N >> M;
+    vector<tuple<ll,ll,ll>> wst(M);
+    ll s, t, w;
+    REP(i,M) {
         cin >> s >> t >> w;
-        stw[i] = {s, t, w};
+        get<0>(wst[i]) = w;
+        get<1>(wst[i]) = s;
+        get<2>(wst[i]) = t;
     }
-    sort(stw.begin(), stw.end(), [](auto a, auto b) {return a[2] < b[2];});
+    SORT(wst);
 
-    auto uf = UnionFind(V);
-
+    dsu uf(N);
     ll ans = 0;
-    for (auto x : stw) {
-        s = x[0] + 1;  // For AOJ input type (0-based)
-        t = x[1] + 1;  // For AOJ input type (0-based)
-        w = x[2];
-        if (uf.same_set(s, t)) continue;
-        uf.unite(s, t);
+    for (auto& x : wst) {
+        tie(w, s, t) = x;
+        if (uf.same(s, t)) continue;
+        uf.merge(s, t);
         ans += w;
     }
     cout << ans << endl;
 
     return 0;
 }
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A

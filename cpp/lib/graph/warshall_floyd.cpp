@@ -3,7 +3,7 @@ using namespace std;
 using ll = long long;
 // --------------------------------------------------------
 template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
@@ -13,7 +13,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 
 // 0-based index
 void warshall_floyd(VVLL& G) {
-    const int N = (int)G.size();
+    const ll N = (ll)G.size();
 
     REP(k, N) {
         REP(i, N) {
@@ -32,11 +32,9 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(10);
 
-    int N, M; cin >> N >> M;
-    VVLL G(N, VLL(N, INF));
-    REP(i,N) G[i][i] = 0LL;
-
-    int s, t; ll d;
+    ll N, M; cin >> N >> M;
+    VVLL G(N, VLL(N, INF)); REP(i,N) G[i][i] = 0LL;
+    ll s, t, d;
     REP(_, M) {
         cin >> s >> t >> d;
         G[s][t] = d;
