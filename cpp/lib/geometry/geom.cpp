@@ -205,10 +205,10 @@ bool on_line(const Line& l, const Point& p) {
 // 接している場合も交差しているとみなされる
 bool is_intersected(const Circle& c, const Line& l) {
     if (on_circle(c.c, l)) return true;
-    return distance(c.c, l) <= c.r;
+    return distance(c.c, l) < c.r;
 }
 
-// 円と交差判定
+// 円の交差判定
 // 2つの円の共通接線の数を計算する
 //   4本: 離れている
 //   3本: 外接
@@ -234,7 +234,7 @@ int circle_intersection(const Circle& c1, const Circle& c2) {
     return n;
 }
 
-// 円と交差判定
+// 円の交差判定
 // 外接・2点交差・内接の場合に交差していると判定する
 bool is_intersected(const Circle& c1, const Circle& c2) {
     int n = circle_intersection(c1, c2);
@@ -324,7 +324,7 @@ Circle circumscribed_circle_of_triangle(const Point& A, const Point& B, const Po
     double x = a2 * (b2 + c2 - a2);
     double y = b2 * (c2 + a2 - b2);
     double z = c2 * (a2 + b2 - c2);
-    double w = x + y + z;  // 桁落ち対策のため x/w などとしている
+    double w = x + y + z;  // 情報落ち対策のため x/w などとしている
     Point O = A*(x/w) + B*(y/w) + C*(z/w);  // 外心
     double R = distance(O, A);  // 外接円の半径
     return Circle(O, R);
