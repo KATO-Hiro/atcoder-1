@@ -2,9 +2,8 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-using VI = vector<int>;
 // --------------------------------------------------------
 #include <atcoder/maxflow>
 using namespace atcoder;
@@ -15,24 +14,18 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(15);
 
-    int N, M, E; cin >> N >> M >> E;
-    VI P(M); REP(i,M) cin >> P[i];
-
+    ll N, M; cin >> N >> M;
+    ll s = 0, t = N - 1;
     mf_graph<ll> G(N + 1);
-    int s = 0, t = N;
-    int a, b;
-    REP(_,E) {
-        cin >> a >> b;
-        G.add_edge(a, b, 1);
-        G.add_edge(b, a, 1);
-    }
-    for (int p : P) {
-        G.add_edge(p, t, 1);
+    ll u, v, c;
+    REP(_,M) {
+        cin >> u >> v >> c;
+        G.add_edge(u, v, c);
     }
 
-    int ans = G.flow(s, t);
-    cout << ans << '\n';
+    ll ans = G.flow(s, t);
+    cout << ans << endl;;
 
     return 0;
 }
-// Verify: https://atcoder.jp/contests/abc010/tasks/abc010_4
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_6_A&lang=ja
