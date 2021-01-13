@@ -17,8 +17,8 @@ using VVLL = vector<VLL>;
  * 
  * @param X1 区間の始点配列の参照 (圧縮後の座標に書き換えられる)
  * @param X2 区間の終点配列の参照 (圧縮後の座標に書き換えられる)
- * @param min_x 座標が取り得る最小値 (例: MIN(X1,X2), 制約から決定)
- * @param max_x 座標が取り得る最大値 (例: MAX(X1,X2), 制約から決定)
+ * @param min_x 座標が取り得る最小値 (例: MIN(X1,X2) or 制約から決定)
+ * @param max_x 座標が取り得る最大値 (例: MAX(X1,X2) or 制約から決定)
  * @param ds 確保する座標の調整値配列 (default: {-1, 0, 1})
  * @return VLL 圧縮前の座標配列 (圧縮後の座標と1対1対応)
  */
@@ -59,7 +59,7 @@ int main() {
 
     ll min = -1e9;
     ll max = +1e9;
-    VLL ds = {0};
+    VLL ds = {0};  // メモリに余裕があればデフォルト {-1, 0, 1} が無難
     auto XS = compress_interval(X1, X2, min, max, ds);
     auto YS = compress_interval(Y1, Y2, min, max, ds);
 
