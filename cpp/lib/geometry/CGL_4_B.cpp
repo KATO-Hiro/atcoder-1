@@ -2,14 +2,45 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-// static const double EPS = 1e-10;
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
+#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define RFOR(i,l,r) for (int i = (r)-1; (l) <= i; --i)
+#define REP(i,n) FOR(i,0,n)
+#define RREP(i,n) RFOR(i,0,n)
+#define ALL(c) (c).begin(), (c).end()
+#define RALL(c) (c).rbegin(), (c).rend()
+#define SORT(c) sort(ALL(c))
+#define RSORT(c) sort(RALL(c))
+#define MIN(c) *min_element(ALL(c))
+#define MAX(c) *max_element(ALL(c))
+#define SUM(c) accumulate(ALL(c), 0)
+#define SUMLL(c) accumulate(ALL(c), 0LL)
+#define SZ(c) ((int)(c).size())
+#define CIN(c) cin >> (c)
+#define COUT(c) cout << (c) << '\n'
+#define debug(x) cerr << #x << " = " << (x) << '\n';
+using P = pair<int,int>;
+using VP = vector<P>;
+using VVP = vector<VP>;
+using VS = vector<string>;
+using VI = vector<int>;
+using VVI = vector<VI>;
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
+using VB = vector<bool>;
+using VVB = vector<VB>;
+using VD = vector<double>;
+using VVD = vector<VD>;
+static const double EPS = 1e-10;
+static const double PI  = acos(-1.0);
+static const ll MOD = 1000000007;
+// static const ll MOD = 998244353;
+static const int INF = (1 << 30) - 1;  // 1073741824 - 1
+// static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
-
-// References:
-//   『プログラミングコンテスト攻略のためのアルゴリズムとデータ構造』
-//   <https://github.com/atcoder/live_library/blob/master/geom/vector.cpp>
-//   <https://ei1333.github.io/luzhiled/snippets/geometry/template.html>
-
+// #include <atcoder/all>
+// using namespace atcoder;
 
 // 微小値 EPS の誤差を許容して a, b が等価であるか判定する
 inline bool eq(double a, double b) { return fabs(a - b) < EPS; }
@@ -438,7 +469,7 @@ Polygon convex_cut(const Polygon& P, const Line& l) {
 // 凸多角形の直径を求める（最遠点対間距離）
 double convex_diameter(const Polygon& P) {
     Polygon Q = convex_hull(P, true);
-    reverse(Q.begin(), Q.end());
+    reverse(Q.begin(), Q.end());  // 下記では反時計回りを想定しているため
     const int N = (int)Q.size();
     if (N == 2) { return distance(Q[0], Q[1]); }
     int i = 0, j = 0;  // 最遠点対
@@ -447,8 +478,8 @@ double convex_diameter(const Polygon& P) {
         if (Q[j] < Q[k]) j = k;  // 最も右側
     }
     double res = 0;
-    int si = i, sj = j;  // 終了判定用メモ
-    while (i != sj || j != si) {  // 180度まで回転しながら解析
+    int si = i, sj = j;  // 終了判定用
+    while (i != sj || j != si) {  // 反時計回りに180度まで回転しながら解析
         res = max(res, distance(Q[i], Q[j]));
         // 符号付き面積を利用して次の最遠点対が Q_{i+1}, Q_{j+1} のどちらか決定
         if (cross(Q[(i+1)%N] - Q[i], Q[(j+1)%N] - Q[j]) < 0) {
@@ -459,3 +490,20 @@ double convex_diameter(const Polygon& P) {
     }
     return res;
 }
+
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(15);
+
+    int N; cin >> N;
+    Polygon P(N); REP(i,N) cin >> P[i].x >> P[i].y;
+
+    double ans = convex_diameter(P);
+    cout << ans << endl;
+
+    return 0;
+}
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_4_B&lang=ja
