@@ -438,7 +438,7 @@ Polygon convex_cut(const Polygon& P, const Line& l) {
 // 凸多角形の直径を求める（最遠点対間距離）
 double convex_diameter(const Polygon& P) {
     Polygon Q = convex_hull(P, true);
-    reverse(Q.begin(), Q.end());
+    reverse(Q.begin(), Q.end());  // 下記では反時計回りを想定しているため
     const int N = (int)Q.size();
     if (N == 2) { return distance(Q[0], Q[1]); }
     int i = 0, j = 0;  // 最遠点対
@@ -447,8 +447,8 @@ double convex_diameter(const Polygon& P) {
         if (Q[j] < Q[k]) j = k;  // 最も右側
     }
     double res = 0;
-    int si = i, sj = j;  // 終了判定用メモ
-    while (i != sj || j != si) {  // 180度まで回転しながら解析
+    int si = i, sj = j;  // 終了判定用
+    while (i != sj || j != si) {  // 反時計回りに180度まで回転しながら解析
         res = max(res, distance(Q[i], Q[j]));
         // 符号付き面積を利用して次の最遠点対が Q_{i+1}, Q_{j+1} のどちらか決定
         if (cross(Q[(i+1)%N] - Q[i], Q[(j+1)%N] - Q[j]) < 0) {
