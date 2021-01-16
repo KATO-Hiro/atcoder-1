@@ -11,8 +11,8 @@
         - lower_bound, upper_bound
         - rbegin, rend
     - 使用変数のミス
-        - 入力時に `M` 回受け取るところで `N` 回にしてしまってるとか
-        - `i` とすべきところで `j` にしているとか
+        - 入力時に `M` 回受け取るところで `N` 回にしてしまってる
+        - `i` とすべきところで `j` にしている
     - sort のし忘れ
     - sort の降順・昇順ミス（`SORT` じゃなくて `RSORT`）
     - 符号ミス（マイナスつけ忘れ，引き算順序ミスなど）
@@ -31,36 +31,73 @@
         - 1 の場合
         - 2 の場合
     - 出力形式ミス
-        - 構築系なら最初にサイズを出力するとか
+        - 構築系なら最初にサイズを出力するかどうか
     - 0-based, 1-based のミス
-    - 有効グラフ・無向グラフのミス
-    - FOR，REP の範囲ミス
-        - `FOR(i,1,N+1)` が `FOR(i,1,N)` になっているとか
+    - 有向グラフ・無向グラフのミス
+    - ループ範囲ミス
+        - `FOR(i,1,N+1)` が `FOR(i,1,N)` になっている
+        - `REP(i,1<<N)` が `REP(i,N)` になっている
 
-## 典型メモ
-
-- 方針
-    - 正攻法でダメなら貪欲法を検討（計算量を見積もる）
-    - 愚直実装で実験して解法の糸口を掴む
+## 典型考察メモ
 
 - 全般
     - 組み合わせ問題は部分問題に分割
     - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
-    - 区間は「累積和」「セグメント木」「DP」で考える
-    - 条件を満たす区間の「最大/最小の長さ」「数え上げ」は尺取り法
+    - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
+    - 「必ず○○する□□をすべて求めよ（○○＝使う・通る等）」
+        - 各□□を一時的に無効にして成立するか評価することで各□□が必要か判定できる
+
+- DP
+    - 貰う DP は累積和で高速化できる可能性がある
+    - 配る DP はインライン DP が使える可能性がある
+    - unordered_set 配列より bool 配列の方が高速 (値の範囲が狭い場合) [[abc147_e](https://atcoder.jp/contests/abc147/tasks/abc147_e)]
+    - 桁DP
+        - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
+        - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
+
+- グラフ
+    - 順序付きの集合は DAG で扱える（順序付けされているものを頂点に乗せる）
+        - DAG は DP が使える（最短経路問題など）
+    - 最短経路問題などを解いた結果を用いて別のグラフを構築して解くケースがある
+    - 条件式がたくさんあり芋づる式に確定していく問題はグラフで考える
+
+- 貪欲
+    - スケジューリングは前から貪欲に考える
+    - 計算量解析すると実は貪欲で間に合うケースがある [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)]
+
+- 数え上げ
+    - 主客転倒テク：すべての組み合わせのコスト総和を計算する場合，ある1つの組み合わせにおけるコストを要素毎に分解して，各要素が題意に与える寄与を独立に計算して数え上げる
+    - 数え上げは DP の可能性が高い
+    - 愚直な DP を考えてから高速化を考える（累積和など）
+
+- ゲーム
+    - 後退解析 + メモ化再帰 によるゲーム DP (状態数オーダーに注意)
+    - Grundy 数
+    - 不変量
+    - adhoc, O(1)
+    - 考察ネタ
+        - パリティを考える (操作回数のパリティ等)
+        - 初期配置のパターンで場合分けする
+        - 勝利確定パターンを探す
+        - 終了局面に何か特徴がないか考える
+        - 最終手段は実験 (ノート・愚直コード)
+
+- 操作系
+    - 不変量に着目する（全体の総和など）
 
 - XOR
     - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
 
-- 桁DP
-    - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
-    - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
+---
+
+以下は一応残してるだけ
 
 ## C++ (GCC 9.2.1)
 
 - `next_permutation()` は対象が昇順ソート済みでないと順列が全列挙されない
 - `double` 型の値を出力する際は表示桁数を増やさないと精度低下する [[link](https://atcoder.jp/contests/apg4b/tasks/APG4b_y)]
 - `string` 型は終端文字 `'\0'` が入っているため，range-for などで注意が必要
+- `boost/multiprecision` を使えば C++ でも多倍長整数が使える
 
 ## Numba (0.48.0)
 
@@ -78,83 +115,3 @@
         - `combinations`, `combinations_with_replacement`, `permutations`, `product`
     - `pow` が使えない
     - `set()` が使えない
-
-## 自己分析
-
-- C++
-- 水色レベル感で熟練度を自己評価
-
-### アルゴリズム
-
-|大分類                |小分類                |熟練度    |ライブラリ|備考|
-|:--------------------:|:---------------------|:--------:|:--------:|:--:|
-|全探索                |再帰関数              |■■■□□|||
-|全探索                |スタック              |■■■■□|||
-|全探索                |キュー                |■■■■□|||
-|全探索                |深さ優先探索 (DFS)    |■■■■□|:heavy_check_mark:||
-|全探索                |幅優先探索 (BFS)      |■■■■□|:heavy_check_mark:||
-|全探索                |0-1 BFS               |■■■□□|:heavy_check_mark:||
-|全探索                |順列全探索            |■■■■□|:heavy_check_mark:||
-|全探索                |bit全探索             |■■■□□|:heavy_check_mark:||
-|全探索                |半分全列挙            |□□□□□|:white_check_mark:||
-|二分探索              |ソート整数列          |■■■□□|:heavy_check_mark:||
-|二分探索              |ソート実数列          |■■□□□|||
-|二分探索              |決め打ち二分探索      |■■□□□|||
-|貪欲法                |                      |□□□□□|:white_check_mark:||
-|グラフ                |ダイクストラ法        |■■■□□|:heavy_check_mark:||
-|グラフ                |ワーシャルフロイド法  |■■■■□|:heavy_check_mark:||
-|グラフ                |クラスカル法          |■■□□□|:heavy_check_mark:||
-|グラフ                |ベルマンフォード法    |■■□□□|:heavy_check_mark:||
-|グラフ                |拡張ダイクストラ法    |□□□□□|:white_check_mark:||
-|木                    |                      |□□□□□|:white_check_mark:||
-|整数論                |最小公倍数 (LCM)      |■■■■■|:heavy_check_mark:||
-|整数論                |最大公約数 (GCD)      |■■■■■|:heavy_check_mark:||
-|整数論                |ユークリッドの互除法  |■■■□□|:white_check_mark:||
-|整数論                |拡張ユークリッドの互除法 |□□□□□|:white_check_mark:||
-|整数論                |素数判定 (試し割り法) |■■■■■|:heavy_check_mark:||
-|整数論                |素因数分解 (試し割り法) |■■■■■|:heavy_check_mark:||
-|整数論                |素因数分解 (osa_k法)  |□□□□□|:white_check_mark:|[[link](https://qiita.com/rsk0315_h4x/items/ff3b542a4468679fb409)]|
-|整数論                |素数列挙 (エラトステネスの篩) |■■■□□|:heavy_check_mark:||
-|整数論                |素数列挙 (エラトステネスの区間篩) |□□□□□|:white_check_mark:||
-|整数論                |約数列挙              |■■■□□|:heavy_check_mark:||
-|整数論                |べき乗 (繰り返し二乗法) |■■■■■|:heavy_check_mark:||
-|整数論                |逆元                  |■■■□□|:heavy_check_mark:|modint.cpp に実装|
-|整数論                |二項係数 (nCk) mod P  |■■■□□|:heavy_check_mark:|modint.cpp に実装||
-|動的計画法 (DP)       |ナップサック          |■■■□□|:white_check_mark:||
-|動的計画法 (DP)       |桁DP                  |■■■□□|:heavy_check_mark:||
-|動的計画法 (DP)       |bit DP                |■■■□□|:heavy_check_mark:||
-|動的計画法 (DP)       |連鎖行列積            |■■□□□|:heavy_check_mark:||
-|動的計画法 (DP)       |最長共通部分列 (LCS)  |■■■□□|:heavy_check_mark:||
-|動的計画法 (DP)       |最長増加部分列 (LIS)  |■■□□□|:heavy_check_mark:||
-|累積和                |1次元                 |■■■■□|||
-|累積和                |2次元                 |■■■□□|:heavy_check_mark:||
-|累積和                |imos法 (1次元)        |■■□□□|:white_check_mark:||
-|累積和                |imos法 (2次元)        |■□□□□|:white_check_mark:||
-|計算幾何学            |                      |□□□□□|:white_check_mark:||
-|フロー                |最大流                |■■□□□|:white_check_mark:||
-|フロー                |最小カット            |■□□□□|:white_check_mark:||
-|フロー                |最小費用流            |□□□□□|:white_check_mark:||
-|未分類                |しゃくとり法          |■■□□□|:heavy_check_mark:||
-|未分類                |ライツアウト          |□□□□□|:white_check_mark:||
-|未分類                |弾性衝突              |□□□□□|:white_check_mark:||
-|未分類                |座標圧縮              |□□□□□|:white_check_mark:||
-|未分類                |行列累乗              |□□□□□|:white_check_mark:||
-|                      |                      |□□□□□|:white_check_mark:||
-|                      |                      |□□□□□|:white_check_mark:||
-
-### データ構造
-
-|大分類                |小分類                |自己評価  |ライブラリ|備考|
-|:--------------------:|:--------------------:|:--------:|:--------:|:--:|
-|Union-Find            |                      |■■■□□|:heavy_check_mark:||
-|Union-Find            |重み付き Union-Find   |□□□□□|:white_check_mark:||
-|Union-Find            |永続 Union-Find       |□□□□□|:white_check_mark:||
-|平衡二分木            |                      |■■■□□|||
-|優先度付きキュー      |                      |■■■□□|||
-|二分探索木            |                      |□□□□□|:white_check_mark:||
-|Fenwick Tree (BIT)    |                      |■■■□□|:white_check_mark:||
-|セグメント木          |                      |■■■□□|:heavy_check_mark:||
-|遅延評価セグメント木  |                      |■■□□□|:heavy_check_mark:||
-|バケット法            |                      |□□□□□|:white_check_mark:||
-|平方分割              |                      |□□□□□|:white_check_mark:||
-|                      |                      |□□□□□|:white_check_mark:||
