@@ -2,14 +2,45 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-// static const double EPS = 1e-10;
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
+#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define RFOR(i,l,r) for (int i = (r)-1; (l) <= i; --i)
+#define REP(i,n) FOR(i,0,n)
+#define RREP(i,n) RFOR(i,0,n)
+#define ALL(c) (c).begin(), (c).end()
+#define RALL(c) (c).rbegin(), (c).rend()
+#define SORT(c) sort(ALL(c))
+#define RSORT(c) sort(RALL(c))
+#define MIN(c) *min_element(ALL(c))
+#define MAX(c) *max_element(ALL(c))
+#define SUM(c) accumulate(ALL(c), 0)
+#define SUMLL(c) accumulate(ALL(c), 0LL)
+#define SZ(c) ((int)(c).size())
+#define CIN(c) cin >> (c)
+#define COUT(c) cout << (c) << '\n'
+#define debug(x) cerr << #x << " = " << (x) << '\n';
+using P = pair<int,int>;
+using VP = vector<P>;
+using VVP = vector<VP>;
+using VS = vector<string>;
+using VI = vector<int>;
+using VVI = vector<VI>;
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
+using VB = vector<bool>;
+using VVB = vector<VB>;
+using VD = vector<double>;
+using VVD = vector<VD>;
+static const double EPS = 1e-10;
+static const double PI  = acos(-1.0);
+static const ll MOD = 1000000007;
+// static const ll MOD = 998244353;
+static const int INF = (1 << 30) - 1;  // 1073741824 - 1
+// static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
-
-// References:
-//   『プログラミングコンテスト攻略のためのアルゴリズムとデータ構造』
-//   <https://github.com/atcoder/live_library/blob/master/geom/vector.cpp>
-//   <https://ei1333.github.io/luzhiled/snippets/geometry/template.html>
-
+// #include <atcoder/all>
+// using namespace atcoder;
 
 // 微小値 EPS の誤差を許容して a, b が等価であるか判定する
 inline bool eq(double a, double b) { return fabs(a - b) < EPS; }
@@ -467,12 +498,12 @@ double closest_pair(Points P) {
     sort(P.begin(), P.end());
     auto compare_y = [](const Point& a, const Point& b) -> bool { return a.y < b.y; };
     const double DINF = 1e18;
-    Points B(N);  // x座標を左右に分ける直線付近の点集合を保管用に使い回す配列
+    Points B(N);
     auto rec = [&](auto self, ll l, ll r) -> double {
         if (r - l <= 1) return DINF;
         int m = (l + r) / 2;  // x座標を左右に分ける直線のインデックス
         double x = P[m].x;    // x座標を左右に分ける直線のx座標
-        double d = min(self(self, l, m), self(self, m, r));  // 最近点対間距離
+        double d = min(self(self, l, m), self(self, m, r));  // 最近点対距離
         inplace_merge(P.begin() + l, P.begin() + m, P.begin() + r, compare_y);
         int k = 0;
         for (int i = l; i < r; i++) {
@@ -489,3 +520,20 @@ double closest_pair(Points P) {
     };
     return rec(rec, 0, N);
 }
+
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(15);
+
+    int N; cin >> N;
+    Points P(N); REP(i,N) cin >> P[i].x >> P[i].y;
+
+    double ans = closest_pair(P);
+    cout << ans << endl;
+
+    return 0;
+}
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_5_A&lang=ja
