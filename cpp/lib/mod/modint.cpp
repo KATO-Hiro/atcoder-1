@@ -82,28 +82,28 @@ struct combination {
         }
     }
 
-    constexpr mint P(int n, int k) const noexcept {
+    mint P(const int& n, const int& k) const noexcept {
         if (n < 0 || k < 0 || n < k) return 0;
         return fact_[n] * ifact_[n-k];
     }
-    constexpr mint C(int n, int k) const noexcept {
+    mint C(const int& n, const int& k) const noexcept {
         if (n < 0 || k < 0 || n < k) return 0;
         return fact_[n] * ifact_[n-k] * ifact_[k];
     }
-    constexpr mint H(int n, int k) const noexcept {
+    mint H(const int& n, const int& k) const noexcept {
         if (n < 0 || k < 0) return 0;
         assert(n + k - 1 <= n_);
         return C(n + k - 1, k);
     }
-    constexpr mint fact(int n) const noexcept {
+    mint fact(const int& n) const noexcept {
         if (n < 0) return 0;
         return fact_[n];
     }
-    constexpr mint ifact(int n) const noexcept {
+    mint ifact(const int& n) const noexcept {
         if (n < 0) return 0;
         return ifact_[n];
     }
-    constexpr mint inv(int n) const noexcept {
+    mint inv(const int& n) const noexcept {
         if (n < 0) return 0;
         return inv_[n];
     }
