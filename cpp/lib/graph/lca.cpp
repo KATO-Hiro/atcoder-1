@@ -2,35 +2,37 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
-#define RFOR(i,l,r) for (int i = (r)-1; (l) <= i; --i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
+#define RFOR(i,l,r) for (ll i = (r)-1; (l) <= i; --i)
 #define REP(i,n) FOR(i,0,n)
 #define RREP(i,n) RFOR(i,0,n)
-using VI = vector<int>;
-using VVI = vector<VI>;
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
 // --------------------------------------------------------
 
+// LCA (Lowest Common Ancestor): 最小共通祖先
+// - ダブリングによる実装
 struct LCA {
-    VVI parent;  // parent[k][u]: parent that climbed 2^k times from u (doubling)
-    VI depth;  // depth from root
-    int N;  // number of vertices
-    int K;  // number of digit in binary notation for doubling
-    LCA(const VVI& G, int root) { init(G, root); }
+    VVLL parent;  // parent[k][u]: parent that climbed 2^k times from u (doubling)
+    VLL depth;  // depth from root
+    ll N;  // number of vertices
+    ll K;  // number of digit in binary notation for doubling
+    LCA(const VVLL& G, ll root) { init(G, root); }
 
-    void init(const VVI& G, int root) {
-        N = (int)G.size();
+    void init(const VVLL& G, ll root) {
+        N = (ll)G.size();
         K = 1;
-        while ((1 << K) <= N) K++;
-        parent = VVI(K, VI(N, 0));
-        depth = VI(N);
+        while ((1LL << K) <= N) K++;
+        parent = VVLL(K, VLL(N, 0));
+        depth = VLL(N);
 
         // initialize parent[0] and depth
-        auto dfs = [&](auto f, int u, int p, int d) -> void {
+        auto dfs = [&](auto self, ll u, ll p, ll d) -> void {
             parent[0][u] = p;
             depth[u] = d;
-            for (int v : G[u]) {
+            for (ll v : G[u]) {
                 if (v == p) continue;
-                f(f, v, u, d + 1);
+                self(self, v, u, d + 1);
             }
         };
         dfs(dfs, root, -1, 0);
@@ -46,16 +48,17 @@ struct LCA {
     }
 
     // level-ancestor: ancestor of u with depth d
-    int la(int u, int d) {
+    ll la(ll u, ll d) {
         RREP(k,K) {
-            if (d & (1 << k)) {
+            if (d & (1LL << k)) {
                 u = parent[k][u];
             }
         }
         return u;
     }
 
-    int query(int u, int v) {
+    // LCA of (u, v)
+    ll query(ll u, ll v) {
         if (depth[u] < depth[v]) swap(u, v);
         // now, depth[u] >= depth[v]
         u = la(u, depth[u] - depth[v]);
@@ -69,13 +72,13 @@ struct LCA {
         return parent[0][u];
     }
 
-    int distance(int u, int v) {
+    // number of edges from u to v
+    ll distance(ll u, ll v) {
         return depth[u] + depth[v] - 2*depth[query(u, v)];
     }
 
-    // [TODO] verify
-    // whether w is on the path of u and v
-    bool on_path(int u, int v, int w) {
+    // whether w is on the path of (u, v)
+    bool on_path(ll u, ll v, ll w) {
         return distance(u, w) + distance(w, v) == distance(u, v);
     }
 };
@@ -86,12 +89,12 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(15);
 
-    int N; cin >> N;
-    VVI G(N);
+    ll N; cin >> N;
+    VVLL G(N);
     REP(u,N) {
-        int k; cin >> k;
+        ll k; cin >> k;
         REP(_,k) {
-            int c; cin >> c;
+            ll c; cin >> c;
             G[u].push_back(c);
             G[c].push_back(u);
         }
@@ -99,9 +102,9 @@ int main() {
 
     LCA lca(G, 0);
 
-    int Q; cin >> Q;
+    ll Q; cin >> Q;
     REP(_,Q) {
-        int u, v; cin >> u >> v;
+        ll u, v; cin >> u >> v;
         cout << lca.query(u, v) << '\n';
     }
 
