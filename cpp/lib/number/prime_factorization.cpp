@@ -1,23 +1,26 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+// --------------------------------------------------------
 
 
-vector<ll> prime_factorization(ll n) {
-    vector<ll> factors;
+map<ll,ll> prime_factorization(ll n) {
+    map<ll,ll> factors;
     ll f = 3, root_n = (ll)(sqrt(n) + 0.5);
 
     // factor: 2
     while (n % 2 == 0) {
-        factors.push_back(2);
+        factors[2]++;
         n /= 2;
     }
 
     // factor: 3, 5, 7, 11, ...
     while (f <= root_n) {
         if (n % f == 0) {
-            factors.push_back(f);
+            factors[f]++;
             n /= f;
         }
         else {
@@ -25,7 +28,7 @@ vector<ll> prime_factorization(ll n) {
         }
     }
 
-    if (n != 1) factors.push_back(n);
+    if (n != 1) factors[n]++;
     return factors;
 }
 
@@ -36,21 +39,13 @@ int main() {
 
     auto factors = prime_factorization(n);
     cout << n << ":";
-    rep(i, factors.size()) cout << " " << factors[i];
+    for (auto& m : factors) {
+        ll f = m.first;
+        ll n = m.second;
+        while (n--) cout << " " << f;
+    }
     cout << endl;
 
     return 0;
 }
-
-/*
-https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/all/NTL_1_A
-
-input 2
--------
-126
-
-output 2
---------
-126: 2 3 3 7
-
-*/
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja
