@@ -6,6 +6,8 @@ template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } 
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using VLL = vector<ll>;
+using VVLL = vector<VLL>;
+using VB = vector<bool>;
 static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
@@ -33,6 +35,25 @@ bool bellman_ford(VVE& G, VLL& dist, ll s) {
     return false;
 }
 
+// 頂点 s から到達可能であるか否かの bool 配列を返す
+//   「スタート地点からあるループを経由してゴール地点へ移動する」
+//   が可能であるかを下記によって調べるために本メソッドは使用される想定
+//     - スタート地点からそのループに到達できるか
+//     - そのループからゴール地点に到達できるか
+//   実装参考: <https://atcoder.jp/contests/abc137/submissions/18998862>
+VB bfs(VVLL& G, ll s) {
+    queue<ll> q; q.push(s);
+    VB B(G.size(),false); B[s] = true;
+    while (!q.empty()) {
+        ll u = q.front(); q.pop();
+        for (ll v : G[u]) {
+            if (B[v]) continue;
+            B[v] = true;
+            q.push(v);
+        }
+    }
+    return B;
+}
 
 int main() {
     ios::sync_with_stdio(false);
