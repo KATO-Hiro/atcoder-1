@@ -10,6 +10,7 @@ cpp/main.cpp
 cpp/combined.cpp
 cpp/ac-library
 cpp/AOJ
+cpp/PAST
 *.out
 
 python/main.py
