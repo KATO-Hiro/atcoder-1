@@ -68,6 +68,7 @@ using VVVVM = vector<VVVM>;
 struct combination {
     vector<mint> fact_, ifact_, inv_;
     int n_;
+    combination() {}
     combination(int n) : fact_(n+1,0), ifact_(n+1,0), inv_(n+1,0) {
         assert(n != 0);
         assert(n < MOD);
@@ -96,14 +97,17 @@ struct combination {
         return C(n + k - 1, k);
     }
     mint fact(const int& n) const noexcept {
+        assert(n <= n_);
         if (n < 0) return 0;
         return fact_[n];
     }
     mint ifact(const int& n) const noexcept {
+        assert(n <= n_);
         if (n < 0) return 0;
         return ifact_[n];
     }
     mint inv(const int& n) const noexcept {
+        assert(n <= n_);
         if (n < 0) return 0;
         return inv_[n];
     }
