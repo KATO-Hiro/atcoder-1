@@ -4,10 +4,10 @@ using namespace std;
 using ll = long long;
 
 
-ll pow(ll x, ll n, ll mod) {
+ll pow_mod(ll x, ll n, ll mod) {
     ll res = 1;
     if (n > 0) {
-        res = pow(x, n / 2, mod);
+        res = pow_mod(x, n / 2, mod);
         if (n % 2 == 0) res = (res * res) % mod;
         else res = (((res * res) % mod) * x) % mod;
     }
@@ -16,23 +16,11 @@ ll pow(ll x, ll n, ll mod) {
 
 
 int main() {
-    const int MOD = 1e+9 + 7;
-    int m, n;
+    const ll MOD = 1e+9 + 7;
+    ll m, n;
     cin >> m >> n;
-    ll ans = pow(m, n, MOD);
+    ll ans = pow_mod(m, n, MOD);
     cout << ans << endl;
     return 0;
 }
-
-/*
-https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/all/NTL_1_B
-
-input 2
--------
-5 8
-
-output 2
---------
-390625
-
-*/
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_B&lang=ja
