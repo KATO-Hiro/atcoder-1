@@ -46,9 +46,10 @@
 - 全般
     - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
-    - 「必ず○○する□□をすべて求めよ（○○＝使う・通る等）」
+    - 「必ず○○する□□をすべて求めよ（○○＝使う・通る等）」 [[abc161_e](https://atcoder.jp/contests/abc161/tasks/abc161_e)]
         - 各□□を一時的に無効にして成立するか評価することで各□□が必要か判定できる
-    - 絶対値は ± で全探索を検討
+    - 絶対値は ± で全探索を検討 [[abc100_d](https://atcoder.jp/contests/abc100/tasks/abc100_d)] [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)]
+    - 周期性がある問題は「サイクル検出」「ダブリング」「拡張ユークリッド互除法」を考える [[abc030_d](https://atcoder.jp/contests/abc030/tasks/abc030_d)] [[past202004_m](https://atcoder.jp/contests/past202004-open/tasks/past202004_m)] [[abc186_e](https://atcoder.jp/contests/abc186/tasks/abc186_e)]
 
 - DP
     - 貰う DP は累積和で高速化できる可能性がある
@@ -59,11 +60,11 @@
         - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
 
 - グラフ
-    - 順序付きの集合は DAG で扱える（順序付けされているものを頂点に乗せる）
+    - 順序付きの集合は DAG で扱える（順序付けされているものを頂点に乗せる） [[abc139_e](https://atcoder.jp/contests/abc139/tasks/abc139_e)]
         - DAG は DP が使える（最短経路問題など）
-    - 最短経路問題などを解いた結果を用いて別のグラフを構築して解くケースがある
+    - 最短経路問題などを解いた結果を用いて別のグラフを構築して解くケースがある [[abc143_e](https://atcoder.jp/contests/abc143/tasks/abc143_e)]
     - 条件式がたくさんあり芋づる式に確定していく問題はグラフで考える
-    - 閉路が存在しない場合 (森の場合) は下記が成立．数え上げ等で有用
+    - 閉路が存在しない場合 (森の場合) は下記が成立．数え上げ等で有用 [[abc173_f](https://atcoder.jp/contests/abc173/tasks/abc173_f)]
         - `頂点数 = 辺数 - 連結成分数`
 
 - 貪欲
@@ -71,9 +72,12 @@
     - 計算量解析すると実は貪欲で間に合うケースがある [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)]
 
 - 数え上げ
-    - 主客転倒テク：すべての組み合わせのコスト総和を計算する場合，ある1つの組み合わせにおけるコストを要素毎に分解して，各要素が題意に与える寄与を独立に計算して数え上げる
+    - **主客転倒テク**：すべての組み合わせのコスト総和を計算する場合，ある1つの組み合わせにおけるコストを要素毎に分解して，各要素が題意に与える寄与を独立に計算して数え上げる
     - 数え上げは DP の可能性が高い
     - 愚直な DP を考えてから高速化を考える（累積和など）
+
+- 数学
+    - 数学系の問題は**立式・式変形**をすることで解ける場合がある [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)] [[abc190_d](https://atcoder.jp/contests/abc190/tasks/abc190_d)]
 
 - ゲーム
     - 後退解析 + メモ化再帰 によるゲーム DP (状態数オーダーに注意)
