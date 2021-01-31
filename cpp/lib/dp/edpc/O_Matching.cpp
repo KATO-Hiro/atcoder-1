@@ -4,6 +4,8 @@ using ll = long long;
 // --------------------------------------------------------
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
+#define BIT(b,i) ((b>>i) & 1)
+#define PCNT(b) __builtin_popcountll(b)
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
 // --------------------------------------------------------
@@ -29,9 +31,8 @@ int main() {
     VM dp(1<<N, 0);
     dp[0] = 1;
     FOR(S,1,1<<N) {
-        ll i = __builtin_popcount(S);  // 何人目の男性か
-        REP(j,N) {
-            if (!(S & (1<<j))) continue;
+        ll i = PCNT(S);  // 何人目の男性か
+        REP(j,N) if (BIT(S,j)) {
             if (A[i-1][j] == 0) continue;
             dp[S] += dp[S - (1<<j)];
         }
