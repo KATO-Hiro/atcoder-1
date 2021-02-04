@@ -78,6 +78,8 @@
 
 - 数学
     - 数学系の問題は**立式・式変形**をすることで解ける場合がある [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)] [[abc190_d](https://atcoder.jp/contests/abc190/tasks/abc190_d)]
+    - `gcd, lcm` には結合法則が成り立つ e.g.) `gcd(a,gcd(b,c)) = gcd(gcd(a,b),c)`
+        - 累積 gcd が有用な場合がある
 
 - ゲーム
     - 後退解析 + メモ化再帰 によるゲーム DP (状態数オーダーに注意)
