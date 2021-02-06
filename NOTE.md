@@ -50,6 +50,7 @@
         - 各□□を一時的に無効にして成立するか評価することで各□□が必要か判定できる
     - 絶対値は ± で全探索を検討 [[abc100_d](https://atcoder.jp/contests/abc100/tasks/abc100_d)] [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)]
     - 周期性がある問題は「サイクル検出」「ダブリング」「拡張ユークリッド互除法」を考える [[abc030_d](https://atcoder.jp/contests/abc030/tasks/abc030_d)] [[past202004_m](https://atcoder.jp/contests/past202004-open/tasks/past202004_m)] [[abc186_e](https://atcoder.jp/contests/abc186/tasks/abc186_e)]
+    - 辞書順最小は前から貪欲 [[past202004_l](https://atcoder.jp/contests/past202004-open/tasks/past202004_l)]
 
 - DP
     - 貰う DP は累積和で高速化できる可能性がある
@@ -94,7 +95,8 @@
         - 最終手段は実験 (ノート・愚直コード)
 
 - 操作系
-    - 不変量に着目する（全体の総和など）
+    - 不変量に着目する (全体の総和など)
+    - 逆順を考える [[agc032_a](https://atcoder.jp/contests/agc032/tasks/agc032_a)]
 
 - XOR
     - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
