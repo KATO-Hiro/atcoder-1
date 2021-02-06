@@ -15,11 +15,9 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 void warshall_floyd(VVLL& G) {
     const ll N = (ll)G.size();
 
-    REP(k, N) {
-        REP(i, N) {
-            if (G[i][k] == INF) continue;
-            REP(j, N) {
-                if (G[k][j] == INF) continue;
+    REP(k,N) {
+        REP(i,N) if (G[i][k] != INF) {
+            REP(j,N) if (G[k][j] != INF) {
                 chmin(G[i][j], G[i][k] + G[k][j]);
             }
         }
@@ -34,9 +32,8 @@ int main() {
 
     ll N, M; cin >> N >> M;
     VVLL G(N, VLL(N, INF)); REP(i,N) G[i][i] = 0LL;
-    ll s, t, d;
-    REP(_, M) {
-        cin >> s >> t >> d;
+    REP(_,M) {
+        ll s, t, d; cin >> s >> t >> d;
         G[s][t] = d;
     }
 
