@@ -42,13 +42,13 @@ int main() {
     VLL A(N); REP(i,N) cin >> A[i];
 
     compress(A);  // A が順列であれば不要
-    fenwick_tree<ll> fw(N);
-    ll ans = 0;
+    fenwick_tree<ll> fw(N);  // 1 <= A[i] <= N であれば fw(N+1) にする
+    ll num = 0;
     REP(i,N) {
-        ans += i - fw.sum(0, A[i]);
+        num += i - fw.sum(0, A[i]);
         fw.add(A[i], 1);
     }
-    cout << ans << endl;
+    cout << num << endl;
 
     return 0;
 }
