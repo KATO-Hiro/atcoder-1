@@ -59,6 +59,7 @@
         - 各□□を一時的に無効にして成立するか評価することで各□□が必要か判定できる
     - 絶対値は ± で全探索を検討 [[abc100_d](https://atcoder.jp/contests/abc100/tasks/abc100_d)] [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)]
     - 周期性がある問題は「サイクル検出」「ダブリング」「拡張ユークリッド互除法」を考える [[abc030_d](https://atcoder.jp/contests/abc030/tasks/abc030_d)] [[past202004_m](https://atcoder.jp/contests/past202004-open/tasks/past202004_m)] [[abc186_e](https://atcoder.jp/contests/abc186/tasks/abc186_e)]
+    - 順列は大小関係に着目する [[chokudai_S001_k](https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_k)] [[dp_t](https://atcoder.jp/contests/dp/tasks/dp_t)]
 
 - DP
     - 貰う DP は累積和で高速化できる可能性がある
