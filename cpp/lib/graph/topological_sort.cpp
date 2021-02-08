@@ -13,6 +13,7 @@ using VVLL = vector<VLL>;
 //   <https://en.wikipedia.org/wiki/Topological_sorting>
 //   <https://www.slideshare.net/hcpc_hokudai/topological-sort-69581002/24>
 
+// 0-based index
 VLL topological_sort(VVLL& G) {
     const ll N = (ll)G.size();
     VLL L(N);  // result of topological sort
@@ -44,9 +45,8 @@ int main() {
 
     ll N, M; cin >> N >> M;
     VVLL G(N);
-    ll s, t;
     REP(_,M) {
-        cin >> s >> t;
+        ll s, t; cin >> s >> t;
         G[s].push_back(t);
     }
 
