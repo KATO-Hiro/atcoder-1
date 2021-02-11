@@ -17,20 +17,16 @@ int main() {
     cout << fixed << setprecision(15);
 
     ll N, M; cin >> N >> M;
-    vector<tuple<ll,ll,ll>> wst(M);
-    ll s, t, w;
+    vector<tuple<ll,ll,ll>> E(M);
     REP(i,M) {
-        cin >> s >> t >> w;
-        get<0>(wst[i]) = w;
-        get<1>(wst[i]) = s;
-        get<2>(wst[i]) = t;
+        ll s, t, w; cin >> s >> t >> w;
+        E[i] = {w, s, t};
     }
-    SORT(wst);
+    SORT(E);
 
     dsu uf(N);
     ll ans = 0;
-    for (auto& x : wst) {
-        tie(w, s, t) = x;
+    for (auto& [w, s, t] : E) {
         if (uf.same(s, t)) continue;
         uf.merge(s, t);
         ans += w;
@@ -39,4 +35,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A
+// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=ja
