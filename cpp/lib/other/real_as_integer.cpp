@@ -65,3 +65,40 @@ int main() {
     return 0;
 }
 // Verify: https://atcoder.jp/contests/abc191/tasks/abc191_d
+
+/**
+void verify() {
+    static const ll d = 1000;
+    RealAsInteger real(d);
+    assert(real.ceil( 2001) ==  3000);
+    assert(real.ceil( 2000) ==  2000);
+    assert(real.ceil( 1999) ==  2000);
+    assert(real.ceil( 1001) ==  2000);
+    assert(real.ceil( 1000) ==  1000);
+    assert(real.ceil(  999) ==  1000);
+    assert(real.ceil(    1) ==  1000);
+    assert(real.ceil(    0) ==     0);
+    assert(real.ceil(-   1) ==     0);
+    assert(real.ceil(- 999) ==     0);
+    assert(real.ceil(-1000) == -1000);
+    assert(real.ceil(-1001) == -1000);
+    assert(real.ceil(-1999) == -1000);
+    assert(real.ceil(-2000) == -2000);
+    assert(real.ceil(-2001) == -2000);
+    assert(real.floor( 2001) ==  2000);
+    assert(real.floor( 2000) ==  2000);
+    assert(real.floor( 1999) ==  1000);
+    assert(real.floor( 1001) ==  1000);
+    assert(real.floor( 1000) ==  1000);
+    assert(real.floor(  999) ==     0);
+    assert(real.floor(    1) ==     0);
+    assert(real.floor(    0) ==     0);
+    assert(real.floor(-   1) == -1000);
+    assert(real.floor(- 999) == -1000);
+    assert(real.floor(-1000) == -1000);
+    assert(real.floor(-1001) == -2000);
+    assert(real.floor(-1999) == -2000);
+    assert(real.floor(-2000) == -2000);
+    assert(real.floor(-2001) == -3000);
+}
+**/
