@@ -26,6 +26,7 @@ int main() {
     S = " " + S;
     T = " " + T;
 
+    // dp[l][r] := S(1,l) と T(1,r) における最長共通部分列の長さ
     VVLL dp(N+1, VLL(M+1, 0));
     FOR(i,1,N+1) FOR(j,1,M+1) {
         if (S[i] == T[j]) {

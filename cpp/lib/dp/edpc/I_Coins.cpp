@@ -21,7 +21,7 @@ int main() {
     ll N; cin >> N;
     VD P(N+1); FOR(i,1,N+1) cin >> P[i];
 
-    // dp[i][j] := i番目までコインを見た時にj枚が表である確率
+    // dp[i][j] := i 番目までコインを見た時に j 枚が表である確率
     VVD dp(N+1, VD(N+1, 0));
     dp[0][0] = 1.0;
     FOR(i,1,N+1) FOR(j,0,i+1) {

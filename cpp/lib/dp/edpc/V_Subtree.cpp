@@ -89,7 +89,7 @@ struct rerooting {
 
 ll N, M;
 
-// ans[u] := u を根とした時に u が黒であるような頂点の色の組み合わせ数
+// ans[u] := 頂点 u を根とした時に頂点 u が黒であるような頂点の色の組み合わせ数
 using S = ll;
 S op(S a, S b) { return a * b % M; };
 S fv(S a, [[maybe_unused]] int u) { return a; };

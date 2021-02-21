@@ -20,7 +20,7 @@ int main() {
     ll N, K; cin >> N >> K;
     VLL A(N); REP(i,N) cin >> A[i];
 
-    // dp[i] := 石がi個ある場合の勝ち負け
+    // dp[i] := 石が i 個ある場合の勝ち負け
     VB dp(K+1, false);
     FOR(i,1,K+1) {
         for (ll a : A) {

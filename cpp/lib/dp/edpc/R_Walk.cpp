@@ -45,6 +45,7 @@ int main() {
     ll N, K; cin >> N >> K;
     VVLL A(N, VLL(N)); REP(i,N) REP(j,N) cin >> A[i][j];
 
+    // A[i][j] := 頂点 i から頂点 j への長さ K の有向パスの場合の数
     A = mat_exp(A, K, MOD);
     ll ans = 0;
     REP(i,N) REP(j,N) ans = (ans + A[i][j]) % MOD;

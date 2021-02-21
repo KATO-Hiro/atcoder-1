@@ -29,10 +29,10 @@ int main() {
     VLL H(N); REP(i,N) cin >> H[i];
     VLL A(N); REP(i,N) cin >> A[i];
 
-    // seg[h] := 最後の花の高さが h の単調増加列における美しさの総和の最大値
+    // seg[h] := 最後の花の高さが h となる単調増加列における美しさの総和の最大値
     segtree<S, op, e> seg(N+1);
     REP(i,N) {
-        seg.set(H[i], seg.prod(0, H[i]) + A[i]);
+        seg.set(H[i], seg.prod(0, H[i]) + A[i]);  // LIS のように更新
     }
     ll ans = seg.all_prod();
     cout << ans << endl;

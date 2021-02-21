@@ -27,9 +27,9 @@ int main() {
     ll N; cin >> N;
     VVLL A(N, VLL(N)); REP(i,N) REP(j,N) cin >> A[i][j];
 
-    // dp[S] := S[i]=1の女性にペアが存在する場合の数
-    VM dp(1<<N, 0);
-    dp[0] = 1;
+    //    S  := 「i 番目のビットが 1」と「i 番目の女性にペアが存在する」が対応した状態表現
+    // dp[S] := 状態 S の場合の数
+    VM dp(1<<N, 0); dp[0] = 1;
     FOR(S,1,1<<N) {
         ll i = PCNT(S);  // 何人目の男性か
         REP(j,N) if (BIT(S,j)) {

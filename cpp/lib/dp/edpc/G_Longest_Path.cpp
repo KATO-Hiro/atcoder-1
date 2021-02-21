@@ -53,6 +53,7 @@ int main() {
 
     auto L = topological_sort(G);
  
+    // dp[u] := 頂点 u までの有向パスの長さの最大値
     VLL dp(N,0);
     for (ll u : L) {
         for (ll v : G[u]) {

@@ -24,7 +24,7 @@ int main() {
     unordered_map<ll,ll> cnt;
     for (ll a : A) cnt[a]++;
 
-    // dp[x][y][z] := 1個の皿がx個,2個の皿がy個,3個の皿がz個の時
+    // dp[x][y][z] := 1 個の皿が x 個, 2 個の皿が y 個, 3 個の皿が z 個のとき
     //                全ての寿司がなくなるまでの操作回数の期待値
     VVVD dp(N+1,VVD(N+1,VD(N+1,-1)));
     dp[0][0][0] = 0;

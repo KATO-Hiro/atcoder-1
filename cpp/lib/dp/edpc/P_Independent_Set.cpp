@@ -31,7 +31,7 @@ int main() {
         G[y].push_back(x);
     }
 
-    // 頂点1を根とする
+    // 頂点 1 を根とする
     VM dp1(N+1, -1);  // dp1[i] := 頂点 i を根とする部分木で頂点 i を白で塗る場合の数
     VM dp2(N+1, -1);  // dp2[i] := 頂点 i を根とする部分木で頂点 i を黒で塗る場合の数
     auto rec = [&](auto f, ll u, ll p, ll c) -> mint {
