@@ -22,9 +22,8 @@ int main() {
 
     ll M = 100;
 
-    // dp[i][j] := i番目までの問題から何問か解いたとき得点jが得られるか
-    VVB dp(N+1, VB(N*M+1,false));
-    dp[0][0] = true;
+    // dp[i][j] := i 番目までの問題から何問か解いたとき得点 j が得られるか
+    VVB dp(N+1, VB(N*M+1,false)); dp[0][0] = true;
     FOR(i,1,N+1) FOR(j,0,N*M+1) {
         if (0 <= j - P[i]) {
             dp[i][j] = dp[i-1][j] | dp[i-1][j - P[i]];

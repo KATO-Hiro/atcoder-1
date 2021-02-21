@@ -24,7 +24,8 @@ int main() {
     VLL a(A); REP(i,A) cin >> a[i];
     VLL b(B); REP(i,B) cin >> b[i];
 
-    // dp[l][r] := 左にl個・右にr個ある状態から始めて双方最善を尽くした場合の先手の価値合計
+    // dp[l][r] := 左の山に l 個，右の山に r 個ある状態から始めたとき，
+    //             双方最善を尽くした場合の先手が取るものの価値の合計
     VVLL dp(A+1, VLL(B+1,0));
     FOR(l,0,A+1) FOR(r,0,B+1) {
         if (l == 0 && r == 0) continue;
