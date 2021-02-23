@@ -7,9 +7,9 @@ using ll = long long;
 /**
  * @brief エラトステネスの区間篩
  *        区間 [L, R] における素数を求める
- * @param a 区間下限
- * @param b 区間上限
- * @return vector<bool> res[x-a] = true ⇔ x が素数
+ * @param L 区間下限
+ * @param R 区間上限
+ * @return vector<bool> res[x-L] = true ⇔ x が素数
  */
 vector<bool> interval_seive(ll L, ll R) {
     assert(!(L == 0 && R == 0));
