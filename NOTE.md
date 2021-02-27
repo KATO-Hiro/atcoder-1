@@ -10,6 +10,8 @@
     - iterator 仕様理解ミス
         - `lower_bound`, `upper_bound`
         - `rbegin`, `rend`
+        - iterator 引き算順序：
+            - `A.end() - lower_bound(ALL(A),a)  // a 以上の要素数 (end が先！)`
     - 使用変数ミス
         - `{N,M,K}`, `{i,j}`, `{i,1}`, `{i1,i2,j1,j2}` などの混同
         - `A[i]` ⇒ `A[B[i]]` (id 変数の未使用)
