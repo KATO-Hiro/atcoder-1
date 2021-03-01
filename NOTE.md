@@ -7,6 +7,7 @@
         - グローバルとローカル
         - ある関数直下とその中の `{}` の中
     - オーバーフロー
+        - `stoi` ⇒ `stoll`
     - iterator 仕様理解ミス
         - `lower_bound`, `upper_bound`
         - `rbegin`, `rend`
