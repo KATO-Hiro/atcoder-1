@@ -14,3 +14,5 @@ cpp/PAST
 *.out
 
 python/main.py
+
+mojacoder/**/*.zip
