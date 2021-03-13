@@ -34,6 +34,7 @@ int main() {
     VVLL G(N, VLL(N, INF)); REP(i,N) G[i][i] = 0LL;
     REP(_,M) {
         ll s, t, d; cin >> s >> t >> d;
+        // s--; t--;
         G[s][t] = d;
     }
 

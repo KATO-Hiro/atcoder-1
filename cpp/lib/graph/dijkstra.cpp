@@ -43,6 +43,7 @@ int main() {
     VVP G(N);
     REP(_,M) {
         ll s, t, d; cin >> s >> t >> d;
+        // s--; t--;
         G[s].push_back(P(d, t));
     }
 
