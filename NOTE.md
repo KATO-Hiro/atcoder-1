@@ -119,6 +119,12 @@
 - XOR
     - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
 
+## コマンド
+
+```bash
+acc new abc123 ; cd abc123 ; code {a..f}/main.cpp
+```
+
 ---
 
 以下は一応残してるだけ
