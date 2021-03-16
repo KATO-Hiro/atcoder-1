@@ -83,6 +83,7 @@
     - 条件式がたくさんあり芋づる式に確定していく問題はグラフで考える
     - 閉路が存在しない場合 (森の場合) は下記が成立．数え上げ等で有用 [[abc173_f](https://atcoder.jp/contests/abc173/tasks/abc173_f)]
         - `頂点数 = 辺数 - 連結成分数`
+    - 「奇数長サイクルを含まない」と「二部グラフである」は同値 [[code_festival_2017_qualb_c](https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c)]
 
 - 貪欲
     - スケジューリングは前から貪欲に考える
