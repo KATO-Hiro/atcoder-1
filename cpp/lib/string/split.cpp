@@ -1,35 +1,44 @@
 #include <bits/stdc++.h>
-#include <boost/algorithm/string/split.hpp>
-#include <boost/algorithm/string/classification.hpp>  // is_any_of
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+// --------------------------------------------------------
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>  // is_any_of
 
 
-// https://atcoder.jp/contests/arc045/tasks/arc045_a
-int main() {
-    string S;
-    getline(cin, S);
-
+// 文字列 S を sep で区切った vector を返す
+// ※ S が半角スペース等で区切られている場合，getline(cin,S) で入力する必要あり
+vector<string> split(string& S, string sep) {
     vector<string> T;
-    boost::algorithm::split(T, S, boost::is_any_of(" "));
+    boost::algorithm::split(T, S, boost::is_any_of(sep));
+    return T;
+}
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << fixed << setprecision(15);
+
+    string S; getline(cin, S);
+
+    auto T = split(S, " ");
 
     vector<char> ans;
-    for (string s : T) {
+    ll N = (ll)T.size();
+    for (ll i = 0; i < N; i++) {
+        string& s = T[i];
         if (s == "Left") {
-            ans.push_back('<');
+            cout << '<';
         } else if (s == "Right") {
-            ans.push_back('>');
+            cout << '>';
         } else {
-            ans.push_back('A');
+            cout << 'A';
         }
-
+        cout << (i < N-1 ? ' ' : '\n');
     }
-
-    for (int i = 0; i < ans.size() - 1; i++) {
-        cout << ans[i] << " ";
-    }
-    cout << ans.back() << endl;
 
     return 0;
 }
+// Verify: https://atcoder.jp/contests/arc045/tasks/arc045_a
