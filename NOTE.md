@@ -103,6 +103,7 @@
     - `gcd, lcm` には結合法則が成り立つ e.g.) `gcd(a,gcd(b,c)) = gcd(gcd(a,b),c)`
         - 累積 gcd が有用な場合がある
     - `floor(A/B)` は `A = Bq + r (0≦r＜B), floor(A/B) = q` を利用 [[abc165_d](https://atcoder.jp/contests/abc165/tasks/abc165_d)] [[arc111_a](https://atcoder.jp/contests/arc111/tasks/arc111_a)]
+    - 偶奇性を利用する: `|x-y| ≡ x⊕y ≡ x+y (mod 2)` [[agc043_b](https://atcoder.jp/contests/agc043/tasks/agc043_b)]
 
 - ゲーム
     - 後退解析 + メモ化再帰 によるゲーム DP (状態数オーダーに注意)
