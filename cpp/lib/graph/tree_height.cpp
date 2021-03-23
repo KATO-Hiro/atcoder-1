@@ -3,53 +3,48 @@ using namespace std;
 using ll = long long;
 // --------------------------------------------------------
 template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 #define SZ(c) ((int)(c).size())
-using P = pair<int,int>;
+using P = pair<ll,ll>;
+using VP = vector<P>;
+using VVP = vector<VP>;
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
+static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
-struct E {
-    int to; ll w;
-};
-using VE = vector<E>;
-using VVE = vector<VE>;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout << fixed << setprecision(15);
 
-    int N; cin >> N;
-    VVE G(N);
-    int s, t; ll w;
+    ll N; cin >> N;
+    VVP G(N);
     REP(_,N-1) {
-        cin >> s >> t >> w;
-        G[s].push_back(E{t, w});
-        G[t].push_back(E{s, w});
+        ll s, t, w; cin >> s >> t >> w;
+        // s--; t--;
+        G[s].push_back(P(t, w));
+        G[t].push_back(P(s, w));
     }
 
+    // dp[r][k] := 根とした頂点 r から出る k 番目の辺に関する部分木の高さ
     VVLL dp(N);
-    REP(u, N) dp[u] = VLL(SZ(G[u]), -1);
-    auto rec = [&](auto f, int i, int j) -> ll {
+    REP(u,N) dp[u] = VLL(SZ(G[u]), -INF);
+    auto rec = [&](auto self, ll i, ll j) -> ll {
         if (dp[i][j] >= 0) return dp[i][j];
-        int u = G[i][j].to;
-        ll w = G[i][j].w;
-        ll res = w;
-        REP(v, SZ(G[u])) {
-            if (i == G[u][v].to) continue;
-            chmax(res, w + f(f, u, v));
+        auto& [u, w] = G[i][j];
+        ll res = 0;
+        REP(v, SZ(G[u])) if (G[u][v].first != i) {
+            chmax(res, self(self, u, v));
         }
-        return dp[i][j] = res;
+        return dp[i][j] = w + res;
     };
 
-    REP(i,N) {
+    REP(u,N) {
         ll ans = 0;
-        REP(j, SZ(G[i])) {
-            chmax(ans, rec(rec, i, j));
-        }
+        REP(v,SZ(G[u])) chmax(ans, rec(rec, u, v));
         cout << ans << '\n';
     }
 

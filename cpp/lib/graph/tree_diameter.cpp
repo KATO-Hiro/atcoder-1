@@ -2,61 +2,62 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-using P = pair<int,int>;
-using VI = vector<int>;
+using P = pair<ll,ll>;
+using VP = vector<P>;
+using VVP = vector<VP>;
+using VLL = vector<ll>;
+static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
-struct edge {
-    int t, w;
+
+/**
+ * @brief 重み付き木の直径を求める
+ * 
+ * @param G 重み付き木を構成する隣接リスト
+ * @return pair<ll, P> : 木の直径と最遠頂点ペア
+ */
+pair<ll, P> tree_diameter(VVP& G) {
+    ll N = (ll)G.size();
+    auto bfs = [&](ll s) -> P {
+        VLL dist(N,INF); dist[s] = 0;
+        queue<ll> q; q.push(s);
+        while (!q.empty()) {
+            ll u = q.front(); q.pop();
+            for (auto& [v, w] : G[u]) {
+                if (chmin(dist[v], dist[u] + w)) q.push(v);
+            }
+        }
+        ll max_u = -1;
+        ll max_d = -INF;
+        REP(u,N) if (chmax(max_d, dist[u])) max_u = u;
+        return P(max_u, max_d);
+    };
+    auto [u, _] = bfs(0);
+    auto [v, d] = bfs(u);
+    return make_pair(d, P(u, v));
 };
 
-P bfs(int N, vector<vector<edge>>& G, int s) {
-    VI d(N+1,-1);
-    d[s] = 0;
-    queue<int> q;
-    q.push(s);
-    int u, v;
-    while (!q.empty()) {
-        u = q.front(); q.pop();
-        for (edge e : G[u]) {
-            v = e.t;
-            if (d[v] != -1) continue;
-            d[v] = d[u] + e.w;
-            q.push(v);
-        }
-    }
-
-    int max_u = -1;
-    int max_d = -1;
-    FOR(u,0,N+1) {
-        if (max_d < d[u]) {
-            max_d = d[u];
-            max_u = u;
-        }
-    }
-    return P(max_u, max_d);
-}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout << fixed << setprecision(15);
 
-    int N; cin >> N;
-    vector<vector<edge>> G(N+1);
+    ll N; cin >> N;
+    VVP G(N);
     REP(_,N-1) {
-        int s, t, w; cin >> s >> t >> w;
-        G[s].push_back(edge{t, w});
-        G[t].push_back(edge{s, w});
+        ll s, t, w; cin >> s >> t >> w;
+        // s--; t--;
+        G[s].push_back(P(t, w));
+        G[t].push_back(P(s, w));
     }
 
-    int u, v, d;
-    tie(u, d) = bfs(N, G, 1);
-    tie(v, d) = bfs(N, G, u);
-
-    cout << d << '\n';
+    auto [d, p] = tree_diameter(G);
+    cout << d << endl;
 
     return 0;
 }
