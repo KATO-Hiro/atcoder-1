@@ -20,18 +20,15 @@ VLL topological_sort(VVLL& G) {
     ll k = 0;
 
     VLL indeg(N, 0);  // indegree
-    REP(u, N) for (ll v : G[u]) indeg[v]++;  // count indegree for each vertex
+    REP(u,N) for (ll v : G[u]) indeg[v]++;  // count indegree for each vertex
 
     queue<ll> q;  // set of vertices with 0 indegree
-    REP(u, N) if (indeg[u] == 0) q.push(u);
+    REP(u,N) if (indeg[u] == 0) q.push(u);
     while (!q.empty()) {
         ll u = q.front(); q.pop();
         L[k++] = u;
         for (ll v : G[u]) {
-            indeg[v]--;
-            if (indeg[v] == 0) {
-                q.push(v);
-            }
+            if (--indeg[v] == 0) q.push(v);
         }
     }
     return L;
@@ -47,6 +44,7 @@ int main() {
     VVLL G(N);
     REP(_,M) {
         ll s, t; cin >> s >> t;
+        // s--; t--;
         G[s].push_back(t);
     }
 
