@@ -7,7 +7,7 @@
         - グローバルとローカル
         - ある関数直下とその中の `{}` の中
     - オーバーフロー
-        - `stoi` ⇒ `stoll`
+        - `stoi` → `stoll`
     - iterator 仕様理解ミス
         - `lower_bound`, `upper_bound`
         - `rbegin`, `rend`
@@ -15,18 +15,18 @@
             - `A.end() - lower_bound(ALL(A),a)  // a 以上の要素数 (end が先！)`
     - 使用変数ミス
         - `{N,M,K}`, `{i,j}`, `{i,1}`, `{i1,i2,j1,j2}` などの混同
-        - `A[i]` ⇒ `A[B[i]]` (id 変数の未使用)
+        - `A[i]` → `A[B[i]]` (id 変数の未使用)
     - ループ範囲ミス
-        - `FOR(i,M)` ⇔ `REP(i,N)`
-        - `FOR(i,1,N+1)` ⇔ `REP(i,N)`
-        - `FOR(i,1,N)` ⇒ `FOR(i,1,N+1)`
-        - `REP(i,N)` ⇒ `REP(i,1<<N)`
+        - `FOR(i,M)` ↔ `REP(i,N)`
+        - `FOR(i,1,N+1)` ↔ `REP(i,N)`
+        - `FOR(i,1,N)` → `FOR(i,1,N+1)`
+        - `REP(i,N)` → `REP(i,1<<N)`
     - 符号ミス（マイナスつけ忘れ，引き算順序ミスなど）
     - multiset
-        - `set` ⇔ `multiset`
+        - `set` ↔ `multiset`
         - 1要素だけ削除するなら `S.erase(S.find(x))`
     - 横着ミス
-        - `while (++i < N && A[i] == B[i])` ⇒ `while (++i < N && A[i] == B[i]) {}`
+        - `while (++i < N && A[i] == B[i])` → `while (++i < N && A[i] == B[i]) {}`
             - 明示的に `{}` を書かないと次行以降がループする
 - 競プロ系
     - 誤読
@@ -34,6 +34,8 @@
         - **答えが一意に定まらない場合は真っ先に誤読を疑う** [[abc192_d](https://atcoder.jp/contests/abc192/tasks/abc192_d)]
         - 個数と種類数を混同している
     - 初期化ミス (DP, カウント数など)
+    - オーバーフロー
+        - 二分探索： `mid` を掛け算に使っている場合 → 初期値・評価式を工夫する
     - コーナーケース
         - `{0,1,2}` の場合 (下限付近)
         - `A == B` の場合 (2変数が同値)
@@ -41,7 +43,7 @@
     - TLE
         - `while` 文に `break` がない，到達できてない
         - 複数の配列の参照分岐で毎回生成してしまっている (`&` が抜けてる)  
-          `auto A = hoge ? A1 : A2` ⇒ `auto& A = hoge ? A1 : A2`
+          `auto A = hoge ? A1 : A2` → `auto& A = hoge ? A1 : A2`
         - `debug` 文を削除していない（`O(N)` はかなり重い）
     - 誤差
         - 実数を扱う場合は誤差死の可能性あり
@@ -49,7 +51,7 @@
             - (神頼み) `EPS` を刻む，`long double` を試す
     - ソート
         - やってない (半分全列挙など) or やってはいけない
-        - 降順・昇順ミス (`SORT` ⇔ `RSORT`)
+        - 降順・昇順ミス (`SORT` ↔ `RSORT`)
     - 出力形式ミス
         - 構築系なら最初にサイズを出力するかどうか
         - 答えが複数ありうる場合に一意にするための条件を見落としている
@@ -119,15 +121,26 @@
 
 - 操作系
     - 不変量に着目する (全体の総和など)
-    - 逆順を考える [[agc032_a](https://atcoder.jp/contests/agc032/tasks/agc032_a)]
+    - 逆順を考える [[agc032_a](https://atcoder.jp/contests/agc032/tasks/agc032_a)] [[agc037_c](https://atcoder.jp/contests/agc037/tasks/agc037_c)]
 
 - XOR
     - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
 
 ## コマンド
 
+コンテスト開始時
+
 ```bash
 acc new abc123 ; cd abc123 ; code {a..f}/main.cpp
+```
+
+プリコンパイル [[参考記事](https://kryozahiro.hateblo.jp/entry/20090921/1253534337)]
+（オプションは普段遣いと合わせる）
+
+```bash
+# bits/stdc++.h
+cd /usr/include/x86_64-linux-gnu/c++/9/bits
+sudo /usr/bin/g++ -std=gnu++17 -Wall -Wextra -O2 -DONLINE_JUDGE -fsanitize=address -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC stdc++.h
 ```
 
 ---
