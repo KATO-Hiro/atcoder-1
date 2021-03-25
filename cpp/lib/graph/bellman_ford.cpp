@@ -15,23 +15,34 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
 
-// 0-based index
-// P := (cost, to)
-bool bellman_ford(VVP& G, VLL& dist, ll s) {
+/**
+ * @brief ベルマンフォード法
+ *        - 0-based index
+ *        - P := (to, cost)
+ * 
+ * @param G    隣接グラフ
+ * @param dist 距離配列
+ * @param s    始点
+ * @return pair<bool, VLL> 
+ * - bool: 負閉路が含まれるか
+ * - VLL : 負閉路に含まれる頂点配列 (負閉路が含まれなければ空)
+ */
+pair<bool, VLL> bellman_ford(VVP& G, VLL& dist, ll s) {
     const ll N = (ll)G.size();
     assert(N == (ll)dist.size());
     assert(0 <= s && s < N);
 
+    VLL loop;  // 負閉路に含まれる頂点配列
     dist[s] = 0;
-    REP(i,N) REP(u,N) {
-        if (dist[u] == INF) continue;
-        for (auto& [c, v] : G[u]) {
+    REP(i,N) REP(u,N) if (dist[u] != INF) {
+        for (auto& [v, c] : G[u]) {
             if (chmin(dist[v], dist[u] + c)) {
-                if (i == N-1) return true;
+                if (i == N-1) loop.push_back(v);
             }
         }
     }
-    return false;
+    bool negative_cycle = (loop.size() > 0);
+    return make_pair(negative_cycle, loop);
 }
 
 // 頂点 s から到達可能であるか否かの bool 配列を返す
@@ -39,16 +50,17 @@ bool bellman_ford(VVP& G, VLL& dist, ll s) {
 //   が可能であるかを下記によって調べるために本メソッドは使用される想定
 //     - スタート地点からそのループに到達できるか
 //     - そのループからゴール地点に到達できるか
-//   実装参考: <https://atcoder.jp/contests/abc137/submissions/18998862>
+//   実装参考: <https://atcoder.jp/contests/abc061/submissions/21181308>
 VB bfs(VVLL& G, ll s) {
+    const ll N = (ll)G.size();
+    assert(0 <= s && s < N);
+
     queue<ll> q; q.push(s);
-    VB B(G.size(),false); B[s] = true;
+    VB B(N,false); B[s] = true;
     while (!q.empty()) {
         ll u = q.front(); q.pop();
-        for (ll v : G[u]) {
-            if (B[v]) continue;
-            B[v] = true;
-            q.push(v);
+        for (ll v : G[u]) if (!B[v]) {
+            B[v] = true; q.push(v);
         }
     }
     return B;
@@ -64,12 +76,12 @@ int main() {
     REP(_,M) {
         ll s, t, d; cin >> s >> t >> d;
         // s--; t--;
-        G[s].push_back(P(d, t));
+        G[s].push_back(P(t, d));
     }
 
     VLL dist(N, INF);
-    bool exist_negative_cycle = bellman_ford(G, dist, r);
-    if (exist_negative_cycle) {
+    auto [negative_cycle, loop] = bellman_ford(G, dist, r);
+    if (negative_cycle) {
         cout << "NEGATIVE CYCLE" << '\n';
     } else {
         REP(i, N) {
@@ -83,4 +95,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=ja

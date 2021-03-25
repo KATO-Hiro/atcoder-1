@@ -14,21 +14,18 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 
 
 // 0-based/1-based index
-// P := (cost, to)
+// P := (to, cost)
 void dijkstra(VVP& G, VLL& dist, ll s) {
     assert((ll)G.size() == (ll)dist.size());
     assert(0 <= s && s < (ll)G.size());
 
     dist[s] = 0;
-    priority_queue<P, VP, greater<P>> pq;
-    pq.push(P(dist[s], s));
+    priority_queue<P, VP, greater<P>> pq; pq.push(P(dist[s], s));
     while (!pq.empty()) {
         auto [min_dist, u] = pq.top(); pq.pop();
         if (dist[u] < min_dist) continue;
-        for (auto& [c, v] : G[u]) {
-            if (chmin(dist[v], dist[u] + c)) {
-                pq.push(P(dist[v], v));
-            }
+        for (auto& [v, c] : G[u]) {
+            if (chmin(dist[v], dist[u] + c)) pq.push(P(dist[v], v));
         }
     }
 }
@@ -44,7 +41,7 @@ int main() {
     REP(_,M) {
         ll s, t, d; cin >> s >> t >> d;
         // s--; t--;
-        G[s].push_back(P(d, t));
+        G[s].push_back(P(t, d));
     }
 
     VLL dist(N, INF);

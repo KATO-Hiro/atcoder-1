@@ -36,6 +36,7 @@ int main() {
         ll s, t, d; cin >> s >> t >> d;
         // s--; t--;
         G[s][t] = d;
+        // G[s][t] = G[t][s] = d;
     }
 
     warshall_floyd(G);
@@ -62,4 +63,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&lang=ja

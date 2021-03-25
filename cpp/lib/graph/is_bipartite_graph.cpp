@@ -23,6 +23,7 @@ using VVLL = vector<VLL>;
  */
 pair<bool,VLL> is_bipartite_graph(const VVLL& G) {
     const ll N = (ll)G.size();
+
     VLL C(N,-1); C[0] = 0;
     queue<P> q; q.push(P(0,-1));
     while (!q.empty()) {
@@ -68,4 +69,4 @@ int main() {
 
     return 0;
 }
-// Verify: https://atcoder.jp/contests/code-festival-2017-qualb/submissions/20964656
+// Verify: https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c

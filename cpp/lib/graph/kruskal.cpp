@@ -20,6 +20,7 @@ int main() {
     vector<tuple<ll,ll,ll>> E(M);
     REP(i,M) {
         ll s, t, w; cin >> s >> t >> w;
+        // s--; t--;
         E[i] = {w, s, t};
     }
     SORT(E);

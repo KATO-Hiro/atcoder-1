@@ -15,26 +15,22 @@ using VB = vector<bool>;
 // サイクルに含まれる頂点はシンクになり得ないことを利用して検知する
 bool cycle_detection(VVLL& G) {
     const ll N = (ll)G.size();
-    VB in_cycle(N, true);
 
+    VB in_cycle(N, true);
     VLL indeg(N, 0);  // indegree
-    REP(u, N) for (ll v : G[u]) indeg[v]++;  // count indegree for each vertex
+    REP(u,N) for (ll v : G[u]) indeg[v]++;  // count indegree for each vertex
 
     queue<ll> q;  // set of vertices with 0 indegree
-    REP(u, N) if (indeg[u] == 0) q.push(u);
+    REP(u,N) if (indeg[u] == 0) q.push(u);
     while (!q.empty()) {
         ll u = q.front(); q.pop();
         in_cycle[u] = false;
         for (ll v : G[u]) {
-            indeg[v]--;
-            if (indeg[v] == 0) {
-                q.push(v);
-            }
+            if (--indeg[v] == 0) q.push(v);
         }
     }
-    bool cycle = false;
-    REP(u,N) if (in_cycle[u]) cycle = true;
-    return cycle;
+    REP(u,N) if (in_cycle[u]) return true;
+    return false;
 }
 
 
@@ -45,13 +41,13 @@ int main() {
 
     ll N, M; cin >> N >> M;
     VVLL G(N);
-    ll s, t;
     REP(_,M) {
-        cin >> s >> t;
+        ll s, t; cin >> s >> t;
+        // s--; t--;
         G[s].push_back(t);
     }
 
-    ll ans = (cycle_detection(G)) ? 1 : 0;
+    ll ans = (cycle_detection(G) ? 1 : 0);
     cout << ans << '\n';
 
     return 0;
