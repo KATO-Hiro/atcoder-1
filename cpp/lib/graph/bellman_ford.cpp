@@ -50,7 +50,7 @@ pair<bool, VLL> bellman_ford(VVP& G, VLL& dist, ll s) {
 //   が可能であるかを下記によって調べるために本メソッドは使用される想定
 //     - スタート地点からそのループに到達できるか
 //     - そのループからゴール地点に到達できるか
-//   実装参考: <https://atcoder.jp/contests/abc061/submissions/21181308>
+//   実装参考: <https://atcoder.jp/contests/abc061/submissions/21243094>
 VB bfs(VVLL& G, ll s) {
     const ll N = (ll)G.size();
     assert(0 <= s && s < N);
