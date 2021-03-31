@@ -10,12 +10,13 @@ using VVLL = vector<VLL>;
 // --------------------------------------------------------
 
 
-ll lcs(string X, string Y) {
-    ll N = SZ(X);
-    ll M = SZ(Y);
+// 最長共通部分列 (LCS: Longest Common Subsequence)
+//   ※ 破壊的メソッド (文字列の先頭に " " (半角スペース) が追加される)
+ll lcs(string& X, string& Y) {
+    const ll N = SZ(X);
+    const ll M = SZ(Y);
     X = " " + X;
     Y = " " + Y;
-
     VVLL dp(N+1, VLL(M+1, 0));
     FOR(i,1,N+1) FOR(j,1,M+1) {
         if (X[i] == Y[j]) {
@@ -42,4 +43,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_C&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_10_C&lang=ja

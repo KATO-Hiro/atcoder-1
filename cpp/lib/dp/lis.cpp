@@ -10,6 +10,21 @@ using VLL = vector<ll>;
 // --------------------------------------------------------
 
 
+// 最長増加部分列 (LIS: Longest Increasing Subsequence)
+ll lis(const VLL& A) {
+    const ll N = SZ(A);
+    VLL L = {A[0]};
+    FOR(i,1,N) {
+        if (L.back() < A[i]) {
+            L.push_back(A[i]);
+        } else {
+            *lower_bound(ALL(L), A[i]) = A[i];
+        }
+    }
+    return SZ(L);
+}
+
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
@@ -18,18 +33,9 @@ int main() {
     ll N; cin >> N;
     VLL A(N); REP(i,N) cin >> A[i];
 
-    VLL L;
-    L.push_back(A[0]);
-    FOR(i, 1, N) {
-        if (L.back() < A[i]) {
-            L.push_back(A[i]);
-        } else {
-            *lower_bound(ALL(L), A[i]) = A[i];
-        }
-    }
-    ll ans = SZ(L);
-    cout << ans << '\n';
+    ll ans = lis(A);
+    cout << ans << endl;
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=ja
