@@ -13,6 +13,7 @@ using VVLL = vector<VLL>;
 // NOTE
 //   - 区間 DP
 //   - 連鎖行列積の構造 + α
+//   - 類題: past202012_l
 
 int main() {
     ios::sync_with_stdio(false);
@@ -33,7 +34,7 @@ int main() {
 
         // S[l,r) = "i...w...i" のケース (... 部が完全に消せる場合のみ考慮すれば十分)
         if (S[l] == 'i' && S[r-1] == 'i') {
-            FOR(m,l+1,r) if (S[m] == 'w') {
+            FOR(m,l+1,r-1) if (S[m] == 'w') {
                 if (dp[l+1][m] == m-(l+1) && dp[m+1][r-1] == (r-1)-(m+1)) {
                     chmax(dp[l][r], r-l);
                 }
