@@ -33,7 +33,7 @@ int main() {
     VVLL dp(1<<N, VLL(N, INF));
     dp[0][0] = 0;
     REP(S,1<<N) {
-        REP(u,N) {
+        REP(u,N) {  // TSP は出発点に戻るため dp[0][0] で初期化 ⇒ BIT(S,u) は NG
             REP(v,N) if (!BIT(S,v)) {
                 ll T = S | (1<<v);
                 chmin(dp[T][v], dp[S][u] + G[u][v]);
