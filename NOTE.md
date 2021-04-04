@@ -93,7 +93,7 @@
 
 - 貪欲
     - スケジューリングは前から貪欲に考える
-    - 計算量解析すると実は貪欲で間に合うケースがある [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)]
+    - 計算量解析すると実は貪欲で間に合うケースがある [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)] [[arc079_c](https://atcoder.jp/contests/arc079/tasks/arc079_c)]
     - 辞書順最小は前から貪欲 [[past202004_l](https://atcoder.jp/contests/past202004-open/tasks/past202004_l)]
 
 - 数え上げ
@@ -107,6 +107,7 @@
         - 累積 gcd が有用な場合がある
     - `floor(A/B)` は `A = Bq + r (0≦r＜B), floor(A/B) = q` を利用 [[abc165_d](https://atcoder.jp/contests/abc165/tasks/abc165_d)] [[arc111_a](https://atcoder.jp/contests/arc111/tasks/arc111_a)]
     - 偶奇性を利用する: `|x-y| ≡ x⊕y ≡ x+y (mod 2)` [[agc043_b](https://atcoder.jp/contests/agc043/tasks/agc043_b)]
+    - 整数 `N` の `b` 進表記は `b ≦ √N` のとき 3 桁以上 `√N ＜ b` のとき 2 桁以下 [[arc060_b](https://atcoder.jp/contests/arc060/tasks/arc060_b)]
 
 - ゲーム
     - 後退解析 + メモ化再帰 によるゲーム DP (状態数オーダーに注意)
