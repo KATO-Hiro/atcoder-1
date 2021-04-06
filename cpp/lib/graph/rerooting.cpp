@@ -97,7 +97,7 @@ int edge_id(int from, int to) { return from + to * BIG; }
 // ans[u] := u を根とした時に u から最も遠い頂点までの距離
 using S = ll;
 S op(S a, S b) { return max(a, b); };
-S fv(S a, [[maybe_unused]] int u) { return a; };
+S fv(S x, [[maybe_unused]] int u) { return x; };
 S fe(S x, int s, int t) { return x + mp[edge_id(s, t)]; };
 S e() { return 0; };
 
