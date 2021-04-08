@@ -10,6 +10,7 @@ cpp/main.cpp
 cpp/combined.cpp
 cpp/ac-library
 cpp/AOJ
+cpp/CF
 cpp/PAST
 *.out
 
