@@ -55,10 +55,10 @@ int main() {
         G[B].push_back(A);
     }
 
-    auto [odd_cycle, C] = is_bipartite_graph(G);
+    auto [is_bipartite, C] = is_bipartite_graph(G);
 
     ll ans = 0;
-    if (!odd_cycle) {
+    if (!is_bipartite) {  // 二部グラフでない ⇔ 奇数長サイクルが存在
         ans = N*(N-1)/2 - M;
     } else {
         ll n0 = count(ALL(C), 0);
