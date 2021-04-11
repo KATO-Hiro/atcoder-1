@@ -13,6 +13,10 @@ using VLL = vector<ll>;
 
 /**
  * @brief 座標圧縮
+ *        e.g.) X = {3, 3, 1, 6, 1}
+ *             ---------------------
+ *              X = {1, 1, 0, 2, 0}
+ *             XA = {1, 3, 6}
  * 
  * @param X 座標配列の参照 (圧縮後の座標に書き換えられる)
  * @return VLL 圧縮前の座標配列 (圧縮後の座標と1対1対応)
@@ -41,9 +45,9 @@ int main() {
     ll N; cin >> N;
     VLL A(N); REP(i,N) cin >> A[i];
 
-    // VLL X = compress(A);
+    // VLL XA = compress(A);
     compress(A);
-    for (auto a : A) {
+    for (ll a : A) {
         cout << a << '\n';
     }
 
