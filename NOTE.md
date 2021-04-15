@@ -133,20 +133,33 @@
 
 ## コマンド
 
-コンテスト開始時
+- コンテスト開始時
 
-```bash
-acc new abc123 ; cd abc123 ; code {a..f}/main.cpp
-```
+    ```bash
+    acc new abc123 ; cd abc123 ; code {a..f}/main.cpp
+    ```
 
-プリコンパイル [[参考記事](https://kryozahiro.hateblo.jp/entry/20090921/1253534337)]
+- プリコンパイル [[参考記事](https://kryozahiro.hateblo.jp/entry/20090921/1253534337)]
 （オプションは普段遣いと合わせる）
 
-```bash
-# bits/stdc++.h
-cd /usr/include/x86_64-linux-gnu/c++/9/bits
-sudo /usr/bin/g++ -std=gnu++17 -Wall -Wextra -O2 -DONLINE_JUDGE -fsanitize=address -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC stdc++.h
-```
+    ```bash
+    # bits/stdc++.h
+    cd /usr/include/x86_64-linux-gnu/c++/9/bits
+    sudo /usr/bin/g++ -std=gnu++17 -Wall -Wextra -O2 -DONLINE_JUDGE -fsanitize=address -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC stdc++.h
+    ```
+
+- ランダムテスト
+
+    1. `generate.py` に入力ケースのランダム生成を実装する
+    1. `greedy.cpp` に愚直解を実装する（確実に正しい答えが得られるように）
+    1. 下記を実施
+    1. `[CTRL] + [C]` で完全停止
+
+    ```bash
+    # g++ main.cpp -o a.out
+    g++ greedy.cpp -o b.out
+    bash random_test.sh
+    ```
 
 ---
 
