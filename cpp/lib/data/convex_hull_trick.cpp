@@ -121,14 +121,15 @@ int main() {
 
     // dp[i] :=  左から i 番目までを考えた時の最小コスト
     // ----- 遷移式 --> Convex Hull Trick -----
-    // dp[i] = min_{0<=j<i} {dp[j] + (x_j - a_{i-1})^2 + y_j^2}
-    //       = min_{0<=j<i} { -2*x_j*a_{i-1} + (dp[j] + x_j^2 + y_j^2) } + a_{i-1}^2
-    ll dp = 0;
+    // dp[i] = min_{0<=j<i} { dp[j] + (x[j] - a[i])^2 + y[j]^2 }
+    //       = min_{0<=j<i} { -2*x[j]*a[i] + (dp[j] + x[j]^2 + y[j]^2) } + a[i]^2
+    VLL dp(N+1); dp[0] = 0;
     REP(i,N) {
-        cht.add_line(-2*x[i], dp + x[i]*x[i] + y[i]*y[i]);
-        dp = cht.query(i) + a[i]*a[i];
+        cht.add_line(-2*x[i], dp[i] + x[i]*x[i] + y[i]*y[i]);
+        dp[i+1] = cht.query(i) + a[i]*a[i];
     }
-    cout << dp << endl;
+    ll ans = dp[N];
+    cout << ans << endl;
 
     return 0;
 }
