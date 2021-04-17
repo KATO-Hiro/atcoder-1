@@ -121,8 +121,10 @@ int main() {
 
     // dp[i] :=  左から i 番目までを考えた時の最小コスト
     // ----- 遷移式 --> Convex Hull Trick -----
-    // dp[i] = min_{0<=j<i} { dp[j] + (x[j] - a[i])^2 + y[j]^2 }
-    //       = min_{0<=j<i} { -2*x[j]*a[i] + (dp[j] + x[j]^2 + y[j]^2) } + a[i]^2
+    // dp[0] = 0
+    // dp[i] = min_{0<=j<i} { dp[j] + (x[j] - a[i-1])^2 + y[j]^2 }
+    //       = min_{0<=j<i} { -2*x[j]*a[i-1] + (dp[j] + x[j]^2 + y[j]^2) } + a[i-1]^2
+    //       (1<=i<=N)
     VLL dp(N+1); dp[0] = 0;
     REP(i,N) {
         cht.add_line(-2*x[i], dp[i] + x[i]*x[i] + y[i]*y[i]);
