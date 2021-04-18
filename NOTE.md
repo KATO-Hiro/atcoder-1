@@ -31,6 +31,13 @@
     - MLE
         - `vector` のメモリ解放： `A.clear(); A.shrink_to_fit();`
         - `map` のメモリ解放： `mp.clear();`
+    - インタラクティブな問題と flush [[参考](https://rsk0315.hatenablog.com/entry/2020/05/09/170315)]
+        - **`cin.tie(nullptr)` をコメントアウトするか `cout << endl` を使う**
+        - インタラクティブな問題では出力の度に flush が必要であるため，
+          `cin.tie(nullptr)` と `cout << '\n'` を両方使うと flush されず失敗する
+            - `cin` の度に `cout` が flush され重いが `cin.tie(nullptr)` により回避 [[link](https://cpprefjp.github.io/reference/ios/basic_ios/tie.html)]
+            - `endl` は「改行を出力」ではなく「改行を出力してバッファを flush する」 [[link](https://cpprefjp.github.io/reference/ostream/endl.html)]
+
 - 競プロ系
     - 誤読
         - 有向グラフ・無向グラフのミス
