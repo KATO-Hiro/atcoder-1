@@ -117,10 +117,11 @@
 - 数学
     - 数学系の問題は**立式・式変形**をすることで解ける場合がある [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)] [[abc190_d](https://atcoder.jp/contests/abc190/tasks/abc190_d)]
     - `gcd, lcm` には結合法則が成り立つ e.g.) `gcd(a,gcd(b,c)) = gcd(gcd(a,b),c)`
-        - 累積 gcd が有用な場合がある
-    - `floor(A/B)` は `A = Bq + r (0≦r＜B), floor(A/B) = q` を利用 [[abc165_d](https://atcoder.jp/contests/abc165/tasks/abc165_d)] [[arc111_a](https://atcoder.jp/contests/arc111/tasks/arc111_a)]
+        - 累積 gcd が有用な場合がある [[judge_update_202004_d](https://atcoder.jp/contests/judge-update-202004/tasks/judge_update_202004_d)]
+    - `floor(A/B)` は `floor(A/B) = q, A = Bq + r (0≦r＜B)` で考察 [[abc165_d](https://atcoder.jp/contests/abc165/tasks/abc165_d)] [[arc111_a](https://atcoder.jp/contests/arc111/tasks/arc111_a)]
     - 偶奇性を利用する: `|x-y| ≡ x⊕y ≡ x+y (mod 2)` [[agc043_b](https://atcoder.jp/contests/agc043/tasks/agc043_b)]
     - 整数 `N` の `b` 進表記は `b ≦ √N` のとき 3 桁以上 `√N ＜ b` のとき 2 桁以下 [[arc060_b](https://atcoder.jp/contests/arc060/tasks/arc060_b)]
+    - `gcd(a,b) = gcd(a-b,b) = gcd(a-b,a)  (a > b)` [[tweet](https://twitter.com/mts1104_ml/status/1377586281287282689)]
 
 - ゲーム
     - 後退解析 + メモ化再帰 によるゲーム DP (状態数オーダーに注意)
