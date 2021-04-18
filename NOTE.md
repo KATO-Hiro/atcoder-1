@@ -56,9 +56,11 @@
           `auto A = hoge ? A1 : A2` → `auto& A = hoge ? A1 : A2`
         - `debug` 文を削除していない（`O(N)` はかなり重い）
         - `ld (long double)` は計算が重く，`double` で十分な判定条件なら `ld` は使わない
+        - `string` を介した整数演算は重いため `10x + y` でループを書く [[abc198_d](https://atcoder.jp/contests/abc198/tasks/abc198_d)]
     - 誤差
         - 実数を扱う場合は誤差死の可能性あり
-            - 整数で扱えるように，式変形したり `10^x` を掛けるなどする
+            - 整数で扱えるように式変形をする (分母を払う・ルートを外す) [[panasonic2020_c](https://atcoder.jp/contests/panasonic2020/tasks/panasonic2020_c)]
+            - 少数が絡むのに許容誤差が無い場合は [[abc191_d](https://atcoder.jp/contests/abc191/tasks/abc191_d)]
             - (神頼み) `EPS` を刻む，`long double` を試す
     - ソート
         - やってない (半分全列挙など) or やってはいけない
