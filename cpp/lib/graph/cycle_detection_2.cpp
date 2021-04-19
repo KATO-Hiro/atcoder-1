@@ -20,12 +20,13 @@ using VB = vector<bool>;
 VLL cycle_detection(VVLL& G) {
     const ll N = (ll)G.size();
     VLL C;
-    VB visited(N,false);
+    VB visited(N,false);   // 訪問済フラグ（有向サイクル検出なので 1 回の探索で十分）
     VB visiting(N,false);  // 探索中の経路に含まれるか (deque に入っているか)
     deque<ll> d;
-    bool cycle = false;
+    bool is_cycle = false;
     REP(s,N) if (!visited[s]) {
         auto rec = [&](auto self, ll u) -> void {
+            if (visited[u]) return;
             for (ll v : G[u]) {
                 if (visiting[v]) {
                     // 閉路に無関係な頂点群を削除
@@ -34,19 +35,19 @@ VLL cycle_detection(VVLL& G) {
                     // 閉路を構成する頂点群を回収
                     while (!d.empty()){ C.push_back(d.front()); d.pop_front(); }
 
-                    cycle = true;
+                    is_cycle = true;
                     return;
                 }
                 visiting[v] = true; d.push_back(v);
                 self(self, v);
-                if (cycle) return;
+                if (is_cycle) return;
                 visiting[v] = false; d.pop_back();
                 visited[v] = true;
             }
         };
         visiting[s] = true; d.push_back(s);
         rec(rec, d.back());
-        if (cycle) return C;
+        if (is_cycle) return C;
         visiting[s] = false; d.pop_back();
         visited[s] = true;
     }
@@ -62,44 +63,29 @@ int main() {
     ll N, M; cin >> N >> M;
     VVLL G(N);
     REP(_,M) {
-        ll A, B; cin >> A >> B;
-        A--; B--;
-        G[A].push_back(B);
+        ll u, v; cin >> u >> v;
+        u--; v--;
+        G[u].push_back(v);
     }
 
     auto C = cycle_detection(G);
-    if (SZ(C) == 0) { COUT(-1); return 0; }
+    if (SZ(C) == 0) { COUT("YES"); return 0; }
 
-    while (true) {
-        ll L = SZ(C);
-        unordered_set<ll> S; for (ll c : C) S.insert(c);
-        S.erase(C[0]);
-        bool ok = true;
-        [&]() -> void {
-            REP(i,L) {
-                ll u = C[i];
-                S.erase(C[(i+1) % L]);
-                for (ll v : G[u]) {
-                    if (!S.count(v)) continue;
-                    ll k = -1; REP(j,L) if (C[j] == v) k = j;
-                    VLL D; D.push_back(C[k]);
-                    while (true) {
-                        k = (k+1) % L;
-                        D.push_back(C[k]);
-                        if (k == i) break;
-                    }
-                    C = D;
-                    ok = false;
-                    return;
-                }
-                S.insert(C[i]);
-            }
-        }();
-        if (ok) break;
+    REP(i,SZ(C)) {
+        ll u = C[i];
+        ll v = C[(i+1) % SZ(C)];
+
+        auto it = G[u].begin();
+        while (*it != v) { it++; }
+        G[u].erase(it);
+
+        auto D = cycle_detection(G);
+        if (SZ(D) == 0) { COUT("YES"); return 0; }
+
+        G[u].push_back(v);
     }
-    COUT(SZ(C));
-    for (ll c : C) COUT(c+1);
+    COUT("NO");
 
     return 0;
 }
-// Verify: https://atcoder.jp/contests/abc142/tasks/abc142_f
+// Verify: https://codeforces.com/contest/915/problem/D
