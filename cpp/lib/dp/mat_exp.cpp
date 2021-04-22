@@ -19,7 +19,7 @@ VVLL mat_exp(VVLL A, ll n, const ll MOD) {
         const ll n3 = (ll)B[0].size();
         VVLL C(n1, VLL(n3, 0));
         REP(i,n1) REP(k,n2) REP(j,n3) {
-            C[i][j] = (C[i][j] + A[i][k] * B[k][j]) % MOD;
+            (C[i][j] += A[i][k] * B[k][j]) %= MOD;
         }
         return C;
     };
