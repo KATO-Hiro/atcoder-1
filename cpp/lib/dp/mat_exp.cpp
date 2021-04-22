@@ -13,7 +13,7 @@ VVLL mat_exp(VVLL A, ll n, const ll MOD) {
     const ll d = (ll)A.size();
     VVLL B(d, VLL(d, 0)); REP(i,d) B[i][i] = 1;  // 単位行列で初期化
 
-    auto mat_mul = [&](VVLL& A, VVLL& B) -> VVLL {
+    auto mat_mul = [&](const VVLL& A, const VVLL& B) -> VVLL {
         const ll n1 = (ll)A.size();
         const ll n2 = (ll)B.size();  // = A[0].size()
         const ll n3 = (ll)B[0].size();
