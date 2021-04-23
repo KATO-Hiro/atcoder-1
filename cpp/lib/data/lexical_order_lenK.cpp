@@ -32,12 +32,12 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(15);
 
+    ll N, K; cin >> N >> K;
     string S; cin >> S;
-    ll K; cin >> K;
 
     string ans = lexicographic_order_length_K(S, K);
     cout << ans << endl;
 
     return 0;
 }
-// Simple Verify: https://github.com/E869120/kyopro_educational_90/blob/main/sample/006.txt
+// Verify: https://atcoder.jp/contests/typical90/tasks/typical90_f
