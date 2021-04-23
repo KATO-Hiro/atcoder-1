@@ -27,7 +27,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
  * - bool: 負閉路が含まれるか
  * - VLL : 負閉路に含まれる頂点配列 (負閉路が含まれなければ空)
  */
-pair<bool, VLL> bellman_ford(VVP& G, VLL& dist, ll s) {
+pair<bool, VLL> bellman_ford(const VVP& G, VLL& dist, ll s) {
     const ll N = (ll)G.size();
     assert(N == (ll)dist.size());
     assert(0 <= s && s < N);
@@ -51,7 +51,7 @@ pair<bool, VLL> bellman_ford(VVP& G, VLL& dist, ll s) {
 //     - スタート地点からそのループに到達できるか
 //     - そのループからゴール地点に到達できるか
 //   実装参考: <https://atcoder.jp/contests/abc061/submissions/21243094>
-VB bfs(VVLL& G, ll s) {
+VB bfs(const VVLL& G, ll s) {
     const ll N = (ll)G.size();
     assert(0 <= s && s < N);
 
@@ -81,6 +81,7 @@ int main() {
 
     VLL dist(N, INF);
     auto [negative_cycle, loop] = bellman_ford(G, dist, r);
+
     if (negative_cycle) {
         cout << "NEGATIVE CYCLE" << '\n';
     } else {

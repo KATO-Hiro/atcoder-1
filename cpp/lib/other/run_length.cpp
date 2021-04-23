@@ -7,7 +7,7 @@ using ll = long long;
 // ランレングス圧縮
 // e.g.) <S,T> = <string,char>, <vector<ll>,ll>
 template<class S, class T>
-vector<pair<T,ll>> run_length(S& A) {
+vector<pair<T,ll>> run_length(const S& A) {
     ll const N = (ll)A.size();
     vector<pair<T,ll>> R;
     ll i = 0;

@@ -20,7 +20,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
  * @param G 重み付き木を構成する隣接リスト
  * @return pair<ll, P> : 木の直径と最遠頂点ペア
  */
-pair<ll, P> tree_diameter(VVP& G) {
+pair<ll, P> tree_diameter(const VVP& G) {
     ll N = (ll)G.size();
     auto bfs = [&](ll s) -> P {
         VLL dist(N,INF); dist[s] = 0;
@@ -61,4 +61,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&lang=ja

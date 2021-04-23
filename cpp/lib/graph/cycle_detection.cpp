@@ -13,7 +13,7 @@ using VB = vector<bool>;
 // 有向グラフのサイクル検知
 // DAG であれば探索終了後に全頂点の入次数が0 (シンク) となるが，
 // サイクルに含まれる頂点はシンクになり得ないことを利用して検知する
-bool cycle_detection(VVLL& G) {
+bool cycle_detection(const VVLL& G) {
     const ll N = (ll)G.size();
 
     VB in_cycle(N, true);

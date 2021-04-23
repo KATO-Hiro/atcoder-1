@@ -17,7 +17,7 @@ using VB = vector<bool>;
 //   - 閉路が存在しない場合，サイズ 0 の vector を返す
 //   - 閉路が存在する場合，最初に見つけた閉路の頂点配列を返す
 //     e.g.) C = {u1, u2, u3} のとき u1 -> u2 -> u3 -> u1 となっている
-VLL cycle_detection(VVLL& G) {
+VLL cycle_detection(const VVLL& G) {
     const ll N = (ll)G.size();
     VLL C;
     VB visited(N,false);   // 訪問済フラグ（有向サイクル検出なので 1 回の探索で十分）

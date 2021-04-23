@@ -15,7 +15,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 
 // 0-based/1-based index
 // P := (to, cost)
-void dijkstra(VVP& G, VLL& dist, ll s) {
+void dijkstra(const VVP& G, VLL& dist, ll s) {
     assert((ll)G.size() == (ll)dist.size());
     assert(0 <= s && s < (ll)G.size());
 

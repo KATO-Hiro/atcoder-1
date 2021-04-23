@@ -14,7 +14,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // 回転 (2次元配列)
 //   - 回転方向は反時計回り
 //   - m = 1 (90度), m = 2 (180度), m = 3 (270度), m = others (no change)
-VS rotate_2d(VS& A, ll m) {
+VS rotate_2d(const VS& A, ll m) {
     ll const H = (ll)A.size();
     ll const W = (ll)A[0].size();
 
@@ -60,7 +60,7 @@ int main() {
     }
     ll HH = h2 - h1 + 1;
     ll WW = w2 - w1 + 1;
-    auto is_ok = [&](VS& A) -> bool {
+    auto is_ok = [&](const VS& A) -> bool {
         ll Y = (ll)A.size();
         ll X = (ll)A[0].size();
         REP(sh,H-Y+1) REP(sw,W-X+1) {
