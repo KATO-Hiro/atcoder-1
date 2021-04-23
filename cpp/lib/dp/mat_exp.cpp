@@ -4,22 +4,35 @@ using ll = long long;
 // --------------------------------------------------------
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-using VLL = vector<ll>;
-using VVLL = vector<VLL>;
 // --------------------------------------------------------
+#include <atcoder/modint>
+using namespace atcoder;
+
+using mint = modint;
+using VM = vector<mint>;
+using VVM = vector<VM>;
 
 
-VVLL mat_exp(VVLL A, ll n, const ll MOD) {
+/**
+ * @brief 行列累乗
+ *        d x d の正方行列 A に対して A^n を O(k^3 log n) で求める
+ * 
+ * @tparam T 行列要素の型  e.g.) mint, ll
+ * @param A 正方行列
+ * @param n 指数
+ * @return vector<vector<T>> A^n の計算結果
+ */
+template<class T>
+vector<vector<T>> mat_exp(vector<vector<T>> A, ll n) {
+    using VT = vector<T>;
+    using VVT = vector<VT>;
     const ll d = (ll)A.size();
-    VVLL B(d, VLL(d, 0)); REP(i,d) B[i][i] = 1;  // 単位行列で初期化
+    VVT B(d, VT(d, 0)); REP(i,d) B[i][i] = 1;  // 単位行列で初期化
 
-    auto mat_mul = [&](const VVLL& A, const VVLL& B) -> VVLL {
-        const ll n1 = (ll)A.size();
-        const ll n2 = (ll)B.size();  // = A[0].size()
-        const ll n3 = (ll)B[0].size();
-        VVLL C(n1, VLL(n3, 0));
-        REP(i,n1) REP(k,n2) REP(j,n3) {
-            (C[i][j] += A[i][k] * B[k][j]) %= MOD;
+    auto mat_mul = [&](const VVT& A, const VVT& B) -> VVT {
+        VVT C(d, VT(d, 0));
+        REP(i,d) REP(k,d) REP(j,d) {
+            C[i][j] += A[i][k] * B[k][j];
         }
         return C;
     };
@@ -41,17 +54,19 @@ int main() {
 
     ll N, M; cin >> N >> M;
 
+    mint::set_mod(M);
+
     // Fibonacci
     //   F(1) = 0
     //   F(2) = 1
     //   F(n) = F(n-1) + F(n-2)
-    VVLL A = {{1, 1},
-              {1, 0}};
-    A = mat_exp(A, N-1, M);
+    VVM A = {{1, 1},
+             {1, 0}};
+    auto An = mat_exp<mint>(A, N-1);
 
     // {F(n+1), F(n)} = A^(n-1) {F(2), F(1)} = A^(n-1) {1, 0}
     // ---> F(n) = A^(n-1)[1][0] * 1 + A^(n-1)[1][1] * 0
-    ll ans = A[1][0];
+    ll ans = An[1][0].val();
     cout << ans << endl;
 
     return 0;
