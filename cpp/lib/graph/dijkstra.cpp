@@ -36,7 +36,8 @@ int main() {
     cin.tie(0);
     cout << fixed << setprecision(10);
 
-    ll N, M, r; cin >> N >> M >> r;
+    ll N, M; cin >> N >> M;
+    ll r; cin >> r;
     VVP G(N);
     REP(_,M) {
         ll s, t, d; cin >> s >> t >> d;
