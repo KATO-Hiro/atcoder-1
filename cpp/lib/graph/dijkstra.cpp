@@ -43,6 +43,7 @@ int main() {
         ll s, t, d; cin >> s >> t >> d;
         // s--; t--;
         G[s].push_back(P(t, d));
+        // G[t].push_back(P(s, d));
     }
 
     VLL dist(N, INF);
