@@ -18,24 +18,23 @@ int main() {
 
     ll N, M; cin >> N >> M;
     scc_graph G(N);
-    ll s, t;
     REP(_,M) {
-        cin >> s >> t;
+        ll s, t; cin >> s >> t;
+        // s--; t--;
         G.add_edge(s, t);
     }
 
     auto scc = G.scc();
     VLL scc_id(N);  // 各頂点の強連結成分の番号
     REP(i,SZ(scc)) {
-        for (auto& u : scc[i]) {
+        for (ll u : scc[i]) {
             scc_id[u] = i;
         }
     }
 
     ll Q; cin >> Q;
-    ll u, v;
     while (Q--) {
-        cin >> u >> v;
+        ll u, v; cin >> u >> v;
         cout << (scc_id[u] == scc_id[v] ? 1 : 0) << '\n';
     }
 
