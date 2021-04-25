@@ -142,6 +142,8 @@
 
 - XOR
     - `0〜N` の XOR は `mod 4` で場合分け可能 [[link](https://www.hamayanhamayan.com/entry/2017/05/20/145021)] [[link](http://kyopro.hateblo.jp/entry/2019/05/22/054412)]
+    - XOR は「繰り上がりのない足し算」と考える [[link](https://atcoder.jp/contests/abc172/tasks/abc172_f)]
+        - `a + b = (a ⊕ b) + 2 * (a & b)`
 
 ## コマンド
 
