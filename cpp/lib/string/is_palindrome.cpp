@@ -5,6 +5,7 @@ using ll = long long;
 // --------------------------------------------------------
 
 
+// 回文判定 (空文字は想定外 -> RE)
 bool is_palindrome(string& S) {
     ll N = (ll)S.size();
     for (ll i = 0; i <= N/2; i++) {
