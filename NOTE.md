@@ -72,6 +72,7 @@
         - 数が足りない（2種類必要なケースもある．Lazy Faith とか）
         - 値が悪い (確実に役割を果たせる値を使用する．オーバーフローに注意)
     - 余事象を正しく計算できているか？ [[tenka1_2012_qualA_3](https://atcoder.jp/contests/tenka1-2012-qualA/tasks/tenka1_2012_qualA_3)]
+    - `map` と `unordered_map` の混同
 
 ## 典型考察メモ
 
