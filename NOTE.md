@@ -99,11 +99,13 @@
 - グラフ
     - 順序付きの集合は DAG で扱える（順序付けされているものを頂点に乗せる） [[abc139_e](https://atcoder.jp/contests/abc139/tasks/abc139_e)]
         - DAG は DP が使える（最短経路問題など）
-    - 最短経路問題などを解いた結果を用いて別のグラフを構築して解くケースがある [[abc143_e](https://atcoder.jp/contests/abc143/tasks/abc143_e)]
-    - 条件式がたくさんあり芋づる式に確定していく問題はグラフで考える
+    - 目的別に複数回のグラフ探索をする
+        - 最短経路問題を 2 回解くケース [[abc143_e](https://atcoder.jp/contests/abc143/tasks/abc143_e)]
+        - 探索順序を固定するために dfs を 2 回するケース [[abc199_d](https://atcoder.jp/contests/abc199/tasks/abc199_d)]
     - 閉路が存在しない場合 (森の場合) は下記が成立．数え上げ等で有用 [[abc173_f](https://atcoder.jp/contests/abc173/tasks/abc173_f)]
         - `頂点数 = 辺数 + 連結成分数`
     - 「奇数長サイクルを含まない」と「二部グラフである」は同値 [[code_festival_2017_qualb_c](https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c)]
+    - 超頂点を追加する [[abc184_e](https://atcoder.jp/contests/abc184/tasks/abc184_e)] [[ecr038_d](https://codeforces.com/contest/938/problem/D)]
 
 - 貪欲
     - スケジューリングは前から貪欲に考える
