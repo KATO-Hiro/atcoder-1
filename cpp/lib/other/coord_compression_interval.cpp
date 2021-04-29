@@ -20,6 +20,10 @@ using VVLL = vector<VLL>;
  * @param min_x 座標が取り得る最小値 (例: MIN(X1,X2) or 制約から決定)
  * @param max_x 座標が取り得る最大値 (例: MAX(X1,X2) or 制約から決定)
  * @param ds 確保する座標の調整値配列 (default: {-1, 0, 1})
+ *           (1) 区間のみ必要な場合は ds = {0} で十分
+ *               --> 区間の面積を求める場合など
+ *           (2) 区間同士の間隔も必要な場合は ds = {-1,0,1} (問題により {0,1} も可)
+ *               --> 線分で分けられた各領域を探索する場合など（連結性が重要な場合）
  * @return VLL 圧縮前の座標配列 (圧縮後の座標と1対1対応)
  */
 VLL compress_interval(VLL& X1, VLL& X2, ll min_x, ll max_x, VLL ds = {-1, 0, 1}) {
@@ -57,14 +61,15 @@ int main() {
     VLL X1(N),Y1(N),X2(N),Y2(N);
     REP(i,N) cin >> X1[i] >> Y1[i] >> X2[i] >> Y2[i];
 
-    ll min = -1e9;
-    ll max = +1e9;
+    ll min_v = -1e9;
+    ll max_v = +1e9;
     VLL ds = {0};  // メモリに余裕があればデフォルト {-1, 0, 1} が無難
-    auto XS = compress_interval(X1, X2, min, max, ds);
-    auto YS = compress_interval(Y1, Y2, min, max, ds);
+    auto XS = compress_interval(X1, X2, min_v, max_v, ds);
+    auto YS = compress_interval(Y1, Y2, min_v, max_v, ds);
 
     ll H = SZ(YS);
     ll W = SZ(XS);
+
     // S[h][w] > 0 を満たす (h,w) が存在する場合，
     // (h,w) を左上頂点とする (圧縮座標系の) 単位正方形が存在することを表す
     VVLL S(H, VLL(W, 0));
@@ -74,12 +79,11 @@ int main() {
         S[Y1[i]][X2[i]]--;
         S[Y2[i]][X2[i]]++;
     }
-    FOR(h,1,H) REP(w,W) S[h][w] += S[h-1][w];
-    FOR(w,1,W) REP(h,H) S[h][w] += S[h][w-1];
+    REP(w,W) FOR(h,1,H) S[h][w] += S[h-1][w];
+    REP(h,H) FOR(w,1,W) S[h][w] += S[h][w-1];
 
     ll ans = 0;
-    REP(h,H) REP(w,W) {
-        if (S[h][w] == 0) continue;
+    REP(h,H-1) REP(w,W-1) if (S[h][w] > 0) {
         ll dx = XS[w+1] - XS[w];
         ll dy = YS[h+1] - YS[h];
         ans += dx * dy;
