@@ -45,7 +45,7 @@ int main() {
     ll N; cin >> N;
     VLL A(N); REP(i,N) cin >> A[i];
 
-    // VLL XA = compress(A);
+    // VLL ZA = compress(A);
     compress(A);
     for (ll a : A) {
         cout << a << '\n';
