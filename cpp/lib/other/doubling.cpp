@@ -2,9 +2,11 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
-#define FOR(i,l,r) for (int i = (l); i < (r); ++i)
-using VI = vector<int>;
-using VVI = vector<VI>;
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+#define BIT(b,i) (((b)>>(i)) & 1)
+using VLL = vector<ll>;
+using VVLL = vector<VLL>;
 // --------------------------------------------------------
 
 
@@ -14,23 +16,21 @@ int main() {
     cout << fixed << setprecision(15);
 
     ll N, T; cin >> N >> T;
-    VI A(N+1); FOR(i,1,N+1) cin >> A[i];
+    VLL A(N+1); FOR(i,1,N+1) cin >> A[i];
 
-    int K = 1;  // 二進数表記で T を表現するために必要な桁数
+    ll K = 1;  // 二進数表記で T を表現するために必要な桁数
     while ((1LL << K) <= T) K++;
 
-    VVI db(K, VI(N+1));
+    // db[k][i] := 町 i からテレポーターを 2^k 回使ったとき到着する町
+    VVLL db(K, VLL(N+1));
     FOR(i,1,N+1) db[0][i] = A[i];
-
     FOR(k,1,K) FOR(i,1,N+1) {
         db[k][i] = db[k-1][db[k-1][i]];
     }
 
-    int pos = 1;
-    FOR(k,0,K) {
-        if (T & (1LL << k)) {
-            pos = db[k][pos];
-        }
+    ll pos = 1;
+    REP(k,K) if (BIT(T,k)) {
+        pos = db[k][pos];
     }
     cout << pos << '\n';
 
