@@ -82,6 +82,8 @@
 - 全般
     - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
+    - 最適な区間を求める場合は「全探索」「区間 DP」 [[ecr039_d](https://codeforces.com/contest/946/problem/D)]
+        - 両端から貪欲にやると内側を評価できないため最適解を逃す
     - 「必ず○○する□□をすべて求めよ（○○＝使う・通る等）」 [[abc161_e](https://atcoder.jp/contests/abc161/tasks/abc161_e)]
         - 各□□を一時的に無効にして成立するか評価することで各□□が必要か判定できる
     - 絶対値は ± で全探索を検討 [[abc100_d](https://atcoder.jp/contests/abc100/tasks/abc100_d)] [[abc178_e](https://atcoder.jp/contests/abc178/tasks/abc178_e)]
