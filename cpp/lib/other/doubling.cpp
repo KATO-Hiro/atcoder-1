@@ -18,8 +18,8 @@ int main() {
     ll N, T; cin >> N >> T;
     VLL A(N+1); FOR(i,1,N+1) cin >> A[i];
 
-    ll K = 1;  // 二進数表記で T を表現するために必要な桁数
-    while ((1LL << K) <= T) K++;
+    // 二進表記で T を表現するために必要な桁数
+    ll K = 1; while ((1LL << K) <= T) K++;
 
     // db[k][i] := 町 i からテレポーターを 2^k 回使ったとき到着する町
     VVLL db(K, VLL(N+1));
