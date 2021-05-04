@@ -36,7 +36,7 @@ struct PuzzleIDAStar {
     }
 
     int hw2pos(int h, int w) { return h * W + w; }
-    pair<int,int> pos2hw(int pos) { return make_pair(pos / H, pos % W); };
+    pair<int,int> pos2hw(int pos) { return make_pair(pos / W, pos % W); };
 
     void set_init(int h, int w, int n) {
         assert(0 <= h && h < H);
