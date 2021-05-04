@@ -62,6 +62,9 @@
             - 整数で扱えるように式変形をする (分母を払う・ルートを外す) [[panasonic2020_c](https://atcoder.jp/contests/panasonic2020/tasks/panasonic2020_c)]
             - 少数が絡むのに許容誤差が無い場合は [[abc191_d](https://atcoder.jp/contests/abc191/tasks/abc191_d)]
             - (神頼み) `EPS` を刻む，`long double` を試す
+        - `double` を使う場合は情報落ちに注意
+            - `long double` で計算するか，実数計算をできるだけ避ける
+              （算術平均なら割る直前まで整数で計算する [[ecr047_c](https://codeforces.com/contest/1009/problem/C)]）
     - ソート
         - やってない (半分全列挙など) or やってはいけない
         - 降順・昇順ミス (`SORT` ↔ `RSORT`)
