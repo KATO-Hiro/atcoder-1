@@ -6,38 +6,44 @@ using ll = long long;
 #define RFOR(i,l,r) for (ll i = (r)-1; (l) <= i; --i)
 #define REP(i,n) FOR(i,0,n)
 #define RREP(i,n) RFOR(i,0,n)
+#define BIT(b,i) (((b)>>(i)) & 1)
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
 // --------------------------------------------------------
 
-// LCA (Lowest Common Ancestor): 最小共通祖先
-// - ダブリングによる実装
+
+/**
+ * @brief LCA (Lowest Common Ancestor): 最小共通祖先
+ *        (ダブリングによる実装)
+ *        - 前計算: O(NlogN)
+ *        - クエリ: O(logN)
+ * 
+ */
 struct LCA {
-    VVLL parent;  // parent[k][u]: parent that climbed 2^k times from u (doubling)
-    VLL depth;  // depth from root
-    ll N;  // number of vertices
-    ll K;  // number of digit in binary notation for doubling
-    LCA(const VVLL& G, ll root) { init(G, root); }
-
-    void init(const VVLL& G, ll root) {
+    // parent[k][u]: 頂点 u から 2^k 回親を辿って到達する頂点 (ダブリング)
+    //               根を越えたら -1
+    VVLL parent;
+    VLL depth;  // depth[u] := 頂点 u の根からの深さ
+    ll N;  // 頂点数
+    ll K;  // 二進表記の桁数 (ダブリング用)
+    LCA(const VVLL& G, ll root) {
         N = (ll)G.size();
-        K = 1;
-        while ((1LL << K) <= N) K++;
-        parent = VVLL(K, VLL(N, 0));
-        depth = VLL(N);
+        assert(0 <= root && root < N);
+        K = 1; while ((1LL << K) <= N) K++;
+        parent.resize(K, VLL(N));
+        depth.resize(N);
 
-        // initialize parent[0] and depth
+        // 初期化
         auto dfs = [&](auto self, ll u, ll p, ll d) -> void {
             parent[0][u] = p;
             depth[u] = d;
-            for (ll v : G[u]) {
-                if (v == p) continue;
+            for (ll v : G[u]) if (v != p) {
                 self(self, v, u, d + 1);
             }
         };
         dfs(dfs, root, -1, 0);
 
-        // initialize parent by doubling
+        // ダブリング
         FOR(k,1,K) REP(u,N) {
             if (parent[k-1][u] < 0) {
                 parent[k][u] = -1;
@@ -45,23 +51,22 @@ struct LCA {
                 parent[k][u] = parent[k-1][parent[k-1][u]];
             }
         }
+
     }
 
-    // level-ancestor: ancestor of u with depth d
+    // 頂点 u から深さ d だけ親を辿る (level-ancestor)
     ll la(ll u, ll d) {
-        RREP(k,K) {
-            if (d & (1LL << k)) {
-                u = parent[k][u];
-            }
+        RREP(k,K) if (BIT(d, k)) {
+            u = parent[k][u];
         }
         return u;
     }
 
-    // LCA of (u, v)
+    // LCA(u, v)
     ll query(ll u, ll v) {
         if (depth[u] < depth[v]) swap(u, v);
-        // now, depth[u] >= depth[v]
-        u = la(u, depth[u] - depth[v]);
+        // depth[u] >= depth[v]
+        u = la(u, depth[u] - depth[v]);  // (u, v) の深さを揃える
         if (u == v) return u;
         RREP(k,K) {
             if (parent[k][u] != parent[k][v]) {
@@ -72,12 +77,12 @@ struct LCA {
         return parent[0][u];
     }
 
-    // number of edges from u to v
+    // (u, v) パス間の辺数
     ll distance(ll u, ll v) {
         return depth[u] + depth[v] - 2*depth[query(u, v)];
     }
 
-    // whether w is on the path of (u, v)
+    // 頂点 w が (u, v) パス上に存在するか
     bool on_path(ll u, ll v, ll w) {
         return distance(u, w) + distance(w, v) == distance(u, v);
     }
@@ -103,11 +108,11 @@ int main() {
     LCA lca(G, 0);
 
     ll Q; cin >> Q;
-    REP(_,Q) {
+    while (Q--) {
         ll u, v; cin >> u >> v;
         cout << lca.query(u, v) << '\n';
     }
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&lang=ja
