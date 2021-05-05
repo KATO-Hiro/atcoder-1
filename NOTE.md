@@ -37,6 +37,9 @@
           `cin.tie(nullptr)` と `cout << '\n'` を両方使うと flush されず失敗する
             - `cin` の度に `cout` が flush され重いが `cin.tie(nullptr)` により回避 [[link](https://cpprefjp.github.io/reference/ios/basic_ios/tie.html)]
             - `endl` は「改行を出力」ではなく「改行を出力してバッファを flush する」 [[link](https://cpprefjp.github.io/reference/ostream/endl.html)]
+    - 負数の剰余演算
+        - C++ では `-3 % 2` の結果が `-1` になる (`1` ではなく)
+        - パリティを求める場合，問題なければ絶対値にして剰余演算する
 
 - 競プロ系
     - 誤読
