@@ -53,6 +53,4 @@ int main() {
 
     return 0;
 }
-
-
 // Verify: https://atcoder.jp/contests/abc036/tasks/abc036_c
