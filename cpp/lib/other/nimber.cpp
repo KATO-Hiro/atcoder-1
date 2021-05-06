@@ -5,6 +5,8 @@ using ll = long long;
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using VLL = vector<ll>;
+using VVLL = vector<VLL>;
+using VB = vector<bool>;
 // --------------------------------------------------------
 
 
@@ -14,25 +16,33 @@ int main() {
     cout << fixed << setprecision(15);
 
     ll N; cin >> N;
+    VLL W(N); REP(i,N) cin >> W[i];
+    VLL B(N); REP(i,N) cin >> B[i];
+
+    const ll WW = 50;
+    const ll BB = 1325;  // (1+2+..+50) + 50
+    const ll M  = 1375;  // max nimber (= WW + BB)
 
     // nimber (grundy number)
-    VLL nim(N+1); nim[1] = 0;
-    FOR(i,2,N+1) {
-        unordered_set<ll> S;
-        if (i % 2 == 0) { S.insert(nim[i/2] ^ nim[i/2]); }
-        if (i % 2 == 1) { S.insert(nim[i/2] ^ nim[i/2 + 1]); }
-        if (i % 3 == 0) { S.insert(nim[i/3] ^ nim[i/3] ^ nim[i/3]); }
-        if (i % 3 == 1) { S.insert(nim[i/3] ^ nim[i/3] ^ nim[i/3 + 1]); }
-        if (i % 3 == 2) { S.insert(nim[i/3] ^ nim[i/3 + 1] ^ nim[i/3 + 1]); }
+    // 今の状態から一手で行ける状態の nimber に含まれていない最小の非負整数
+    VVLL nim(WW+1,VLL(BB+1,-1));
+    nim[0][0] = nim[0][1] = 0;
+    auto rec = [&](auto self, ll w, ll b) -> ll {
+        if (nim[w][b] != -1) return nim[w][b];
 
-        ll g = 0;
-        while (S.count(g) != 0) g++;
-        nim[i] = g;
-    }
+        VB mex(M,false);
+        if (w >= 1) mex[self(self, w-1, b+w)] = true;
+        FOR(k,1,b/2+1) mex[self(self, w, b-k)] = true;
 
-    string ans = (nim[N] != 0 ? "A" : "B");
+        REP(i,M) if (!mex[i]) return nim[w][b] = i;
+        return -1;
+    };
+
+    ll nimber = 0;
+    REP(i,N) nimber ^= rec(rec, W[i], B[i]);
+    string ans = (nimber != 0 ? "First" : "Second");
     cout << ans << endl;
 
     return 0;
 }
-// Verify: https://yukicoder.me/problems/no/153
+// Verify: https://atcoder.jp/contests/typical90/tasks/typical90_ae
