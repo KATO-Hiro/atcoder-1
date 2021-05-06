@@ -14,6 +14,10 @@ using namespace atcoder;
 
 /**
  * @brief 座標圧縮
+ *        e.g.) X = {3, 3, 1, 6, 1}
+ *             ---------------------
+ *              X = {1, 1, 0, 2, 0}
+ *             ZX = {1, 3, 6}
  * 
  * @param X 座標配列の参照 (圧縮後の座標に書き換えられる)
  * @return VLL 圧縮前の座標配列 (圧縮後の座標と1対1対応)
@@ -52,4 +56,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_D&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_D&lang=ja
