@@ -26,18 +26,17 @@ int main() {
     VLL A(N, 0);
     lazy_segtree<S, op, e, F, mapping, composition, id> seg(A);
 
-    ll q, s, t, x;
     while (Q--) {
-        cin >> q;
+        ll q; cin >> q;
         if (q == 0) {
-            cin >> s >> t >> x;
+            ll s, t, x; cin >> s >> t >> x;
             seg.apply(s, t + 1, F{x});
         } else {
-            cin >> s >> t;
+            ll s, t; cin >> s >> t;
             cout << seg.prod(s, t + 1) << '\n';
         }
     }
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H&lang=ja

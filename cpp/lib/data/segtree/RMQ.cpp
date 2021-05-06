@@ -22,9 +22,8 @@ int main() {
     VLL A(N, (1LL << 31) - 1);  // 問題文「a_i は 2^31 - 1 で初期化」
     segtree<S, op, e> seg(A);
 
-    ll q, x, y;
     while (Q--) {
-        cin >> q >> x >> y;
+        ll q, x, y; cin >> q >> x >> y;
         if (q == 0) {
             seg.set(x, y);
         } else {
@@ -34,4 +33,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&lang=ja

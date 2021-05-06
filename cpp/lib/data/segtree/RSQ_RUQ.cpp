@@ -25,18 +25,17 @@ int main() {
     vector<S> A(N, S{0, 1});
     lazy_segtree<S, op, e, F, mapping, composition, id> seg(A);
 
-    ll q, s, t, x;
     while (Q--) {
-        cin >> q;
+        ll q; cin >> q;
         if (q == 0) {
-            cin >> s >> t >> x;
+            ll s, t, x; cin >> s >> t >> x;
             seg.apply(s, t + 1, F{x});
         } else {
-            cin >> s >> t;
+            ll s, t; cin >> s >> t;
             cout << seg.prod(s, t + 1).v << '\n';
         }
     }
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_I&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_I&lang=ja

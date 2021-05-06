@@ -23,15 +23,14 @@ int main() {
     ll N, Q; cin >> N >> Q;
     lazy_segtree<S, op, e, F, mapping, composition, id> seg(N);
 
-    ll q, s, t, x, i;
     while (Q--) {
-        cin >> q;
+        ll q; cin >> q;
         if (q == 0) {
-            cin >> s >> t >> x;
+            ll s, t, x; cin >> s >> t >> x;
             s--; t--;
             seg.apply(s, t + 1, F{x});
         } else {
-            cin >> i;
+            ll i; cin >> i;
             i--;
             cout << seg.get(i) << '\n';
         }
@@ -39,4 +38,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E&lang=ja

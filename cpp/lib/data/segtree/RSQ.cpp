@@ -19,9 +19,8 @@ int main() {
     ll N, Q; cin >> N >> Q;
     segtree<S, op, e> seg(N);
 
-    ll q, x, y;
     while (Q--) {
-        cin >> q >> x >> y;
+        ll q, x, y; cin >> q >> x >> y;
         if (q == 0) {
             x--;
             seg.set(x, seg.get(x) + y);
@@ -33,4 +32,4 @@ int main() {
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&lang=ja
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&lang=ja
