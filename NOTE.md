@@ -60,6 +60,8 @@
         - `debug` 文を削除していない（`O(N)` はかなり重い）
         - `ld (long double)` は計算が重く，`double` で十分な判定条件なら `ld` は使わない
         - `string` を介した整数演算は重いため `10x + y` でループを書く [[abc198_d](https://atcoder.jp/contests/abc198/tasks/abc198_d)]
+        - `unordered_xxx` は`平均 O(1)・最悪 O(N)` であり厳密に `O(1)` ではない
+            - 配列でカウントすれば高速化できる (値の範囲が広ければ座圧)
     - 誤差
         - 実数を扱う場合は誤差死の可能性あり
             - 整数で扱えるように式変形をする (分母を払う・ルートを外す) [[panasonic2020_c](https://atcoder.jp/contests/panasonic2020/tasks/panasonic2020_c)]
@@ -97,6 +99,7 @@
     - 順列は大小関係に着目する [[chokudai_S001_k](https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_k)] [[dp_t](https://atcoder.jp/contests/dp/tasks/dp_t)]
     - 回文は「中心」「両端」から考える [[abc197_f](https://atcoder.jp/contests/abc197/tasks/abc197_f)]
     - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)]
+    - 最適解を直接求めようとすると場合分けが多くて厳しい → 決め打ち二分探索 [[ecr053_c](https://codeforces.com/contest/1073/problem/C)]
 
 - DP
     - 貰う DP は累積和で高速化できる可能性がある
