@@ -4,12 +4,33 @@ using ll = long long;
 // --------------------------------------------------------
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
-#define ALL(c) (c).begin(), (c).end()
-#define SORT(c) sort(ALL(c))
 using VLL = vector<ll>;
 // --------------------------------------------------------
 #include <atcoder/string>
 using namespace atcoder;
+
+
+/**
+ * @brief 文字列 S 中での文字列 T の出現箇所を全探索する (z_algorithm)
+ *        - O(|S|+|T|)
+ * 
+ * @param S 文字列 S
+ * @param T 文字列 T
+ * @return VLL 文字列 S における文字列 T の出現位置の配列
+ */
+VLL string_search_all(const string& S, const string& T) {
+    const ll N = S.size();
+    const ll M = T.size();
+
+    string X = T + '$' + S;
+    auto za = z_algorithm(X);
+
+    VLL res;
+    REP(i,N) {
+        if (za[M + 1 + i] == M) res.push_back(i);
+    }
+    return res;
+}
 
 
 int main() {
@@ -20,20 +41,10 @@ int main() {
     string S; cin >> S;
     string T; cin >> T;
 
-    ll N = S.size();
-    ll M = T.size();
-
-    vector<int> sa = suffix_array(S);
-
-    VLL ans;
-    REP(i,N) {
-        if (S.compare(sa[i], M, T) == 0) ans.push_back(sa[i]);
+    auto match = string_search_all(S, T);
+    for (ll i : match) {
+        cout << i << '\n';
     }
-    SORT(ans);
-    for (ll a : ans) {
-        cout << a << '\n';
-    }
-
 
     return 0;
 }
