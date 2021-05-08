@@ -64,11 +64,11 @@ int main() {
     ll min_v = -1e9;
     ll max_v = +1e9;
     VLL ds = {0};  // メモリに余裕があればデフォルト {-1, 0, 1} が無難
-    auto XS = compress_interval(X1, X2, min_v, max_v, ds);
-    auto YS = compress_interval(Y1, Y2, min_v, max_v, ds);
+    auto ZX = compress_interval(X1, X2, min_v, max_v, ds);
+    auto ZY = compress_interval(Y1, Y2, min_v, max_v, ds);
 
-    ll H = SZ(YS);
-    ll W = SZ(XS);
+    ll H = SZ(ZY);
+    ll W = SZ(ZX);
 
     // S[h][w] > 0 を満たす (h,w) が存在する場合，
     // (h,w) を左上頂点とする (圧縮座標系の) 単位正方形が存在することを表す
@@ -84,8 +84,8 @@ int main() {
 
     ll ans = 0;
     REP(h,H-1) REP(w,W-1) if (S[h][w] > 0) {
-        ll dx = XS[w+1] - XS[w];
-        ll dy = YS[h+1] - YS[h];
+        ll dx = ZX[w+1] - ZX[w];
+        ll dy = ZY[h+1] - ZY[h];
         ans += dx * dy;
     }
     cout << ans << '\n';
