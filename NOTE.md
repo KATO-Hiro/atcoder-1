@@ -81,6 +81,8 @@
         - 値が悪い (確実に役割を果たせる値を使用する．オーバーフローに注意)
     - 余事象を正しく計算できているか？ [[tenka1_2012_qualA_3](https://atcoder.jp/contests/tenka1-2012-qualA/tasks/tenka1_2012_qualA_3)]
     - `map` と `unordered_map` の混同
+    - RMQ では負数があり得る場合は単位元に注意する
+        - Range Maximum Query の場合は `-INF` が正しい (`0` はバグ) [[joi2015yo_f](https://atcoder.jp/contests/joi2015yo/tasks/joi2015yo_f)]
 
 ## 典型考察メモ
 
