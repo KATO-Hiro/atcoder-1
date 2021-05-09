@@ -44,7 +44,7 @@ def main():
         if A != B:
             print("----------------------------------------")
             print("Wrong Answer")
-            print("[test case] ")
+            print("[test case]")
             print(read_random_case())
             print(f"[{MAIN_FILE}]")
             print(A, end="")
