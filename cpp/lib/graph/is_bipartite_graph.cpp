@@ -19,7 +19,7 @@ using VVLL = vector<VLL>;
  * @param G 隣接グラフ
  * @return pair<bool,VLL> 
  * - bool: 二部グラフであるか
- * - VLL : 彩色結果 (true 時のみ有効な結果)
+ * - VLL : 彩色結果 (0 or 1, true 時のみ有効な結果)
  */
 pair<bool,VLL> is_bipartite_graph(const VVLL& G) {
     const ll N = (ll)G.size();
