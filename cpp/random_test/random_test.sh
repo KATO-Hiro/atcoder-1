@@ -8,9 +8,9 @@ while true; do
         echo "[test case] "
         cat random.in
         echo "[./a.out] "
-        echo $A
+        echo "$A"
         echo "[./b.out] "
-        echo $B
+        echo "$B"
         echo "----------------------------------------"
     fi
 done
