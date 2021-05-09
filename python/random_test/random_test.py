@@ -2,21 +2,31 @@ import random
 import subprocess
 
 TESTCASE_FILE = "random.in"
-MAIN_PROC = "main.py"
-GREEDY_PROC = "greedy.py"
+MAIN_FILE = "main.py"
+GREEDY_FILE = "greedy.py"
 
 
 def read_random_case():
     with open(TESTCASE_FILE, "r", encoding="utf-8") as f:
-        return " ".join(map(str, f.readlines()))
+        return "".join(map(str, f.readlines()))
 
 
+# NOTE: 問題に合わせてランダムテストケースを作成する
 def write_random_case():
     with open(TESTCASE_FILE, "w", encoding="utf-8") as f:
+        lines = []
+
         # 1 <= N, K <= 10
         N = random.randint(1, 10)
         K = random.randint(1, 10)
-        f.write(f"{N} {K}")
+        lines.append(f"{N} {K}")
+
+        # N = random.randint(1, 10)
+        # K = random.randint(1, 10)
+        # lines.append(f"{N}")
+        # lines.append(f"{K}")
+
+        f.write("\n".join(lines))
 
 
 def solve(proc_name):
@@ -29,17 +39,17 @@ def solve(proc_name):
 def main():
     while True:
         write_random_case()
-        A = solve(MAIN_PROC)
-        B = solve(GREEDY_PROC)
+        A = solve(MAIN_FILE)
+        B = solve(GREEDY_FILE)
         if A != B:
             print("----------------------------------------")
             print("Wrong Answer")
             print("[test case] ")
             print(read_random_case())
-            print(MAIN_PROC)
-            print(A)
-            print(GREEDY_PROC)
-            print(B)
+            print(f"[{MAIN_FILE}]")
+            print(A, end="")
+            print(f"[{GREEDY_FILE}]")
+            print(B, end="")
             print("----------------------------------------")
 
 
