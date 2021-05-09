@@ -12,6 +12,10 @@ using VP = vector<P>;
 
 using ld = long double;
 
+// NOTE: 3 頂点のなす角 ∠ABC は 0 ≦ θ ≦ π で考えるべきであるため，
+//       計算都合で π を越えた場合は (2π - θ) とする必要あり
+//         e.g.) 鋭角・鈍角の判定
+
 // TODO: 厳密には long double でも誤差の問題はある
 //       外積で誤差なく処理する方法があるらしい (AtCoder で必要になるかは微妙)
 
@@ -19,8 +23,8 @@ using ld = long double;
 // Reference: <https://qiita.com/ganariya/items/adef1a7f89ae88b804da>
 void arg_sort(VP& points) {
     auto comp = [](const P& p1, const P& p2) -> bool {
-        auto& [x1, y1] = p1;
-        auto& [x2, y2] = p2;
+        auto [x1, y1] = p1;
+        auto [x2, y2] = p2;
         return atan2l(y1, x1) < atan2l(y2, x2);
     };
     sort(ALL(points), comp);
