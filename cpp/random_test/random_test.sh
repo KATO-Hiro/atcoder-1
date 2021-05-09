@@ -2,7 +2,7 @@ while true; do
     python3 ./generate.py > random.in
     A=$(./a.out < random.in)
     B=$(./b.out < random.in)
-    if [ $A != $B ]; then
+    if [ "$A" != "$B" ]; then
         echo "----------------------------------------"
         echo "Wrong Answer"
         echo "[test case] "
