@@ -1,48 +1,51 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
+using VB = vector<bool>;
+using VLL = vector<ll>;
+// --------------------------------------------------------
 
 
-vector<bool> is_prime_numbers(ll n) {
-    vector<bool> is_prime(n + 1, true);
+VB is_prime_numbers(ll n) {
+    VB is_prime(n+1, true);
     is_prime[0] = false;
     is_prime[1] = false;
-    ll root_n = (ll)(sqrt(n) + 0.5);
-    for (int i = 4; i <= n; i += 2) is_prime[i] = false;
-    for (int i = 3; i <= root_n; i += 2) {
-        for (int j = 2 * i; j <= n; j += i) {
-            is_prime[j] = false;
-        }
+    ll root = floorl(sqrtl(n) + 0.5);
+    for (ll j = 2*2; j <= n; j += 2) is_prime[j] = false;
+    for (ll i = 3; i <= root; i += 2) {
+        for (ll j = 2*i; j <= n; j += i) is_prime[j] = false;
     }
     return is_prime;
 }
 
 
-// Verify: https://onlinejudge.u-aizu.ac.jp/challenges/search/categories/0053
 int main() {
-    int MAX_V = 2e+5;
-    auto is_prime = is_prime_numbers(MAX_V);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
 
-    int MAX_N = 10000;
-    vector<ll> s(MAX_N + 1, 0);
-    int i, p = 1;
-    for (i = 1; i <= MAX_N; i++) {
-        while (true) {
-            p++;
-            if (is_prime[p]) {
-                s[i] = s[i - 1] + p;
-                break;
-            }
-        }
+    static const ll MAX_V = 200000;
+    static const ll MAX_N = 10000;
+
+    auto is_prime = is_prime_numbers(MAX_V);
+    VLL s(MAX_N+1, 0);
+
+    ll p = 1;
+    FOR(i,1,MAX_N+1) {
+        s[i] += s[i-1];
+        while (!is_prime[p]) p++;
+        s[i] += p++;
     }
-    
-    int n;
+
     while (true) {
-        cin >> n;
+        ll n; cin >> n;
         if (n == 0) break;
-        cout << s[n] << endl;
+        cout << s[n] << '\n';
     }
 
     return 0;
 }
+// Verify: https://onlinejudge.u-aizu.ac.jp/challenges/search/categories/0053
