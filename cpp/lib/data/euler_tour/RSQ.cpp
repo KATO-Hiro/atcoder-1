@@ -19,15 +19,14 @@ S e() { return 0; }
 // オイラーツアー
 //   - L[u]: 頂点 u がオイラーツアー上で最初に現れるインデックス
 //   - R[u]: 頂点 u がオイラーツアー上で最後に現れるインデックスの次
-pair<VLL, VLL> euler_tour(VVLL& G, ll root = 0) {
+pair<VLL, VLL> euler_tour(const VVLL& G, ll root = 0) {
     const ll N = SZ(G);
     VLL L(N), R(N);
     ll idx = 0;
-    auto dfs = [&](auto f, ll u, ll p) -> void {
+    auto dfs = [&](auto self, ll u, ll p) -> void {
         L[u] = idx++;
-        for (ll v : G[u]) {
-            if (v == p) continue;
-            f(f, v, u);
+        for (ll v : G[u]) if (v != p) {
+            self(self, v, u);
         }
         R[u] = idx++;
     };
@@ -37,35 +36,32 @@ pair<VLL, VLL> euler_tour(VVLL& G, ll root = 0) {
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout << fixed << setprecision(10);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
 
     ll N; cin >> N;
     VVLL G(N);
-    ll k, c;
     REP(u,N) {
-        cin >> k;
+        ll k; cin >> k;
         while (k--) {
-            cin >> c;
+            ll c; cin >> c;
             G[u].push_back(c);
             G[c].push_back(u);
         }
     }
 
-    VLL L, R;
-    tie(L, R) = euler_tour(G, 0);
+    auto [L, R] = euler_tour(G, 0);
     segtree<S, op, e> seg(2*N);  // Euler Tour により 2N 必要
 
     ll Q; cin >> Q;
-    ll q, u, v, w;
     while (Q--) {
-        cin >> q;
+        ll q; cin >> q;
         if (q == 0) {
-            cin >> v >> w;
+            ll v, w; cin >> v >> w;
             seg.set(L[v], seg.get(L[v]) + w);
             seg.set(R[v], seg.get(R[v]) - w);
         } else {
-            cin >> u;
+            ll u; cin >> u;
             ll ans = seg.prod(0, L[u] + 1);
             cout << ans << '\n';
         }
