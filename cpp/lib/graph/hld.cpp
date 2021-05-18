@@ -118,7 +118,7 @@ struct HLD {
     }
 
     // パス [u,v] に対する更新クエリ
-    void query_path(int u, int v, bool edge, function<void(int, int)> func) {
+    void apply_path(int u, int v, bool edge, function<void(int, int)> func) {
         assert(0 <= u && u < N);
         assert(0 <= v && v < N);
         while (true) {
@@ -146,7 +146,7 @@ struct HLD {
     }
 
     // 頂点 u を根とする部分木に対する更新クエリ
-    void query_subtree(int u, bool edge, function<void(int, int)> func) {
+    void apply_subtree(int u, bool edge, function<void(int, int)> func) {
         assert(0 <= u && u < N);
         func(in[u] + edge, out[u] - 1);
     }
@@ -190,7 +190,7 @@ int main() {
         } else {
             ll u, x; cin >> u >> x;
             // u--;
-            hld.query_subtree(u, edge, [&](int a, int b) {
+            hld.apply_subtree(u, edge, [&](int a, int b) {
                 seg.apply(a, b+1, F{x});
             });
         }
@@ -227,7 +227,7 @@ int main() {
         ll q; cin >> q;
         if (q == 0) {
             ll v, w; cin >> v >> w;
-            hld.query_path(0, v, edge, [&](int a, int b) {
+            hld.apply_path(0, v, edge, [&](int a, int b) {
                 seg.apply(a, b+1, F{w});
             });
         } else {
