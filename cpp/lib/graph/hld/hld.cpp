@@ -5,17 +5,6 @@ using ll = long long;
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 // --------------------------------------------------------
-#include <atcoder/lazysegtree>
-using namespace atcoder;
-
-// 区間加算・区間総和
-struct S { ll v; ll num; };
-struct F { ll x; };
-S op(S a, S b) { return S{a.v + b.v, a.num + b.num}; }
-S e() { return S{0, 0}; }
-S mapping(F f, S a) { return S{a.v + f.x * a.num, a.num}; }
-F composition(F f, F g) { return F{f.x + g.x}; }
-F id() { return F{0}; }
 
 
 // References:
@@ -153,13 +142,14 @@ struct HLD {
 
     // 頂点 u を根とする部分木に対する取得クエリ
     template <class S>
-    S prod_subtree(int u, bool edge, function<void(int, int)> func) {
+    S prod_subtree(int u, bool edge, function<S(int, int)> func) {
         assert(0 <= u && u < N);
         return func(in[u] + edge, out[u] - 1);
     }
 };
 
 
+/**
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -199,7 +189,7 @@ int main() {
     return 0;
 }
 // Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2667
-
+**/
 
 /**
 int main() {
