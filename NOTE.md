@@ -132,7 +132,7 @@
     - 周期性がある問題は「サイクル検出」「ダブリング」「拡張ユークリッド互除法」を考える [[abc030_d](https://atcoder.jp/contests/abc030/tasks/abc030_d)] [[past202004_m](https://atcoder.jp/contests/past202004-open/tasks/past202004_m)] [[abc186_e](https://atcoder.jp/contests/abc186/tasks/abc186_e)]
     - 順列は大小関係に着目する [[chokudai_S001_k](https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_k)] [[dp_t](https://atcoder.jp/contests/dp/tasks/dp_t)]
     - 回文は「中心」「両端」から考える [[abc197_f](https://atcoder.jp/contests/abc197/tasks/abc197_f)]
-    - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)]
+    - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)] [[arc072_b](https://atcoder.jp/contests/abc059/tasks/arc072_b)]
     - 最適解を直接求めようとすると場合分けが多くて厳しい → 決め打ち二分探索 [[ecr053_c](https://codeforces.com/contest/1073/problem/C)]
 
 - DP
