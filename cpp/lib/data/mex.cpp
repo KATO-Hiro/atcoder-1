@@ -5,11 +5,16 @@ using ll = long long;
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using VLL = vector<ll>;
-using VVLL = vector<VLL>;
-using VB = vector<bool>;
 // --------------------------------------------------------
 
 
+// References:
+//   <https://twitter.com/noshi91/status/1283759174791372809>
+
+/**
+ * @brief Mex : amortized O(1)
+ * 
+ */
 struct Mex {
     int n = 0;
     int mex = 0;
@@ -53,37 +58,32 @@ struct Mex {
 };
 
 
+// TODO: verify
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
-    ll N; cin >> N;
-    VLL W(N); REP(i,N) cin >> W[i];
-    VLL B(N); REP(i,N) cin >> B[i];
-
-    const ll WW = 50;
-    const ll BB = 1325;  // (1+2+..+50) + 50
-
-    // nimber (grundy number)
-    // 今の状態から一手で行ける状態の nimber に含まれていない最小の非負整数
-    VVLL nim(WW+1,VLL(BB+1,-1));
-    nim[0][0] = nim[0][1] = 0;
-    auto rec = [&](auto self, ll w, ll b) -> ll {
-        if (nim[w][b] != -1) return nim[w][b];
-
-        Mex mex;
-        if (w >= 1) mex.add(self(self, w-1, b+w));
-        FOR(k,1,b/2+1) mex.add(self(self, w, b-k));
-
-        return nim[w][b] = mex.query();
-    };
-
-    ll nimber = 0;
-    REP(i,N) nimber ^= rec(rec, W[i], B[i]);
-    string ans = (nimber != 0 ? "First" : "Second");
-    cout << ans << endl;
+    Mex mex;
+    cout << "mex = " << mex.query() << endl;
+    mex.add(0);
+    cout << "add 0" << endl;
+    cout << "mex = " << mex.query() << endl;
+    mex.add(2);
+    cout << "add 2" << endl;
+    cout << "mex = " << mex.query() << endl;
+    mex.add(1);
+    cout << "add 1" << endl;
+    cout << "mex = " << mex.query() << endl;
+    mex.add(4);
+    cout << "add 4" << endl;
+    cout << "mex = " << mex.query() << endl;
+    mex.add(5);
+    cout << "add 5" << endl;
+    cout << "mex = " << mex.query() << endl;
+    mex.add(3);
+    cout << "add 3" << endl;
+    cout << "mex = " << mex.query() << endl;
 
     return 0;
 }
-// Verify: https://atcoder.jp/contests/typical90/tasks/typical90_ae
