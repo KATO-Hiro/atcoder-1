@@ -122,7 +122,6 @@
         - TODO
 
 - 全般
-    - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
     - 最適な区間を求める場合は「全探索」「区間 DP」 [[ecr039_d](https://codeforces.com/contest/946/problem/D)]
         - 両端から貪欲にやると内側を評価できないため最適解を逃す
@@ -133,7 +132,11 @@
     - 順列は大小関係に着目する [[chokudai_S001_k](https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_k)] [[dp_t](https://atcoder.jp/contests/dp/tasks/dp_t)]
     - 回文は「中心」「両端」から考える [[abc197_f](https://atcoder.jp/contests/abc197/tasks/abc197_f)]
     - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)] [[arc072_b](https://atcoder.jp/contests/abc059/tasks/arc072_b)]
+
+- 二分探索
+    - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
     - 最適解を直接求めようとすると場合分けが多くて厳しい → 決め打ち二分探索 [[ecr053_c](https://codeforces.com/contest/1073/problem/C)]
+    - 二分探索の判定問題の計算量を前計算で落として間に合わせる [[abc143_f](https://atcoder.jp/contests/abc143/tasks/abc143_f)]
 
 - DP
     - 貰う DP は累積和で高速化できる可能性がある
