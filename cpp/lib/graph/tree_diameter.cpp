@@ -3,13 +3,11 @@ using namespace std;
 using ll = long long;
 // --------------------------------------------------------
 template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> bool chmin(T& a, const T b) { if (b < a) { a = b; return 1; } return 0; }
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using P = pair<ll,ll>;
 using VP = vector<P>;
 using VVP = vector<VP>;
-using VLL = vector<ll>;
 static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 // --------------------------------------------------------
 
@@ -21,24 +19,19 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
  * @return pair<ll, P> : 木の直径と最遠頂点ペア
  */
 pair<ll, P> tree_diameter(const VVP& G) {
-    ll N = (ll)G.size();
-    auto bfs = [&](ll s) -> P {
-        VLL dist(N,INF); dist[s] = 0;
-        queue<ll> q; q.push(s);
-        while (!q.empty()) {
-            ll u = q.front(); q.pop();
-            for (auto& [v, w] : G[u]) {
-                if (chmin(dist[v], dist[u] + w)) q.push(v);
-            }
+    ll max_u = -1;
+    ll max_d = -INF;
+    auto dfs = [&](auto self, ll u, ll p, ll d) -> void {
+        if (chmax(max_d, d)) max_u = u;
+        for (auto [v, w] : G[u]) if (v != p) {
+            self(self, v, u, d + w);
         }
-        ll max_u = -1;
-        ll max_d = -INF;
-        REP(u,N) if (chmax(max_d, dist[u])) max_u = u;
-        return P(max_u, max_d);
     };
-    auto [u, _] = bfs(0);
-    auto [v, d] = bfs(u);
-    return make_pair(d, P(u, v));
+    dfs(dfs, 0, -1, 0);
+    ll u1 = max_u;
+    dfs(dfs, max_u, -1, 0);
+    ll u2 = max_u;
+    return make_pair(max_d, P(u1, u2));
 };
 
 
