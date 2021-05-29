@@ -145,6 +145,7 @@
     - 桁DP
         - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
         - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
+    - 状態を同一視する [[abc132_f](https://atcoder.jp/contests/abc132/tasks/abc132_f)]
 
 - グラフ
     - 順序付きの集合は DAG で扱える（順序付けされているものを頂点に乗せる） [[abc139_e](https://atcoder.jp/contests/abc139/tasks/abc139_e)]
