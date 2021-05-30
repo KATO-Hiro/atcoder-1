@@ -164,6 +164,8 @@
     - 深さ付き部分木クエリ (k-subtree query)
         - k-subtree minimum query: RMQ + ダブリング [[ecr033_f](https://codeforces.com/contest/893/problem/F)]
         - k-subtree add query: dfs 行きがけ/帰りがけ [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
+    - 木における 2 頂点間距離 `dist(u,v)` は `w = lca(u,v)` を用いて次のように書ける
+        - `dist(u,v) = dist(r,u) + dist(r,v) - 2*dist(r,w)`  (`r` は根)
 
 - 貪欲
     - スケジューリングは前から貪欲に考える
