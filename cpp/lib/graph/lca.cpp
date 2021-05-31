@@ -3,12 +3,8 @@ using namespace std;
 using ll = long long;
 // --------------------------------------------------------
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
-#define RFOR(i,l,r) for (ll i = (r)-1; (l) <= i; --i)
 #define REP(i,n) FOR(i,0,n)
-#define RREP(i,n) RFOR(i,0,n)
 #define BIT(b,i) (((b)>>(i)) & 1)
-using VLL = vector<ll>;
-using VVLL = vector<VLL>;
 // --------------------------------------------------------
 
 
@@ -20,55 +16,65 @@ using VVLL = vector<VLL>;
  * 
  */
 struct LCA {
-    // parent[k][u]: 頂点 u から 2^k 回親を辿って到達する頂点 (ダブリング)
-    //               根を越えたら -1
-    VVLL parent;
-    VLL depth;  // depth[u] := 頂点 u の根からの深さ
-    ll N;  // 頂点数
-    ll K;  // 二進表記の桁数 (ダブリング用)
-    LCA(const VVLL& G, ll root) {
-        N = (ll)G.size();
+    int N, root, K;  // 頂点数，根，二進表記の桁数（ダブリング用）
+    vector<vector<int>> G;
+    vector<vector<int>> parent;  // parent[k][u]: 頂点 u から 2^k 回親を辿って到達する頂点 (根を越えたら -1)
+    vector<int> depth;  // depth[u] := 頂点 u の根からの深さ
+
+    LCA(int n, int r = 0) : N(n), root(r) {
         assert(0 <= root && root < N);
         K = 1; while ((1LL << K) <= N) K++;
-        parent.resize(K, VLL(N));
+        G.resize(N);
+        parent.resize(K, vector<int>(N));
         depth.resize(N);
+    }
 
+    // add edges in both directions
+    void add_edge(int u, int v) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
+        G[u].push_back(v);
+        G[v].push_back(u);
+    }
+
+    void build() {
         // 初期化
-        auto dfs = [&](auto self, ll u, ll p, ll d) -> void {
+        auto dfs = [&](auto self, int u, int p, int d) -> void {
             parent[0][u] = p;
             depth[u] = d;
-            for (ll v : G[u]) if (v != p) {
+            for (int v : G[u]) if (v != p) {
                 self(self, v, u, d + 1);
             }
         };
         dfs(dfs, root, -1, 0);
 
         // ダブリング
-        FOR(k,1,K) REP(u,N) {
-            if (parent[k-1][u] < 0) {
-                parent[k][u] = -1;
-            } else {
-                parent[k][u] = parent[k-1][parent[k-1][u]];
+        for (int k = 1; k < K; k++) {
+            for (int u = 0; u < N; u++) {
+                if (parent[k-1][u] < 0) {
+                    parent[k][u] = -1;
+                } else {
+                    parent[k][u] = parent[k-1][parent[k-1][u]];
+                }
             }
         }
-
     }
 
     // 頂点 u から深さ d だけ親を辿る (level-ancestor)
-    ll la(ll u, ll d) {
-        RREP(k,K) if (BIT(d, k)) {
+    int la(int u, int d) {
+        for (int k = K - 1; 0 <= k; k--) if (BIT(d, k)) {
             u = parent[k][u];
         }
         return u;
     }
 
     // LCA(u, v)
-    ll query(ll u, ll v) {
+    int query(int u, int v) {
         if (depth[u] < depth[v]) swap(u, v);
         // depth[u] >= depth[v]
         u = la(u, depth[u] - depth[v]);  // (u, v) の深さを揃える
         if (u == v) return u;
-        RREP(k,K) {
+        for (int k = K - 1; 0 <= k; k--) {
             if (parent[k][u] != parent[k][v]) {
                 u = parent[k][u];
                 v = parent[k][v];
@@ -78,12 +84,12 @@ struct LCA {
     }
 
     // (u, v) パス間の辺数
-    ll distance(ll u, ll v) {
+    int distance(int u, int v) {
         return depth[u] + depth[v] - 2*depth[query(u, v)];
     }
 
     // 頂点 w が (u, v) パス上に存在するか
-    bool on_path(ll u, ll v, ll w) {
+    bool on_path(int u, int v, int w) {
         return distance(u, w) + distance(w, v) == distance(u, v);
     }
 };
@@ -95,17 +101,15 @@ int main() {
     cout << fixed << setprecision(15);
 
     ll N; cin >> N;
-    VVLL G(N);
+    LCA lca(N, 0);
     REP(u,N) {
         ll k; cin >> k;
         REP(_,k) {
             ll c; cin >> c;
-            G[u].push_back(c);
-            G[c].push_back(u);
+            lca.add_edge(u, c);
         }
     }
-
-    LCA lca(G, 0);
+    lca.build();
 
     ll Q; cin >> Q;
     while (Q--) {
