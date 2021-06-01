@@ -169,6 +169,7 @@
         - パスクエリと部分木クエリ
             - オイラーツアー (列の問題に変換して segtree)
             - HL 分解で殴る (AtCoder で想定解には多分ならない)
+        - 全方位木 DP [[abc160_f](https://atcoder.jp/contests/abc160/tasks/abc160_f)]
         - 深さ付き部分木クエリ (k-subtree query)
             - k-subtree minimum query: RMQ + ダブリング [[ecr033_f](https://codeforces.com/contest/893/problem/F)]
             - k-subtree add query: dfs 行きがけ/帰りがけ [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
