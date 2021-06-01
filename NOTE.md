@@ -103,7 +103,7 @@
     1. 愚直解を考える
         - 愚直解で問題の本質 (難しさ) を理解する
         - 愚直解を高速化できないか検討する
-        - 実装してランダムテストの準備をする
+        - (実装してランダムテストの準備をする)
     1. 条件を数式で整理する
         - 立式・式変形をする
     1. 条件を言い換える
@@ -161,11 +161,17 @@
     - 「奇数長サイクルを含まない」と「二部グラフである」は同値 [[code_festival_2017_qualb_c](https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c)]
     - 超頂点を追加する [[abc184_e](https://atcoder.jp/contests/abc184/tasks/abc184_e)] [[ecr038_d](https://codeforces.com/contest/938/problem/D)]
     - 全域木を構築して木の問題に変換する [[joi2012ho5](https://atcoder.jp/contests/joi2012ho/tasks/joi2012ho5)]
-    - 深さ付き部分木クエリ (k-subtree query)
-        - k-subtree minimum query: RMQ + ダブリング [[ecr033_f](https://codeforces.com/contest/893/problem/F)]
-        - k-subtree add query: dfs 行きがけ/帰りがけ [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
-    - 木における 2 頂点間距離 `dist(u,v)` は `w = lca(u,v)` を用いて次のように書ける
-        - `dist(u,v) = dist(r,u) + dist(r,v) - 2*dist(r,w)`  (`r` は根)
+    - 木に対するテクニック
+        - dfs (行きがけ/帰りがけ) [[abc133_f](https://atcoder.jp/contests/abc133/tasks/abc133_f)] [[abc202_e](https://atcoder.jp/contests/abc202/tasks/abc202_e)]
+        - 根付き木にして 木 DP [[abc138_d](https://atcoder.jp/contests/abc138/tasks/abc138_d)] [[abc187_e](https://atcoder.jp/contests/abc187/tasks/abc187_e)]
+        - 根付き木にして LCA [[abc201_e](https://atcoder.jp/contests/abc201/tasks/abc201_e)]
+            - `dist(u,v) = dist(r,u) + dist(r,v) - 2*dist(r,w)`  (`w = lca(u,v)`)
+        - パスクエリと部分木クエリ
+            - オイラーツアー (列の問題に変換して segtree)
+            - HL 分解で殴る (AtCoder で想定解には多分ならない)
+        - 深さ付き部分木クエリ (k-subtree query)
+            - k-subtree minimum query: RMQ + ダブリング [[ecr033_f](https://codeforces.com/contest/893/problem/F)]
+            - k-subtree add query: dfs 行きがけ/帰りがけ [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
 
 - 貪欲
     - スケジューリングは前から貪欲に考える
