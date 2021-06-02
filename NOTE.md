@@ -132,6 +132,7 @@
 
 - 区間
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
+        - DP: 区間 DP，耳 DP
     - 最適な区間を求める場合は「全探索」「区間 DP」 [[ecr039_d](https://codeforces.com/contest/946/problem/D)]
         - 両端から貪欲にやると内側を評価できないため最適解を逃す
     - 反転は端から貪欲 [蟻本] or 境界に着目 [[typical90_aw](https://atcoder.jp/contests/typical90/tasks/typical90_aw)]
@@ -149,6 +150,7 @@
         - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
         - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
     - 状態を同一視する [[abc132_f](https://atcoder.jp/contests/abc132/tasks/abc132_f)]
+    - 余りに着目する [[abc192_f](https://atcoder.jp/contests/abc192/tasks/abc192_f)] [[ecr061_e](https://codeforces.com/contest/1132/problem/E)]
 
 - グラフ
     - 順序付きの集合は DAG で扱える（順序付けされているものを頂点に乗せる） [[abc139_e](https://atcoder.jp/contests/abc139/tasks/abc139_e)]
