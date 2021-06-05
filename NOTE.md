@@ -2,6 +2,9 @@
 
 ## デバッグメモ
 
+- 参考
+    - [競技プログラミングにおけるWrong Answerの原因ビンゴ](https://gist.github.com/ichyo/8415070)
+
 - C++ 仕様と実装全般
     - スコープ内外で名前衝突
         - グローバルとローカル
@@ -43,9 +46,10 @@
 
 - 競プロ系
     - 誤読
-        - 有向グラフ・無向グラフのミス
+        - 有向グラフ・無向グラフ [[abc197_f](https://atcoder.jp/contests/abc197/tasks/abc197_f)]
         - **答えが一意に定まらない場合は真っ先に誤読を疑う** [[abc192_d](https://atcoder.jp/contests/abc192/tasks/abc192_d)]
-        - 個数と種類数を混同している
+        - 個数・種類数 [[abc192_d](https://atcoder.jp/contests/abc192/tasks/abc192_d)]
+        - ちょうど・以下 [[abc202_e](https://atcoder.jp/contests/abc202/tasks/abc202_e)]
     - 初期化ミス (DP, カウント数など)
     - オーバーフロー
         - 二分探索： `mid` を掛け算に使っている場合 → 初期値・評価式を工夫する
@@ -56,8 +60,8 @@
     - TLE
         - `while` 文に `break` がない，到達できてない
         - 複数の配列の参照分岐で毎回生成してしまっている (`&` が抜けてる)  
-          `auto A = hoge ? A1 : A2` → `auto& A = hoge ? A1 : A2`
-        - `debug` 文を削除していない（`O(N)` はかなり重い）
+            - `auto A = hoge ? A1 : A2` → `auto& A = hoge ? A1 : A2`
+        - **`debug` 文を削除していない**（`O(N)` はかなり重い）
         - `ld (long double)` は計算が重く，`double` で十分な判定条件なら `ld` は使わない
         - `string` を介した整数演算は重いため `10x + y` でループを書く [[abc198_d](https://atcoder.jp/contests/abc198/tasks/abc198_d)]
         - `unordered_xxx` は`平均 O(1)・最悪 O(N)` であり厳密に `O(1)` ではない
@@ -65,16 +69,17 @@
         - 階乗で割る時は階乗の逆元を掛ける (そうしないと前計算の意味がない)
             - 階乗で割った場合 (663ms) [[Detail](https://atcoder.jp/contests/arc067/submissions/22733278)]
             - 逆元を掛けた場合 (51ms) [[Detail](https://atcoder.jp/contests/arc067/submissions/22733369)]
+        - **計算量解析が本当に正しいか確認する** [[abc183_e](https://atcoder.jp/contests/abc183/tasks/abc183_e)] [[abc203_d](https://atcoder.jp/contests/abc203/tasks/abc203_d)]
     - 誤差
         - 実数を扱う場合は誤差死の可能性あり
-            - 整数で扱えるように式変形をする (分母を払う・ルートを外す) [[panasonic2020_c](https://atcoder.jp/contests/panasonic2020/tasks/panasonic2020_c)]
-            - 少数が絡むのに許容誤差が無い場合は [[abc191_d](https://atcoder.jp/contests/abc191/tasks/abc191_d)]
+            - 整数で扱えるように式変形する (分母を払う・ルートを外す) [[panasonic2020_c](https://atcoder.jp/contests/panasonic2020/tasks/panasonic2020_c)]
+            - **許容誤差がない場合は整数で計算する** [[abc191_d](https://atcoder.jp/contests/abc191/tasks/abc191_d)]
             - (神頼み) `EPS` を刻む，`long double` を試す
         - `double` を使う場合は情報落ちに注意
             - `long double` で計算するか，実数計算をできるだけ避ける
               （算術平均なら割る直前まで整数で計算する [[ecr047_c](https://codeforces.com/contest/1009/problem/C)]）
     - ソート
-        - やってない (半分全列挙など) or やってはいけない
+        - やってない (**半分全列挙**など) or やってはいけない
         - 降順・昇順ミス (`SORT` ↔ `RSORT`)
     - 出力形式ミス
         - 構築系なら最初にサイズを出力するかどうか
@@ -82,7 +87,7 @@
     - 番兵
         - 数が足りない（2種類必要なケースもある．Lazy Faith とか）
         - 値が悪い (確実に役割を果たせる値を使用する．オーバーフローに注意)
-    - 余事象を正しく計算できているか？ [[tenka1_2012_qualA_3](https://atcoder.jp/contests/tenka1-2012-qualA/tasks/tenka1_2012_qualA_3)]
+    - **余事象が正しいか確認する** [[tenka1_2012_qualA_3](https://atcoder.jp/contests/tenka1-2012-qualA/tasks/tenka1_2012_qualA_3)] [[ecr062_e](https://codeforces.com/contest/1140/problem/E)]
     - `map` と `unordered_map` の混同
     - RMQ では負数があり得る場合は単位元に注意する
         - Range Maximum Query の場合は `-INF` が正しい (`0` はバグ) [[joi2015yo_f](https://atcoder.jp/contests/joi2015yo/tasks/joi2015yo_f)]
@@ -175,7 +180,7 @@
         - 木全体の数え上げ・最大/最小は重心分解 [[yahoo_procon2018_final_c](https://atcoder.jp/contests/yahoo-procon2018-final-open/tasks/yahoo_procon2018_final_c)]
         - 深さ付き部分木クエリ (k-subtree query)
             - k-subtree minimum query: RMQ + ダブリング [[ecr033_f](https://codeforces.com/contest/893/problem/F)]
-            - k-subtree add query: dfs 行きがけ/帰りがけ [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
+            - k-subtree add query: dfs (行きがけ/帰りがけ) [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
 
 - 貪欲
     - スケジューリングは前から貪欲に考える
