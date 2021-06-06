@@ -91,6 +91,9 @@
     - `map` と `unordered_map` の混同
     - RMQ では負数があり得る場合は単位元に注意する
         - Range Maximum Query の場合は `-INF` が正しい (`0` はバグ) [[joi2015yo_f](https://atcoder.jp/contests/joi2015yo/tasks/joi2015yo_f)]
+    - 三分探索
+        - 単峰性関数に対して用いる [[abc204_e](https://atcoder.jp/contests/abc204/tasks/abc204_e)] [[tweet](https://twitter.com/noshi91/status/1261924911448129538)]
+        - 関数を描画して確認する [[link](https://www.geogebra.org/graphing?lang=ja)]
 
 ## 典型考察メモ
 
