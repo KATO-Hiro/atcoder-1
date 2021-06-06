@@ -137,6 +137,7 @@ int main() {
     }
 
     auto [rank, A] = linear_equation(F, B);
+    // 解の個数 = 2 ^ {p - rank}
 
     REP(x,MOD) {
         mint fx = 0;

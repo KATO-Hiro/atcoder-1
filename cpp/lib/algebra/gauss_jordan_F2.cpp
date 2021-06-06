@@ -96,6 +96,9 @@ int main() {
         REP(i,N) if (BIT(A[i],d)) B[i][M-1-d] = 1;
     }
     GaussJordan(B, false);
+    // vector<int> b;
+    // auto [rank, X] = linear_equation(A, b);
+    // 解の個数 = 2 ^ {N - rank}
 
     ll xor_B = 0;
     REP(d,M) {
