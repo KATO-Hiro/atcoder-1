@@ -137,6 +137,8 @@
     - 順列は大小関係に着目する [[chokudai_S001_k](https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_k)] [[dp_t](https://atcoder.jp/contests/dp/tasks/dp_t)]
     - 回文は「中心」「両端」から考える [[abc197_f](https://atcoder.jp/contests/abc197/tasks/abc197_f)]
     - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)] [[arc072_b](https://atcoder.jp/contests/abc059/tasks/arc072_b)]
+    - 計算量解析すると実は全探索が間に合う [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)] [[arc079_c](https://atcoder.jp/contests/arc079/tasks/arc079_c)]
+        - 鳩の巣原理 [[abc200_d](https://atcoder.jp/contests/abc200/tasks/abc200_d)]
 
 - 区間
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
@@ -186,12 +188,12 @@
             - k-subtree add query: dfs (行きがけ/帰りがけ) [[ecr054_e](https://codeforces.com/contest/1076/problem/E)]
 
 - 貪欲
-    - スケジューリングは前から貪欲に考える
-    - 計算量解析すると実は貪欲で間に合うケースがある [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)] [[arc079_c](https://atcoder.jp/contests/arc079/tasks/arc079_c)]
+    - 区間スケジューリングは終了時刻の早い方から貪欲
     - 辞書順最小は前から貪欲 [[past202004_l](https://atcoder.jp/contests/past202004-open/tasks/past202004_l)]
+    - ソートして貪欲
 
 - 数え上げ
-    - **主客転倒テク**：すべての組み合わせのコスト総和を計算する場合，ある1つの組み合わせにおけるコストを要素毎に分解して，各要素が題意に与える寄与を独立に計算して数え上げる
+    - **主客転倒テク**：すべての組み合わせのコスト総和を計算する場合，ある 1 つの組み合わせにおけるコストを要素毎に分解して，各要素が題意に与える寄与を独立に計算して数え上げる
     - 数え上げは DP の可能性が高い
     - 愚直な DP を考えてから高速化を考える（累積和など）
 
