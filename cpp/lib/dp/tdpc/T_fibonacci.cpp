@@ -1,0 +1,1 @@
+// see ../kitamasa.cpp
