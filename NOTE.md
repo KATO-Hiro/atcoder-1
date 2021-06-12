@@ -174,14 +174,15 @@
     - 超頂点を追加する [[abc184_e](https://atcoder.jp/contests/abc184/tasks/abc184_e)] [[ecr038_d](https://codeforces.com/contest/938/problem/D)]
     - 全域木を構築して木の問題に変換する [[joi2012ho5](https://atcoder.jp/contests/joi2012ho/tasks/joi2012ho5)]
     - 木に対するテクニック
-        - クエリ先読み + dfs (行きがけ/帰りがけ) [[abc133_f](https://atcoder.jp/contests/abc133/tasks/abc133_f)] [[abc202_e](https://atcoder.jp/contests/abc202/tasks/abc202_e)]
         - 根付き木にして 木 DP [[abc138_d](https://atcoder.jp/contests/abc138/tasks/abc138_d)] [[abc187_e](https://atcoder.jp/contests/abc187/tasks/abc187_e)]
         - 根付き木にして LCA [[abc201_e](https://atcoder.jp/contests/abc201/tasks/abc201_e)]
             - `dist(u,v) = dist(r,u) + dist(r,v) - 2*dist(r,w)`  (`w = lca(u,v)`)
+        - クエリ先読み + dfs (行きがけ/帰りがけ) [[abc133_f](https://atcoder.jp/contests/abc133/tasks/abc133_f)] [[abc202_e](https://atcoder.jp/contests/abc202/tasks/abc202_e)]
+        - 各頂点を根としたクエリは全方位木 DP [[abc160_f](https://atcoder.jp/contests/abc160/tasks/abc160_f)]
+        - オイラーツアー [[typical90_ai](https://atcoder.jp/contests/typical90/tasks/typical90_ai)]
         - パスクエリと部分木クエリ
             - オイラーツアー (列の問題に変換して segtree)
             - HL 分解で殴る (AtCoder で想定解には多分ならない)
-        - 各頂点を根としたクエリは全方位木 DP [[abc160_f](https://atcoder.jp/contests/abc160/tasks/abc160_f)]
         - 木全体の数え上げ・最大/最小は重心分解 [[yahoo_procon2018_final_c](https://atcoder.jp/contests/yahoo-procon2018-final-open/tasks/yahoo_procon2018_final_c)]
         - 深さ付き部分木クエリ (k-subtree query)
             - k-subtree minimum query: RMQ + ダブリング [[ecr033_f](https://codeforces.com/contest/893/problem/F)]
