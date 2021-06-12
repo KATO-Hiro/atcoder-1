@@ -1,51 +1,41 @@
 #include <bits/stdc++.h>
-#define rep(i,n) for (int i = 0; i < (n); ++i)
 using namespace std;
 using ll = long long;
+// --------------------------------------------------------
+// --------------------------------------------------------
 
 
-vector<ll> divisor_enumeration(ll n) {
-    vector<ll> divisor_l, divisor_r;
-    ll e, root_n = (ll)(sqrt(n) + 0.5);
-    for (int d = 1; d <= root_n; d++) {
-        if (n % d == 0) {
-            divisor_l.push_back(d);
-            e = n / d;
-            if (e != d) divisor_r.push_back(e);
-        }
+// 約数列挙 : O(√N)
+vector<ll> divisor_enumeration(ll N) {
+    vector<ll> L, R;
+    ll root = floorl(sqrtl(N) + 0.5);
+    for (ll d1 = 1; d1 <= root; d1++) if (N % d1 == 0) {
+        ll d2 = N / d1;
+        L.push_back(d1);
+        if (d1 != d2) R.push_back(d2);
     }
-    reverse(divisor_r.begin(), divisor_r.end());
-    divisor_l.insert(divisor_l.end(), divisor_r.begin(), divisor_r.end());
-    return divisor_l;
+    // 昇順ソート
+    reverse(R.begin(), R.end());
+    L.insert(L.end(), R.begin(), R.end());
+    return L;
 }
 
 
 int main() {
-    ll N;
-    cin >> N;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
 
-    auto F = [](ll A, ll B) -> int {
-        return max(to_string(A).size(), to_string(B).size());
-    };
+    ll a, b, c; cin >> a >> b >> c;
 
-    vector<ll> divisors = divisor_enumeration(N);
-    int ans = 1 << 30;
+    auto divisors = divisor_enumeration(c);
+
+    ll ans = 0;
     for (ll d: divisors) {
-        ans = min(ans, F(d, N / d));
+        if (a <= d && d <= b) ans++;
     }
     cout << ans << endl;
+
     return 0;
 }
-
-
-/*
-https://atcoder.jp/contests/abc057/tasks/abc057_c
-
-input 3
--------
-9876543210
-
-output 3
---------
-6
-*/
+// verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_3_D&lang=ja
