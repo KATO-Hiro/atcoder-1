@@ -26,6 +26,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
  * @return pair<bool, VLL> 
  * - bool: 負閉路が含まれるか
  * - VLL : 負閉路に含まれる頂点配列 (負閉路が含まれなければ空)
+ *         (NOTE: 負閉路が複数あれば頂点が混ざり合うことに注意)
  */
 pair<bool, VLL> bellman_ford(const VVP& G, VLL& dist, ll s) {
     const ll N = (ll)G.size();
@@ -45,12 +46,7 @@ pair<bool, VLL> bellman_ford(const VVP& G, VLL& dist, ll s) {
     return make_pair(negative_cycle, loop);
 }
 
-// 頂点 s から到達可能であるか否かの bool 配列を返す
-//   「スタート地点からあるループを経由してゴール地点へ移動する」
-//   が可能であるかを下記によって調べるために本メソッドは使用される想定
-//     - スタート地点からそのループに到達できるか
-//     - そのループからゴール地点に到達できるか
-//   実装参考: <https://atcoder.jp/contests/abc061/submissions/21243094>
+// 始点 s から到達可能であるか否かの bool 配列を返す
 VB bfs(const VVLL& G, ll s) {
     const ll N = (ll)G.size();
     assert(0 <= s && s < N);
@@ -66,6 +62,45 @@ VB bfs(const VVLL& G, ll s) {
     return B;
 }
 
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
+
+    ll N, M; cin >> N >> M;
+    VVP G(N);
+    VVLL G1(N), G2(N);
+    REP(_,M) {
+        ll a, b, x; cin >> a >> b >> x;
+        a--; b--;
+        G[a].push_back(P(b, -x));  // スコア無限化が可能かを負閉路検出で調べる
+        G1[a].push_back(b);
+        G2[b].push_back(a);
+    }
+
+    VLL dist(N, INF);
+    auto [negative_cycle, loop] = bellman_ford(G, dist, 0);
+
+    VB B1 = bfs(G1, 0);
+    VB B2 = bfs(G2, N-1);
+
+    for (ll l : loop) {
+        if (B1[l] && B2[l]) {
+            cout << -1 << endl;
+            return 0;
+        }
+    }
+
+    ll ans = -dist[N-1];  // 符号を元に戻す
+    cout << ans << endl;
+
+    return 0;
+}
+// verify: https://cses.fi/problemset/task/1673
+
+
+/**
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
@@ -98,3 +133,4 @@ int main() {
     return 0;
 }
 // Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=ja
+**/
