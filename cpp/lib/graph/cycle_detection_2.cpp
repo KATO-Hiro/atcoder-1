@@ -20,7 +20,7 @@ using VB = vector<bool>;
 VLL cycle_detection(const VVLL& G) {
     const ll N = (ll)G.size();
     VLL C;
-    VB visited(N,false);   // 訪問済フラグ（有向サイクル検出なので 1 回の探索で十分）
+    VB visited(N,false);   // 訪問済フラグ（閉路検出なので 1 回の探索で十分）
     VB visiting(N,false);  // 探索中の経路に含まれるか (deque に入っているか)
     deque<ll> d;
     bool is_cycle = false;
@@ -46,7 +46,7 @@ VLL cycle_detection(const VVLL& G) {
             }
         };
         visiting[s] = true; d.push_back(s);
-        rec(rec, d.back());
+        rec(rec, s);
         if (is_cycle) return C;
         visiting[s] = false; d.pop_back();
         visited[s] = true;
@@ -68,7 +68,7 @@ int main() {
         G[u].push_back(v);
     }
 
-    auto C = cycle_detection(G);
+    VLL C = cycle_detection(G);
     if (SZ(C) == 0) { COUT("YES"); return 0; }
 
     REP(i,SZ(C)) {
