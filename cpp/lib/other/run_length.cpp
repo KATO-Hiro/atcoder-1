@@ -32,6 +32,7 @@ int main() {
     string S; cin >> S;
 
     auto R = run_length<string, char>(S);
+    // auto R = run_length<VLL, ll>(A);
     for (auto& m : R) {
         cout << m.first << m.second;
     }
