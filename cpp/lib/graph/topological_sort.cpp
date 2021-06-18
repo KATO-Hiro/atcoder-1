@@ -48,7 +48,7 @@ int main() {
         G[s].push_back(t);
     }
 
-    auto L = topological_sort(G);
+    VLL L = topological_sort(G);
     for (ll u : L) {
         cout << u << '\n';
     }
