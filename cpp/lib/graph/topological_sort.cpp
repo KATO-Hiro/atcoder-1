@@ -13,10 +13,12 @@ using VVLL = vector<VLL>;
 //   <https://en.wikipedia.org/wiki/Topological_sorting>
 //   <https://www.slideshare.net/hcpc_hokudai/topological-sort-69581002/24>
 
-// 0-based index
-VLL topological_sort(const VVLL& G) {
+// トポロジカルソート
+//   - 0-based index
+//   - DAG ではない場合，頂点配列は無効
+pair<bool, VLL> topological_sort(const VVLL& G) {
     const ll N = (ll)G.size();
-    VLL L(N);  // result of topological sort
+    VLL L(N,-1);  // result of topological sort
     ll k = 0;
 
     VLL indeg(N, 0);  // indegree
@@ -31,7 +33,9 @@ VLL topological_sort(const VVLL& G) {
             if (--indeg[v] == 0) q.push(v);
         }
     }
-    return L;
+    bool is_dag = (L.back() != -1);
+
+    return make_pair(is_dag, L);
 }
 
 
@@ -48,7 +52,7 @@ int main() {
         G[s].push_back(t);
     }
 
-    VLL L = topological_sort(G);
+    auto [is_dag, L] = topological_sort(G);
     for (ll u : L) {
         cout << u << '\n';
     }
