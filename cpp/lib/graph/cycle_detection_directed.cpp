@@ -6,6 +6,7 @@ using ll = long long;
 #define REP(i,n) FOR(i,0,n)
 #define SZ(c) ((ll)(c).size())
 #define COUT(c) cout << (c) << '\n'
+template<class T> void cout_line(const vector<T>& ans, ll l, ll r) { for (ll i = l; i < r; i++) { if (i != l) { cout << " "; } cout << ans[i]; } cout << '\n'; }
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
 using VB = vector<bool>;
@@ -69,23 +70,14 @@ int main() {
     }
 
     VLL C = cycle_detection(G);
-    if (SZ(C) == 0) { COUT("YES"); return 0; }
+    if (SZ(C) == 0) { COUT("IMPOSSIBLE"); return 0; }
 
-    REP(i,SZ(C)) {
-        ll u = C[i];
-        ll v = C[(i+1) % SZ(C)];
+    C.push_back(C[0]);
+    REP(i,SZ(C)) C[i]++;
 
-        auto it = G[u].begin();
-        while (*it != v) { it++; }
-        G[u].erase(it);
-
-        auto D = cycle_detection(G);
-        if (SZ(D) == 0) { COUT("YES"); return 0; }
-
-        G[u].push_back(v);
-    }
-    COUT("NO");
+    COUT(SZ(C));
+    cout_line(C,0,SZ(C));
 
     return 0;
 }
-// Verify: https://codeforces.com/contest/915/problem/D
+// verify: https://cses.fi/problemset/task/1678
