@@ -173,6 +173,7 @@
     - 「奇数長サイクルを含まない」と「二部グラフである」は同値 [[code_festival_2017_qualb_c](https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c)]
     - 超頂点を追加する [[abc184_e](https://atcoder.jp/contests/abc184/tasks/abc184_e)] [[ecr038_d](https://codeforces.com/contest/938/problem/D)]
     - 全域木を構築して木の問題に変換する [[joi2012ho5](https://atcoder.jp/contests/joi2012ho/tasks/joi2012ho5)]
+    - 有向グラフを逆向きにして主客転倒する [[cses1682](https://cses.fi/problemset/task/1682) ([editorial](https://usaco.guide/problems/cses-1682-flight-routes-check/solution))]
     - 木に対するテクニック
         - 根付き木にして 木 DP [[abc138_d](https://atcoder.jp/contests/abc138/tasks/abc138_d)] [[abc187_e](https://atcoder.jp/contests/abc187/tasks/abc187_e)]
         - 根付き木にして LCA [[abc201_e](https://atcoder.jp/contests/abc201/tasks/abc201_e)]
