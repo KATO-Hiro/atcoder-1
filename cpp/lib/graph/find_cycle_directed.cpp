@@ -13,12 +13,12 @@ using VB = vector<bool>;
 // --------------------------------------------------------
 
 
-// 有向グラフの閉路検出
+// 有向グラフの閉路を一つ見つける
 //   ※自己ループ・多重辺は想定外
 //   - 閉路が存在しない場合，サイズ 0 の vector を返す
 //   - 閉路が存在する場合，最初に見つけた閉路の頂点配列を返す
 //     e.g.) C = {u1, u2, u3} のとき u1 -> u2 -> u3 -> u1 となっている
-VLL cycle_detection(const VVLL& G) {
+VLL find_cycle_directed(const VVLL& G) {
     const ll N = (ll)G.size();
     VLL C;
     VB visited(N,false);   // 訪問済フラグ（閉路検出なので 1 回の探索で十分）
@@ -69,7 +69,7 @@ int main() {
         G[u].push_back(v);
     }
 
-    VLL C = cycle_detection(G);
+    VLL C = find_cycle_directed(G);
     if (SZ(C) == 0) { COUT("IMPOSSIBLE"); return 0; }
 
     C.push_back(C[0]);
