@@ -2,10 +2,12 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 #define SZ(c) ((ll)(c).size())
 using VLL = vector<ll>;
+using VVLL = vector<VLL>;
 // --------------------------------------------------------
 #include <atcoder/scc>
 using namespace atcoder;
@@ -13,60 +15,51 @@ using namespace atcoder;
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
+    cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
     ll N, M; cin >> N >> M;
-    scc_graph G(N);
+    VLL K(N); REP(i,N) cin >> K[i];
+    VVLL G(N);
+    scc_graph g(N);
     REP(_,M) {
         ll s, t; cin >> s >> t;
-        // s--; t--;
-        G.add_edge(s, t);
+        s--; t--;
+        G[s].push_back(t);
+        g.add_edge(s, t);
     }
 
-    auto scc = G.scc();
-    VLL scc_id(N);  // 各頂点の強連結成分の番号
-    REP(i,SZ(scc)) {
-        for (ll u : scc[i]) {
-            scc_id[u] = i;
+    auto scc = g.scc();
+
+    // 強連結成分を一つの頂点に潰したグラフを構築
+    ll N_scc = SZ(scc);
+    VVLL G_scc(N_scc);
+    VLL belong(N);
+    REP(us,N_scc) for (auto u : scc[us]) belong[u] = us;
+    REP(u,N) for (ll v : G[u]) {
+        ll us = belong[u], vs = belong[v];
+        if (us < vs) { G_scc[us].push_back(vs); }
+        if (us > vs) { G_scc[vs].push_back(us); }
+    }
+
+    VLL dp(N_scc,-1);
+    auto dfs = [&](auto self, ll us) -> ll {
+        if (dp[us] != -1) return dp[us];
+        ll res = 0;
+        for (auto vs : G_scc[us]) {
+            chmax(res, self(self, vs));
         }
-    }
+        for (auto u : scc[us]) res += K[u];
+        return dp[us] = res;
+    };
 
-    ll Q; cin >> Q;
-    while (Q--) {
-        ll u, v; cin >> u >> v;
-        cout << (scc_id[u] == scc_id[v] ? 1 : 0) << '\n';
+    ll ans = 0;
+    REP(us,N_scc) {
+        dfs(dfs, us);
+        chmax(ans, dp[us]);
     }
+    cout << ans << endl;
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=ja
-
-/*
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout << fixed << setprecision(15);
-
-    ll N, M; cin >> N >> M;
-    scc_graph G(N);
-    ll a, b;
-    REP(_,M) {
-        cin >> a >> b;
-        G.add_edge(a, b);
-    }
-
-    auto scc = G.scc();
-    cout << SZ(scc) << '\n';
-    for (auto& g : scc) {
-        cout << SZ(g);
-        for (auto& u : g) {
-            cout << " " << u;
-        }
-        cout << '\n';
-    }
-
-    return 0;
-}
-// Verify: https://atcoder.jp/contests/practice2/tasks/practice2_g
-*/
+// Verify: https://cses.fi/problemset/task/1686
