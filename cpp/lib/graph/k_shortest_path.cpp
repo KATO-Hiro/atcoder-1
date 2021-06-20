@@ -19,6 +19,8 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 //   <https://en.wikipedia.org/wiki/K_shortest_path_routing>
 //   <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.30.3705&rep=rep1&type=pdf>
 
+// NOTE: This is naive algorithm, not Eppstein's algorithm.
+//       See also time complexity below.
 
 // Finding the k shortest path (walk) from s to t
 // This is not "simple" version (vertex can be repeated)
