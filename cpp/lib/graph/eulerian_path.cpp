@@ -158,7 +158,51 @@ int main() {
     cout << fixed << setprecision(15);
 
     ll N, M; cin >> N >> M;
-    EulerianPath ep(N, false);
+    EulerianPath ep(N, true);  // 有向グラフ
+    dsu uf(N);
+    vector<ll> n_edge(N,0);  // 各連結成分の "辺の数" (union-find と同期)
+    REP(_,M) {
+        ll u, v; cin >> u >> v;
+        u--; v--;
+        ep.add_edge(u, v);
+
+        auto ur = uf.leader(u);
+        auto vr = uf.leader(v);
+        uf.merge(u, v);
+        auto r = uf.leader(u);
+        if (r != ur) { n_edge[r] += n_edge[ur]; n_edge[ur] = 0; }
+        if (r != vr) { n_edge[r] += n_edge[vr]; n_edge[vr] = 0; }
+        n_edge[r]++;
+    }
+
+    // 連結性の確認
+    //   cses1693 の場合は孤立点を無視する問題設定なので辺の数を確認する
+    if (n_edge[uf.leader(0)] != M) { COUT("IMPOSSIBLE"); return 0; }
+    // if (SZ(uf.groups()) > 1) { COUT("IMPOSSIBLE"); return 0; }
+
+    ep.build();
+    auto path = ep.construct_semi();
+
+    if (SZ(path) == 0) { COUT("IMPOSSIBLE"); return 0; }
+    if (path[0] != 0) { COUT("IMPOSSIBLE"); return 0; }
+    if (path.back() != N-1) { COUT("IMPOSSIBLE"); return 0; }
+
+    REP(i,SZ(path)) path[i]++;
+    cout_line(path,0,SZ(path));
+
+    return 0;
+}
+// Verify: https://cses.fi/problemset/task/1693
+
+
+/**
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
+
+    ll N, M; cin >> N >> M;
+    EulerianPath ep(N, false);  // 無向グラフ
     dsu uf(N);
     vector<ll> n_edge(N,0);  // 各連結成分の "辺の数" (union-find と同期)
     REP(_,M) {
@@ -193,3 +237,4 @@ int main() {
     return 0;
 }
 // Verify: https://cses.fi/problemset/task/1691
+**/
