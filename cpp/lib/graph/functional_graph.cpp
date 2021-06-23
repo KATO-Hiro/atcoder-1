@@ -235,7 +235,7 @@ struct FunctionalGraph {
         return res;
     }
 
-    // 木における (u, v) パス間の辺数
+    // 木における (u -> v) パス間の辺数
     // パスが存在することを想定している
     //   - same_tree(u, v) == true
     //   - lca(u, v) == v
@@ -245,7 +245,7 @@ struct FunctionalGraph {
         return depth[u] - depth[v];
     }
 
-    // サイクルにおける (u, v) パス間の辺数
+    // サイクルにおける (u -> v) パス間の辺数
     // パスが存在することを想定している
     //   - same_cycle(u, v) == true
     int _distance_e_cycle(int u, int v) {
@@ -255,7 +255,7 @@ struct FunctionalGraph {
         return (cycle_dist_e[v] - cycle_dist_e[u] + length) % length;
     }
 
-    // 木における (u, v) パス間の距離
+    // 木における (u -> v) パス間の距離
     // パスが存在することを想定している
     //   - same_tree(u, v) == true
     //   - lca(u, v) == v
@@ -265,7 +265,7 @@ struct FunctionalGraph {
         return dist[u] - dist[v];
     }
 
-    // サイクルにおける (u, v) パス間の距離
+    // サイクルにおける (u -> v) パス間の距離
     // パスが存在することを想定している
     //   - same_cycle(u, v) == true
     ll _distance_w_cycle(int u, int v) {
