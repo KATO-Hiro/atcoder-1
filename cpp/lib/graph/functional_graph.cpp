@@ -8,6 +8,11 @@ using ll = long long;
 // --------------------------------------------------------
 
 
+// References:
+//   <https://usaco.guide/CPH.pdf#page=164>
+//   <https://usaco.guide/problems/cses-1160-planets-queries-ii/solution>
+
+
 struct FunctionalGraph {
     int N, K;
     vector<pair<int,ll>> f;  // 頂点 u から出る有向辺
