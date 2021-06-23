@@ -2,6 +2,9 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
+#define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
+#define REP(i,n) FOR(i,0,n)
 // --------------------------------------------------------
 
 
@@ -92,7 +95,7 @@ struct rerooting {
 
 unordered_map<ll,ll> mp;
 const ll BIG = 1e10;
-int edge_id(int from, int to) { return from + to * BIG; }
+ll edge_id(int from, int to) { return from + to * BIG; }
 
 // ans[u] := u を根とした時に u から最も遠い頂点までの距離
 using S = ll;
@@ -103,13 +106,14 @@ S e() { return 0; };
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
+    cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
     ll N; cin >> N;
     rerooting<S, op, fv, fe, e> re(N);
-    for (int i = 0; i < N-1; i++) {
+    REP(_,N-1) {
         ll s, t, w; cin >> s >> t >> w;
+        // s--; t--;
         re.add_edge(s, t);
         mp[edge_id(s, t)] = w;
         mp[edge_id(t, s)] = w;
@@ -117,11 +121,9 @@ int main() {
     re.build();
 
     ll ans = 0;
-    for (int u = 0; u < N; u++) {
-        ans = max(ans, re.query(u));
-    }
+    REP(u,N) chmax(ans, re.query(u));
     cout << ans << endl;
 
     return 0;
 }
-// Verify: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A
+// Verify: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&lang=ja
