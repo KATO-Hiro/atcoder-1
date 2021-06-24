@@ -78,7 +78,10 @@ struct HLD {
     }
 
     // 頂点 u から深さ d だけ親を辿る (level-ancestor)
+    // 辿った先が木上にあることを想定している
+    //   - d <= depth[u]
     int la(int u, int d) {
+        assert(0 <= u && u < N);
         while (true) {
             int v = head[u];
             if (in[u] - d >= in[v]) return rev[in[u] - d];
@@ -87,8 +90,10 @@ struct HLD {
         }
     }
 
-    // LCA(u, v)
+    // 頂点 u, v の LCA
     int lca(int u, int v) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
         while (true) {
             if (in[u] > in[v]) swap(u, v);
             if (head[u] == head[v]) return u;
@@ -98,11 +103,16 @@ struct HLD {
 
     // (u, v) パス間の辺数
     int distance(int u, int v) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
         return depth[u] + depth[v] - 2*depth[lca(u, v)];
     }
 
     // 頂点 w が (u, v) パス上に存在するか
     bool on_path(int u, int v, int w) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
+        assert(0 <= w && w < N);
         return distance(u, w) + distance(w, v) == distance(u, v);
     }
 

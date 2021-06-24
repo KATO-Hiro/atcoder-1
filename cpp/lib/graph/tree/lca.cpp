@@ -23,13 +23,13 @@ struct LCA {
 
     LCA(int n, int r = 0) : N(n), root(r) {
         assert(0 <= root && root < N);
-        K = 1; while ((1LL << K) <= N) K++;
+        K = 1; while ((1<<K) <= N) { K++; }
         G.resize(N);
         parent.resize(K, vector<int>(N));
         depth.resize(N);
     }
 
-    // add edges in both directions
+    // 双方向に辺を張る
     void add_edge(int u, int v) {
         assert(0 <= u && u < N);
         assert(0 <= v && v < N);
@@ -43,7 +43,7 @@ struct LCA {
             parent[0][u] = p;
             depth[u] = d;
             for (int v : G[u]) if (v != p) {
-                self(self, v, u, d + 1);
+                self(self, v, u, d+1);
             }
         };
         dfs(dfs, root, -1, 0);
@@ -61,20 +61,25 @@ struct LCA {
     }
 
     // 頂点 u から深さ d だけ親を辿る (level-ancestor)
+    // 辿った先が木上にあることを想定している
+    //   - d <= depth[u]
     int la(int u, int d) {
-        for (int k = K - 1; 0 <= k; k--) if (BIT(d, k)) {
+        assert(0 <= u && u < N);
+        for (int k = K-1; 0 <= k; k--) if (BIT(d, k)) {
             u = parent[k][u];
         }
         return u;
     }
 
-    // LCA(u, v)
+    // 頂点 u, v の LCA
     int query(int u, int v) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
         if (depth[u] < depth[v]) swap(u, v);
         // depth[u] >= depth[v]
         u = la(u, depth[u] - depth[v]);  // (u, v) の深さを揃える
         if (u == v) return u;
-        for (int k = K - 1; 0 <= k; k--) {
+        for (int k = K-1; 0 <= k; k--) {
             if (parent[k][u] != parent[k][v]) {
                 u = parent[k][u];
                 v = parent[k][v];
@@ -85,11 +90,16 @@ struct LCA {
 
     // (u, v) パス間の辺数
     int distance(int u, int v) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
         return depth[u] + depth[v] - 2*depth[query(u, v)];
     }
 
     // 頂点 w が (u, v) パス上に存在するか
     bool on_path(int u, int v, int w) {
+        assert(0 <= u && u < N);
+        assert(0 <= v && v < N);
+        assert(0 <= w && w < N);
         return distance(u, w) + distance(w, v) == distance(u, v);
     }
 };
@@ -97,11 +107,16 @@ struct LCA {
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
+    cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
     ll N; cin >> N;
     LCA lca(N, 0);
+    // REP(_,N-1) {
+    //     ll u, v; cin >> u >> v;
+    //     u--; v--;
+    //     lca.add_edge(u, v);
+    // }
     REP(u,N) {
         ll k; cin >> k;
         REP(_,k) {
@@ -114,6 +129,7 @@ int main() {
     ll Q; cin >> Q;
     while (Q--) {
         ll u, v; cin >> u >> v;
+        // u--; v--;
         cout << lca.query(u, v) << '\n';
     }
 

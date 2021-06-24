@@ -166,14 +166,17 @@ struct FunctionalGraph {
     }
 
     // 頂点 u から深さ d だけ親を辿る (level-ancestor)
+    // 辿った先が木上にあることを想定している
+    //   - d <= depth[u]
     int la(int u, int d) {
+        assert(0 <= u && u < N);
         for (int k = K-1; 0 <= k; k--) if (BIT(d, k)) {
             u = parent[k][u];
         }
         return u;
     }
 
-    // lca(u, v)
+    // 頂点 u, v の LCA
     // 同じ木に属することを想定している
     //   - same_tree(u, v) == true
     int lca(int u, int v) {
