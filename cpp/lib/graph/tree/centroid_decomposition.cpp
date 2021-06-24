@@ -85,13 +85,11 @@ int main() {
     cout << fixed << setprecision(15);
 
     ll N, Q; cin >> N >> Q;
-    VVLL G(N);
     CentroidDecomposition cd(N);
+    auto& G = cd.G;
     REP(_,N-1) {
         ll u, v; cin >> u >> v;
         u--; v--;
-        G[u].push_back(v);
-        G[v].push_back(u);
         cd.add_edge(u, v);
     }
 
@@ -107,50 +105,50 @@ int main() {
 
     VLL ans(Q, 0);
 
-    vector<bool> c_used(N, false);  // 重心として使用中か
-    auto dfs = [&](auto self, ll c) -> void {
+    map<ll,ll> mp_all, mp;                // (重心までの距離, 個数)
+    vector<pair<int,ll>> dist_all, dist;  // (頂点, 重心までの距離)
+    vector<bool> c_used(N, false);        // 重心として使用中か
+    auto dfs = [&](auto self, int c) -> void {
         c_used[c] = true;
 
         // (1) 頂点 u, v が共に 1 つの部分木に含まれるような組 (u, v)
-        for (auto u : c_graph[c]) {
-            self(self, u);
-        }
+        for (auto u : c_graph[c]) { self(self, u); }
 
         // (2) 頂点 u, v が異なる部分木に含まれるような組 (u, v)
         // (3) 重心 c と他の頂点 u との組 (c, u)
-        unordered_map<ll,ll> mp_all;  // ある距離の個数
-        VP dist_all;        // (頂点, 重心までの距離)
-        mp_all[0]++; dist_all.push_back(P(c, 0));  // 重心 c の分 : (3)
-        for (auto u : G[c]) {
-            if (c_used[u]) continue;
+        mp_all.clear(); dist_all.clear();
+        mp_all[0]++; dist_all.push_back({c, 0});  // 重心 c の分 : (3)
+        for (auto u : G[c]) if (!c_used[u]) {
 
             // 部分木に含まれる全頂点について，重心までの距離を計算
-            unordered_map<ll,ll> mp;
-            VP dist;
-            auto dfs = [&](auto self, ll u, ll p, ll d) -> void {
-                mp[d]++; dist.push_back(P(u, d));
-                for (auto v : G[u]) if (v != p) {
-                    if (c_used[v]) continue;
+            mp.clear(); dist.clear();
+            auto dfs2 = [&](auto self, int u, int p, ll d) -> void {
+                mp[d]++; dist.push_back({u, d});
+                for (auto v : G[u]) if (v != p && !c_used[v]) {
                     self(self, v, u, d + 1);
                 }
             };
-            dfs(dfs, u, c, 1);
+            dfs2(dfs2, u, c, 1);
 
             // 重複分を引いておく : (2)(3) で (1) を数えないようにするため
             for (auto [v, d] : dist) {
                 for (auto [k, i] : E[v]) {
-                    ans[i] -= mp[k - d];
+                    if (mp.count(k - d)) {
+                        ans[i] -= mp[k - d];
+                    }
                 }
             }
 
             // マージ
             dist_all.insert(dist_all.end(), dist.begin(), dist.end());
-            for (auto [d, n] : mp) mp_all[d] += n;
+            for (auto [d, n] : mp) { mp_all[d] += n; }
         }
         // (2)(3) の計算の本体
         for (auto [v, d] : dist_all) {
             for (auto [k, i] : E[v]) {
-                ans[i] += mp_all[k - d];
+                if (mp_all.count(k - d)) {
+                    ans[i] += mp_all[k - d];
+                }
             }
         }
 
