@@ -21,13 +21,14 @@ template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } 
  * @tparam S モノイドの型 (結合律を満たし単位元が存在する代数構造)
  * @tparam (*op)(S,S) 二項演算
  * @tparam (*fv)(S,int) 頂点に対する関数 (第2引数は頂点番号)
- * @tparam (*fe)(S,int,int) 有向辺に対する関数 (第2引数は始点番号,第3引数は終点番号)
+ * @tparam (*fe)(S,int,int,ll) 有向辺に対する関数 (第2/3引数は始点/終点番号,第4引数は重み)
  * @tparam (*e)() 単位元
  */
-template <class S, S (*op)(S, S), S (*fv)(S, int), S (*fe)(S, int, int), S (*e)()>
+template <class S, S (*op)(S, S), S (*fv)(S, int), S (*fe)(S, int, int, ll), S (*e)()>
 struct rerooting {
+    struct edge { int to; ll w; };
     int N;
-    vector<vector<int>> G;
+    vector<vector<edge>> G;
     vector<vector<S>> dp;  // dp[u][i] := u から出る i 番目の有向辺の先の部分木に対応する値
     vector<S> ans;  // ans[u] := u を根とした木に対する答え
     rerooting(int n) : N(n) {
@@ -36,17 +37,17 @@ struct rerooting {
         ans.resize(N);
     }
 
-    // add edges in both directions
-    void add_edge(int u, int v) {
+    // 頂点 u から頂点 v に有向辺を張る
+    //   - 無向グラフの場合は両方向を追加する
+    void add_edge(int u, int v, ll w) {
         assert(0 <= u && u < N);
         assert(0 <= v && v < N);
-        G[u].push_back(v);
-        G[v].push_back(u);
+        G[u].push_back({v, w});
     }
 
     void build() {
-        for (int i = 0; i < N; i++) {
-            dp[i].resize(G[i].size());
+        for (int u = 0; u < N; u++) {
+            dp[u].resize(G[u].size());
         }
         dfs1(0, -1);
         dfs2(0, -1, e());
@@ -56,10 +57,10 @@ struct rerooting {
         S res = e();
         int m = G[u].size();
         for (int i = 0; i < m; i++) {
-            int v = G[u][i];
+            auto [v, w] = G[u][i];
             if (v == p) continue;
             dp[u][i] = dfs1(v, u);
-            res = op(res, fe(dp[u][i], u, v));
+            res = op(res, fe(dp[u][i], u, v, w));
         }
         return fv(res, u);
     }
@@ -67,22 +68,23 @@ struct rerooting {
     void dfs2(int u, int p, S px) {
         int m = G[u].size();
         for (int i = 0; i < m; i++) {
-            if (G[u][i] == p) {
+            if (G[u][i].to == p) {
                 dp[u][i] = px;
                 break;
             }
         }
-        vector<S> dp_R(m + 1);
+        vector<S> dp_R(m+1);
         dp_R[m] = e();
         for (int i = m; 0 < i; i--) {
-            dp_R[i - 1] = op(fe(dp[u][i - 1], u, G[u][i - 1]), dp_R[i]);
+            auto [v, w] = G[u][i-1];
+            dp_R[i-1] = op(fe(dp[u][i-1], u, v, w), dp_R[i]);
         }
         ans[u] = fv(dp_R[0], u);
         S dp_l = e();
         for (int i = 0; i < m; i++) {
-            int v = G[u][i];
-            if (v != p) dfs2(v, u, fv(op(dp_l, dp_R[i + 1]), u));
-            dp_l = op(dp_l, fe(dp[u][i], u, v));
+            auto [v, w] = G[u][i];
+            if (v != p) dfs2(v, u, fv(op(dp_l, dp_R[i+1]), u));
+            dp_l = op(dp_l, fe(dp[u][i], u, v, w));
         }
     }
 
@@ -93,15 +95,11 @@ struct rerooting {
 };
 
 
-unordered_map<ll,ll> mp;
-const ll BIG = 1e10;
-ll edge_id(int from, int to) { return from + to * BIG; }
-
-// ans[u] := u を根とした時に u から最も遠い頂点までの距離
+// (rerooting) ans[u] := u を根とした時に u から最も遠い頂点までの距離
 using S = ll;
 S op(S a, S b) { return max(a, b); };
 S fv(S x, [[maybe_unused]] int u) { return x; };
-S fe(S x, int s, int t) { return x + mp[edge_id(s, t)]; };
+S fe(S x, [[maybe_unused]] int s, [[maybe_unused]] int t, ll w) { return x + w; };
 S e() { return 0; };
 
 int main() {
@@ -114,9 +112,8 @@ int main() {
     REP(_,N-1) {
         ll s, t, w; cin >> s >> t >> w;
         // s--; t--;
-        re.add_edge(s, t);
-        mp[edge_id(s, t)] = w;
-        mp[edge_id(t, s)] = w;
+        re.add_edge(s, t, w);
+        re.add_edge(t, s, w);
     }
     re.build();
 
