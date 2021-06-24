@@ -118,14 +118,14 @@ int main() {
 
         // (2) 頂点 u, v が異なる部分木に含まれるような組 (u, v)
         // (3) 重心 c と他の頂点 u との組 (c, u)
-        map<ll,ll> mp_all;  // ある距離の個数
+        unordered_map<ll,ll> mp_all;  // ある距離の個数
         VP dist_all;        // (頂点, 重心までの距離)
         mp_all[0]++; dist_all.push_back(P(c, 0));  // 重心 c の分 : (3)
         for (auto u : G[c]) {
             if (c_used[u]) continue;
 
             // 部分木に含まれる全頂点について，重心までの距離を計算
-            map<ll,ll> mp;
+            unordered_map<ll,ll> mp;
             VP dist;
             auto dfs = [&](auto self, ll u, ll p, ll d) -> void {
                 mp[d]++; dist.push_back(P(u, d));
