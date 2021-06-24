@@ -138,7 +138,7 @@
     - 回文は「中心」「両端」から考える [[abc197_f](https://atcoder.jp/contests/abc197/tasks/abc197_f)]
     - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)] [[arc072_b](https://atcoder.jp/contests/abc059/tasks/arc072_b)]
     - 計算量解析すると実は全探索が間に合う [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)] [[arc079_c](https://atcoder.jp/contests/arc079/tasks/arc079_c)]
-        - 鳩の巣原理 [[abc200_d](https://atcoder.jp/contests/abc200/tasks/abc200_d)]
+        - 鳩の巣原理 [[link](https://competitive.hamadu.net/entry/2016/12/23/003000)] [[abc200_d](https://atcoder.jp/contests/abc200/tasks/abc200_d)]
 
 - 区間
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
@@ -146,6 +146,9 @@
     - 最適な区間を求める場合は「全探索」「区間 DP」 [[ecr039_d](https://codeforces.com/contest/946/problem/D)]
         - 両端から貪欲にやると内側を評価できないため最適解を逃す
     - 反転は端から貪欲 [蟻本] or 境界に着目 [[typical90_aw](https://atcoder.jp/contests/typical90/tasks/typical90_aw)]
+    - 区間中の種類数 [[link](https://competitive.hamadu.net/entry/2016/10/01/001418)]
+        - 列の問題 [[abc174_f](https://atcoder.jp/contests/abc174/tasks/abc174_f)]
+        - 部分木の問題 (Euler Tour) [[cses1139](https://cses.fi/problemset/task/1139)]
 
 - 二分探索
     - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
@@ -183,6 +186,7 @@
         - オイラーツアー [[typical90_ai](https://atcoder.jp/contests/typical90/tasks/typical90_ai)]
         - パスクエリと部分木クエリ
             - オイラーツアー (列の問題に変換して segtree)
+                - 部分木上の種類数 [[cses1139](https://cses.fi/problemset/task/1139)]
             - HL 分解で殴る (AtCoder で想定解には多分ならない)
         - 木全体の数え上げ・最大/最小は重心分解 [[yahoo_procon2018_final_c](https://atcoder.jp/contests/yahoo-procon2018-final-open/tasks/yahoo_procon2018_final_c)]
         - 深さ付き部分木クエリ (k-subtree query)
