@@ -45,8 +45,7 @@ struct CentroidDecomposition {
     // 現時点の部分木のサイズを求める
     int dfs_sz(int u, int p) {
         int s = 1;
-        for (int v : G[u]) if (v != p) {
-            if (centroid[v]) continue;
+        for (int v : G[u]) if (v != p && !centroid[v]) {
             s += dfs_sz(v, u);
         }
         return sz[u] = s;
@@ -54,9 +53,8 @@ struct CentroidDecomposition {
 
     // 重心を探索する
     int search_centroid(int u, int p, int cc_sz) {
-        for (int v : G[u]) if (v != p) {
-            if (centroid[v]) continue;
-            if (sz[v] > cc_sz / 2) return search_centroid(v, u, cc_sz);
+        for (int v : G[u]) if (v != p && !centroid[v]) {
+            if (sz[v] > cc_sz / 2) { return search_centroid(v, u, cc_sz); }
         }
         return u;
     }
@@ -69,8 +67,7 @@ struct CentroidDecomposition {
         auto dfs = [&](auto self, int u) -> int {
             int c = search_centroid(u, -1, dfs_sz(u, -1));
             centroid[c] = true;
-            for (int v : G[c]) {
-                if (centroid[v]) continue;
+            for (int v : G[c]) if (!centroid[v]) {
                 c_graph[c].push_back(self(self, v));
             }
             centroid[c] = false;
@@ -88,7 +85,7 @@ int main() {
 
     ll N, Q; cin >> N >> Q;
     CentroidDecomposition cd(N);
-    auto& G = cd.G;
+    const auto& G = cd.G;
     REP(_,N-1) {
         ll u, v; cin >> u >> v;
         u--; v--;
@@ -98,11 +95,11 @@ int main() {
     vector<vector<int>> c_graph;
     int c_root = cd.build(c_graph);
 
-    VVP E(N);
+    vector<vector<pair<int,int>>> E(N);
     REP(i,Q) {
         ll u, k; cin >> u >> k;
         u--;
-        E[u].push_back(P(k, i));
+        E[u].emplace_back(k, i);
     }
 
     VLL ans(Q, 0);
@@ -129,13 +126,13 @@ int main() {
         // (2) 頂点 u, v が異なる部分木に含まれるような組 (u, v)
         // (3) 重心 c と他の頂点 u との組 (c, u)
         int max_depth_all = 0;
-        cnt_all[0]++; dist_all.push_back({c, 0});  // 重心 c の分 : (3)
+        cnt_all[0]++; dist_all.emplace_back(c, 0);  // 重心 c の分 : (3)
         for (auto u : G[c]) if (!c_used[u]) {
 
             // 部分木に含まれる全頂点について，重心までの距離を計算
             int max_depth = 0;
             auto dfs2 = [&](auto self, int u, int p, int d) -> void {
-                cnt[d]++; dist.push_back({u, d}); chmax(max_depth, d);
+                cnt[d]++; dist.emplace_back(u, d); chmax(max_depth, d);
                 for (auto v : G[u]) if (v != p && !c_used[v]) {
                     self(self, v, u, d + 1);
                 }
@@ -165,9 +162,7 @@ int main() {
     };
     dfs(dfs, c_root);
 
-    for (ll a : ans) {
-        cout << a << '\n';
-    }
+    REP(i,Q) { cout << ans[i] << '\n'; }
 
     return 0;
 }
