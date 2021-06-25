@@ -2,13 +2,14 @@
 using namespace std;
 using ll = long long;
 // --------------------------------------------------------
+template<class T> bool chmax(T& a, const T b) { if (a < b) { a = b; return 1; } return 0; }
 #define FOR(i,l,r) for (ll i = (l); i < (r); ++i)
 #define REP(i,n) FOR(i,0,n)
 using P = pair<ll,ll>;
 using VP = vector<P>;
 using VVP = vector<VP>;
 using VLL = vector<ll>;
-using VVLL = vector<VLL>;
+using VB = vector<bool>;
 // --------------------------------------------------------
 
 
@@ -16,6 +17,7 @@ using VVLL = vector<VLL>;
 //   <https://ei1333.github.io/luzhiled/snippets/tree/centroid-decomposition.html>
 //   <https://tjkendev.github.io/procon-library/cpp/graph/centroid-decomposition.html>
 //   <https://atcoder.jp/contests/yahoo-procon2018-final-open/submissions/2376520>
+//   <https://usaco.guide/problems/cses-2080-fixed-length-paths-i/solution>
 
 /**
  * @brief 重心分解 (Centroid Decomposition)
@@ -105,9 +107,19 @@ int main() {
 
     VLL ans(Q, 0);
 
-    map<ll,ll> mp_all, mp;                // (重心までの距離, 個数)
-    vector<pair<int,ll>> dist_all, dist;  // (頂点, 重心までの距離)
-    vector<bool> c_used(N, false);        // 重心として使用中か
+    auto enumerate = [&](const VLL& cnt, const VP& dist, ll c) -> void {
+        for (auto [v, d] : dist) {
+            for (auto [k, i] : E[v]) {
+                if (0 <= k-d) {
+                    ans[i] += cnt[k-d] * c;
+                }
+            }
+        }
+    };
+
+    VLL cnt_all(N,0), cnt(N,0);  // 重心までの深さが d である頂点の個数
+    VP dist_all, dist;           // (頂点, 重心までの深さ)
+    VB c_used(N, false);         // 重心として使用中か
     auto dfs = [&](auto self, int c) -> void {
         c_used[c] = true;
 
@@ -116,41 +128,38 @@ int main() {
 
         // (2) 頂点 u, v が異なる部分木に含まれるような組 (u, v)
         // (3) 重心 c と他の頂点 u との組 (c, u)
-        mp_all.clear(); dist_all.clear();
-        mp_all[0]++; dist_all.push_back({c, 0});  // 重心 c の分 : (3)
+        int max_depth_all = 0;
+        cnt_all[0]++; dist_all.push_back({c, 0});  // 重心 c の分 : (3)
         for (auto u : G[c]) if (!c_used[u]) {
 
             // 部分木に含まれる全頂点について，重心までの距離を計算
-            mp.clear(); dist.clear();
-            auto dfs2 = [&](auto self, int u, int p, ll d) -> void {
-                mp[d]++; dist.push_back({u, d});
+            int max_depth = 0;
+            auto dfs2 = [&](auto self, int u, int p, int d) -> void {
+                cnt[d]++; dist.push_back({u, d}); chmax(max_depth, d);
                 for (auto v : G[u]) if (v != p && !c_used[v]) {
                     self(self, v, u, d + 1);
                 }
             };
             dfs2(dfs2, u, c, 1);
+            chmax(max_depth_all, max_depth);
 
             // 重複分を引いておく : (2)(3) で (1) を数えないようにするため
-            for (auto [v, d] : dist) {
-                for (auto [k, i] : E[v]) {
-                    if (mp.count(k - d)) {
-                        ans[i] -= mp[k - d];
-                    }
-                }
-            }
+            enumerate(cnt, dist, -1);
 
             // マージ
             dist_all.insert(dist_all.end(), dist.begin(), dist.end());
-            for (auto [d, n] : mp) { mp_all[d] += n; }
+            for (int d = 0; d <= max_depth; d++) { cnt_all[d] += cnt[d]; }
+
+            // 初期化
+            dist.clear();
+            fill(cnt.begin(), cnt.begin() + max_depth + 1, 0);
         }
         // (2)(3) の計算の本体
-        for (auto [v, d] : dist_all) {
-            for (auto [k, i] : E[v]) {
-                if (mp_all.count(k - d)) {
-                    ans[i] += mp_all[k - d];
-                }
-            }
-        }
+        enumerate(cnt_all, dist_all, 1);
+
+        // 初期化
+        dist_all.clear();
+        fill(cnt_all.begin(), cnt_all.begin() + max_depth_all + 1, 0);
 
         c_used[c] = false;
     };
@@ -163,3 +172,8 @@ int main() {
     return 0;
 }
 // Verify: https://atcoder.jp/contests/yahoo-procon2018-final-open/tasks/yahoo_procon2018_final_c
+
+// Others:
+//   1. 長さ k のパスの数え上げ
+//      <https://cses.fi/problemset/result/2405620/>
+
