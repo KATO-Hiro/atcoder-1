@@ -29,15 +29,18 @@ pair<ll, P> tree_diameter(const VVP& G) {
     };
     dfs(dfs, 0, -1, 0);
     ll u1 = max_u;
+
+    max_d = -INF;
     dfs(dfs, max_u, -1, 0);
     ll u2 = max_u;
+
     return make_pair(max_d, P(u1, u2));
 };
 
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
+    cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
     ll N; cin >> N;
