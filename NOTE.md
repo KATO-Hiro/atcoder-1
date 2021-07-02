@@ -167,13 +167,16 @@
     - ソート等でダブリングできる形に持ち込む [[ecr066_e](https://codeforces.com/contest/1175/problem/E)]
 
 - DP
-    - 貰う DP は累積和で高速化できる可能性がある
-    - 配る DP はインライン DP が使える可能性がある
-    - unordered_set 配列より bool 配列の方が高速 (値の範囲が狭い場合) [[abc147_e](https://atcoder.jp/contests/abc147/tasks/abc147_e)]
+    - 貰う/配る DP の選び方で計算量が落ちる場合がある
+        - 累積和で高速化
+        - インライン DP
+        - 遷移数の削減
+    - bool 値の DP は bitset 高速化が使える場合がある [[abc147_e](https://atcoder.jp/contests/abc147/tasks/abc147_e)] [[typical90_bg](https://atcoder.jp/contests/typical90/tasks/typical90_bg)]
+        - 内部的に long long 演算となり約 64 倍高速化
     - 桁DP
         - `dp[先頭からi桁目][N未満確定フラグ][条件]` [[link](https://torus711.hatenablog.com/entry/20150423/1429794075)] [[link](https://www.hamayanhamayan.com/entry/2017/04/23/212728)]
         - 整数は `y = 10 * x + d` の繰り返しで計算可能 [[link](https://drken1215.hatenablog.com/entry/2020/04/23/194600)]
-    - 状態を同一視する [[abc132_f](https://atcoder.jp/contests/abc132/tasks/abc132_f)]
+    - 状態を同一視する [[abc207_e](https://atcoder.jp/contests/abc207/tasks/abc207_e)] [[abc132_f](https://atcoder.jp/contests/abc132/tasks/abc132_f)]
     - 余りに着目する [[abc192_f](https://atcoder.jp/contests/abc192/tasks/abc192_f)] [[ecr061_e](https://codeforces.com/contest/1132/problem/E)]
 
 - グラフ
