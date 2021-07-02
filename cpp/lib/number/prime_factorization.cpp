@@ -9,23 +9,15 @@ using ll = long long;
 
 map<ll,ll> prime_factorization(ll n) {
     map<ll,ll> factors;
-    ll f = 3, root_n = (ll)(sqrt(n) + 0.5);
+    ll f = 3, root = floorl(sqrtl(n) + 0.5);
 
     // factor: 2
-    while (n % 2 == 0) {
-        factors[2]++;
-        n /= 2;
-    }
+    while (n % 2 == 0) { factors[2]++; n /= 2; }
 
     // factor: 3, 5, 7, 11, ...
-    while (f <= root_n) {
-        if (n % f == 0) {
-            factors[f]++;
-            n /= f;
-        }
-        else {
-            f += 2;
-        }
+    while (f <= root) {
+        while (n % f == 0) { factors[f]++; n /= f; }
+        f += 2;
     }
 
     if (n != 1) factors[n]++;
@@ -34,14 +26,16 @@ map<ll,ll> prime_factorization(ll n) {
 
 
 int main() {
-    int n;
-    cin >> n;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
 
-    auto factors = prime_factorization(n);
-    cout << n << ":";
-    for (auto& m : factors) {
-        ll f = m.first;
-        ll n = m.second;
+    ll N; cin >> N;
+
+    auto factors = prime_factorization(N);
+
+    cout << N << ":";
+    for (auto [f, n] : factors) {
         while (n--) cout << " " << f;
     }
     cout << endl;
