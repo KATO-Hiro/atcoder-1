@@ -156,6 +156,7 @@
     - 区間中の種類数 [[link](https://competitive.hamadu.net/entry/2016/10/01/001418)]
         - 列の問題 [[abc174_f](https://atcoder.jp/contests/abc174/tasks/abc174_f)]
         - 部分木の問題 (Euler Tour) [[cses1139](https://cses.fi/problemset/task/1139)]
+    - 2つの区間はニ次元プロット+ニ次元累積和 [[abc106_d](https://atcoder.jp/contests/abc106/tasks/abc106_d)] [[typical90_cc](https://atcoder.jp/contests/typical90/tasks/typical90_cc)]
 
 - 二分探索
     - 単調性のある最小化/最大化問題は "決め打ち二分探索" [[link](https://betrue12.hateblo.jp/entry/2019/05/11/013403)]
