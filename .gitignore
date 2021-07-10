@@ -12,6 +12,7 @@ cpp/ac-library
 cpp/AOJ
 cpp/CF
 cpp/PAST
+cpp/yukicoder
 *.out
 
 python/main.py
