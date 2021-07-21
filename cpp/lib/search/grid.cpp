@@ -15,7 +15,7 @@ static const ll INF = (1LL << 62) - 1;  // 4611686018427387904 - 1
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
+    cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
     ll H, W; cin >> H >> W;
@@ -32,12 +32,11 @@ int main() {
     VVLL dist(H, VLL(W, INF)); dist[sh][sw] = 0;
     static const VLL dh = {-1,1,0,0};
     static const VLL dw = {0,0,-1,1};
-    ll h, w, hh, ww;
     while (!q.empty()) {
-        tie(h, w) = q.front(); q.pop();
+        auto [h, w] = q.front(); q.pop();
         REP(i,4) {
-            hh = h + dh[i];
-            ww = w + dw[i];
+            ll hh = h + dh[i];
+            ll ww = w + dw[i];
             if (!on_grid(hh, ww)) continue;
             if (S[hh][ww] == '#') continue;
             if (chmin(dist[hh][ww], dist[h][w] + 1)) {
