@@ -7,7 +7,55 @@ using ll = long long;
 #define SZ(c) ((ll)(c).size())
 using VLL = vector<ll>;
 using VVLL = vector<VLL>;
+static const ll MOD = 1000000007;
 // --------------------------------------------------------
+
+
+struct mint {
+    ll x;
+    constexpr mint(ll x = 0) noexcept : x((x % MOD + MOD) % MOD) {}
+
+    constexpr mint& operator+=(const mint& a) noexcept {
+        if ((x += a.x) >= MOD) x -= MOD;
+        return *this;
+    }
+    constexpr mint& operator-=(const mint& a) noexcept {
+        if ((x += MOD - a.x) >= MOD) x -= MOD;
+        return *this;
+    }
+    constexpr mint& operator*=(const mint& a) noexcept { (x *= a.x) %= MOD; return *this; }
+    constexpr mint& operator/=(const mint& a) noexcept { return *this *= a.inv(); }
+
+    constexpr mint operator-() const noexcept { return mint(-x); }
+    constexpr mint operator+(const mint& a) const noexcept { return mint(*this) += a; }
+    constexpr mint operator-(const mint& a) const noexcept { return mint(*this) -= a; }
+    constexpr mint operator*(const mint& a) const noexcept { return mint(*this) *= a; }
+    constexpr mint operator/(const mint& a) const noexcept { return mint(*this) /= a; }
+    constexpr bool operator==(const mint& a) const noexcept { return x == a.x; }
+    constexpr bool operator!=(const mint& a) const noexcept { return x != a.x; }
+
+    constexpr mint pow(ll n) const {
+        if (n == 0) return 1;
+        mint res = pow(n >> 1);
+        res *= res;
+        if (n & 1) res *= *this;
+        return res;
+    }
+    constexpr mint inv() const { return pow(MOD - 2); }
+
+    friend istream& operator>>(istream& is, mint& a) noexcept {
+        ll v; is >> v;
+        a = mint(v);
+        return is;
+    }
+    friend ostream& operator<<(ostream& os, const mint& a) noexcept {
+        return os << a.x;
+    }
+};
+using VM = vector<mint>;
+using VVM = vector<VM>;
+using VVVM = vector<VVM>;
+using VVVVM = vector<VVVM>;
 
 
 int main() {
@@ -15,59 +63,45 @@ int main() {
     cin.tie(nullptr);
     cout << fixed << setprecision(15);
 
-    ll A, B; cin >> A >> B;
+    ll D; cin >> D;
+    string N; cin >> N;
 
-    auto solve = [](ll X) -> ll {
-        if (X == -1) return 0;
+    ll L = SZ(N);
+    N = " " + N;
 
-        string N = to_string(X);
-        ll L = SZ(N);
-        N = " " + N;
+    VVM dp(L+1,VM(D, 0));
+    ll m = 0;  // N の 桁和 (mod D)
+    FOR(i,1,L+1) {
+        ll n = N[i] - '0';
 
-        // i 桁目まで見た時 N が条件を満たしているか
-        // (no two adjacent digits are the same)
-        bool ok = true;
+        // 1) 先頭に非ゼロが初登場 (< N)
+        if (1 < i) FOR(d,1,10) dp[i][d % D] += 1;
 
-        VVLL dp(L+1, VLL(10,0));
-        FOR(i,1,L+1) {
-            ll n = N[i] - '0';
-
-            // 先頭に非ゼロが初登場 (< N)
-            if (1 < i) FOR(d,1,10) dp[i][d] += 1;
-
-            // N 一致状態 -> N 未満確定状態
-            if (ok) {
-                ll nn = N[i-1] - '0';
-                REP(d,n) {
-                    if (i == 1 && d == 0) continue;  // leading zero 回避
-                    if (d != nn) dp[i][d] += 1;
-                }
-            }
-
-            // N 未満確定状態間の遷移
-            REP(d1,10) REP(d2,10) if (d1 != d2) dp[i][d2] += dp[i-1][d1];
-
-            // i 桁目まで見た時 N が条件を満たしているか
-            if (N[i-1] == N[i]) ok = false;
+        // 2) N 一致状態 -> N 未満確定状態
+        REP(d,n) {
+            if (i == 1 && d == 0) continue;  // leading zero 回避
+            dp[i][(m + d) % D] += 1;
         }
 
-        ll res = 0;
+        // 3) N 未満確定状態間の遷移
+        REP(d,10) REP(r,D) dp[i][(r + d) % D] += dp[i-1][r];
 
-        // x = 0
-        if (0 < X) res += 1;
+        m = (m + n) % D;
+    }
 
-        // 0 < x < N
-        REP(d,10) res += dp[L][d];
+    mint ans = 0;
 
-        // x = N
-        if (ok) res++;
+    // 1) x = 0
+    // 正整数なので該当なし
 
-        return res;
-    };
+    // 2) 0 < x < N
+    ans += dp[L][0];
 
-    ll ans = solve(B) - solve(A-1);
+    // 3) x = N
+    if (m == 0) ans += 1;
+
     cout << ans << endl;
 
     return 0;
 }
-// verify: https://cses.fi/problemset/task/2220
+// Verify: https://atcoder.jp/contests/tdpc/tasks/tdpc_number

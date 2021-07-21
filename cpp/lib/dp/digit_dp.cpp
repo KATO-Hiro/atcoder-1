@@ -58,31 +58,32 @@ using VVVVM = vector<VVVM>;
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout << fixed << setprecision(10);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(15);
 
     ll D; cin >> D;
     string N; cin >> N;
+
     ll L = SZ(N);
     N = " " + N;
 
-    VVVM dp(L + 1, VVM(2, VM(D, 0)));
+    VVVM dp(L+1, VVM(2, VM(D, 0)));
     dp[0][0][0] = 1;
-    FOR(i, 1, L + 1) {
+    FOR(i,1,L+1) {
         ll n = N[i] - '0';
         REP(j, 2) {
             ll max_d = (j == 1) ? 9 : n;
-            REP(d, max_d + 1) {
+            REP(d, max_d+1) {
                 REP(r, D) {
-                    dp[i][j | (d < n)][(r + d) % D] += dp[i - 1][j][r];
+                    dp[i][j | (d < n)][(r + d) % D] += dp[i-1][j][r];
                 }
             }
         }
     }
 
-    // 正整数なので1を引く
+    // 正整数なので 1 を引く
     mint ans = dp[L][0][0] + dp[L][1][0] - 1;
-    cout << ans << '\n';
+    cout << ans << endl;
 
     return 0;
 }
