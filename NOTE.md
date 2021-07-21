@@ -100,6 +100,7 @@
 - 参考
     - [競技プログラミングにおける細かな話題まとめ (hamayanhamayan さん)](https://www.hamayanhamayan.com/entry/2017/06/07/234608)
     - [競技プログラミングの問題の解き方、そのマニュアル (kimiyuki さん)](https://kimiyuki.net/blog/2016/06/21/how-to-solve-problems-in-competitive-programming/)
+    - [競プロ典型90問 キーワードまとめ + まとめプリント + 解法マップ (E969120 さん)](https://twitter.com/e869120/status/1411595642493759488)
 
 - 基本方針
     1. 解法候補を直感的に列挙する
@@ -146,6 +147,10 @@
     - 実験が有効な場合がある（実験ゲー）[[arc108_d](https://atcoder.jp/contests/arc108/tasks/arc108_d)] [[arc107_e](https://atcoder.jp/contests/arc107/tasks/arc107_e)] [[arc072_b](https://atcoder.jp/contests/abc059/tasks/arc072_b)]
     - 計算量解析すると実は全探索が間に合う [[agc014_a](https://atcoder.jp/contests/agc014/tasks/agc014_a)] [[arc079_c](https://atcoder.jp/contests/arc079/tasks/arc079_c)]
         - 鳩の巣原理 [[link](https://competitive.hamadu.net/entry/2016/12/23/003000)] [[abc200_d](https://atcoder.jp/contests/abc200/tasks/abc200_d)]
+    - **プロットして言い換える**
+        - 経路数の数え上げ [[abc205_e](https://atcoder.jp/contests/abc205/tasks/abc205_e)]
+        - 二次元累積和 [[abc106_d](https://atcoder.jp/contests/abc106/tasks/abc106_d)] [[typical90_cc](https://atcoder.jp/contests/typical90/tasks/typical90_cc)]
+        - ヒストグラム中の最大長方形 [[typical90_cl](https://atcoder.jp/contests/typical90/tasks/typical90_cl)]
 
 - 区間
     - 区間は「累積和」「セグメント木」「DP」「尺取り」で考える
@@ -155,7 +160,7 @@
     - 反転は端から貪欲 [蟻本] or 境界に着目 [[typical90_aw](https://atcoder.jp/contests/typical90/tasks/typical90_aw)]
     - 区間中の種類数 [[link](https://competitive.hamadu.net/entry/2016/10/01/001418)]
         - 列の問題 [[abc174_f](https://atcoder.jp/contests/abc174/tasks/abc174_f)]
-        - 部分木の問題 (Euler Tour) [[cses1139](https://cses.fi/problemset/task/1139)]
+        - 部分木の問題 (Euler Tour) [[cses_1139](https://cses.fi/problemset/task/1139)]
     - 2つの区間はニ次元プロット+ニ次元累積和 [[abc106_d](https://atcoder.jp/contests/abc106/tasks/abc106_d)] [[typical90_cc](https://atcoder.jp/contests/typical90/tasks/typical90_cc)]
 
 - 二分探索
@@ -191,7 +196,7 @@
     - 「奇数長サイクルを含まない」と「二部グラフである」は同値 [[code_festival_2017_qualb_c](https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c)]
     - 超頂点を追加する [[abc184_e](https://atcoder.jp/contests/abc184/tasks/abc184_e)] [[ecr038_d](https://codeforces.com/contest/938/problem/D)]
     - 全域木を構築して木の問題に変換する [[joi2012ho5](https://atcoder.jp/contests/joi2012ho/tasks/joi2012ho5)]
-    - 有向グラフを逆向きにして主客転倒する [[cses1682](https://cses.fi/problemset/task/1682) ([editorial](https://usaco.guide/problems/cses-1682-flight-routes-check/solution))]
+    - 有向グラフを逆向きにして主客転倒する [[cses_1682](https://cses.fi/problemset/task/1682) ([editorial](https://usaco.guide/problems/cses-1682-flight-routes-check/solution))]
     - 木に対するテクニック
         - 根付き木にして 木 DP [[abc138_d](https://atcoder.jp/contests/abc138/tasks/abc138_d)] [[abc187_e](https://atcoder.jp/contests/abc187/tasks/abc187_e)]
         - 根付き木にして LCA [[abc201_e](https://atcoder.jp/contests/abc201/tasks/abc201_e)]
@@ -201,7 +206,7 @@
         - オイラーツアー [[typical90_ai](https://atcoder.jp/contests/typical90/tasks/typical90_ai)]
         - パスクエリと部分木クエリ
             - オイラーツアー (列の問題に変換して segtree)
-                - 部分木上の種類数 [[cses1139](https://cses.fi/problemset/task/1139)]
+                - 部分木上の種類数 [[cses_1139](https://cses.fi/problemset/task/1139)]
             - HL 分解で殴る (AtCoder で想定解には多分ならない)
         - 木全体の数え上げ・最大/最小は重心分解 [[yahoo_procon2018_final_c](https://atcoder.jp/contests/yahoo-procon2018-final-open/tasks/yahoo_procon2018_final_c)]
         - 深さ付き部分木クエリ (k-subtree query)
